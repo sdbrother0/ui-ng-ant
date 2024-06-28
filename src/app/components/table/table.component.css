@@ -1,6 +1,11 @@
 .action-icons {
   color: #1890ff;
+  /*color: var(--ant-info-color);*/
 }
 .action-th {
   width: 0;
+}
+.table-operations {
+  margin-right: 8px;
+  margin-bottom: 12px;
 }

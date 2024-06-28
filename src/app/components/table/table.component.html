@@ -1,4 +1,12 @@
+<div class="table-operations">
+  <button nz-button (click)="add()">Add</button>
+</div>
+<!--
+  [nzScroll]="{ x: '800px', y: '600px'}"
+  [nzTitle]="'Table'"
+-->
 <nz-table
+
   [nzSize]="'middle'"
   [nzData]="recordSet"
   [nzTotal]="total"
@@ -19,6 +27,7 @@
       [nzIndeterminate]="indeterminate"
       nzLabel="Select all"
       (nzCheckedChange)="onAllChecked($event)"
+      class="action-th"
     ></th>
     <th id="{{field.name}}" *ngFor="let field of metaData.fields">{{field.label}}</th>
     <th nzRight id="#action" class="action-th">Action</th>

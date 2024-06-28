@@ -136,11 +136,19 @@ export class TableComponent implements OnInit {
   }
 
   getFirstSelected(row: any, fieldName: string, lookup: Lookup): void {
+    console.log('getFirstSelected');
     //TODO to refactor!
+    if (row[fieldName] == undefined) {
+      row[fieldName] = {}
+    }
     const foreignKey = this.setOfCheckedId.values().next().value;
-    const foreignValue = this.recordSet.filter((item) => item[lookup.keyFieldName] === foreignKey).at(0)[lookup.valFieldName];
-    row[fieldName][lookup.keyFieldName] = foreignKey;
-    row[fieldName][lookup.valFieldName] = foreignValue;
+    if (foreignKey == undefined) {
+      row[fieldName] = null;
+    } else {
+      const foreignValue = this.recordSet.filter((item) => item[lookup.keyFieldName] === foreignKey).at(0)[lookup.valFieldName];
+      row[fieldName][lookup.keyFieldName] = foreignKey;
+      row[fieldName][lookup.valFieldName] = foreignValue;
+    }
   }
 
   updateCheckedSet(id: number, checked: boolean): void {
@@ -171,6 +179,10 @@ export class TableComponent implements OnInit {
   }
 
   delete(row: any) {
+
+  }
+
+  add() {
 
   }
 }
