@@ -9,9 +9,9 @@ import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzTooltipDirective} from "ng-zorro-antd/tooltip";
 import {NzMessageService} from "ng-zorro-antd/message";
 import { NzModalModule } from 'ng-zorro-antd/modal';
-import {MetaData} from "../dto/meta.data";
+import {MetaData} from "../../dto/meta.data";
 import {LookupComponent} from "../lookup/lookup.component";
-import {Lookup} from "../dto/lookup";
+import {Lookup} from "../../dto/lookup";
 
 @Component({
   host: { ngSkipHydration: 'true' },

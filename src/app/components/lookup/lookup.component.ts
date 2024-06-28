@@ -8,7 +8,7 @@ import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzTooltipDirective} from "ng-zorro-antd/tooltip";
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import {TableComponent} from "../table/table.component";
-import {Lookup} from "../dto/lookup";
+import {Lookup} from "../../dto/lookup";
 
 @Component({
   host: { ngSkipHydration: 'true' },
