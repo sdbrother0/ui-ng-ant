@@ -1,0 +1,66 @@
+<nz-table
+  [nzSize]="'middle'"
+  [nzData]="recordSet"
+  [nzTotal]="total"
+  [nzPageSize]="pageSize"
+  [nzPageIndex]="page"
+  [nzLoading]="loading"
+  [nzShowPagination]="true"
+  [nzFrontPagination]="false"
+  [nzBordered]="true"
+  [nzOuterBordered]="true"
+  [nzShowSizeChanger]="true"
+  (nzQueryParams)="onQueryParams($event)"
+  (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
+  <thead>
+  <tr>
+    <th id="#checkAll"
+      [nzChecked]="checked"
+      [nzIndeterminate]="indeterminate"
+      nzLabel="Select all"
+      (nzCheckedChange)="onAllChecked($event)"
+    ></th>
+    <th id="{{field.name}}" *ngFor="let field of metaData.fields">{{field.label}}</th>
+    <th nzRight id="#action" class="action-th">Action</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of recordSet">
+      <td [nzChecked]="isChecked(row)" (nzCheckedChange)="onItemChecked(row.id, $event)"></td>
+      <td *ngFor="let field of metaData.fields">
+        <div *ngIf="isEdit(row); then edit_row else simple_row"></div>
+        <ng-template #edit_row>
+          <div *ngIf="field.lookup === undefined; then field_editor else lookup_editor"></div>
+          <ng-template #field_editor>
+            <input nz-input [(ngModel)]="row[field.name]"/>
+          </ng-template>
+          <ng-template #lookup_editor>
+            <lookup-data [row]="row" [field]="field.name" [data]="row[field.name]" [lookup]="field.lookup"></lookup-data>
+          </ng-template>
+        </ng-template>
+        <ng-template #simple_row>
+          <div *ngIf="field.lookup === undefined; then simple_field else lookup_field"></div>
+          <ng-template #simple_field>{{row[field.name]}}</ng-template>
+          <ng-template #lookup_field>{{row[field.name]?.[field.lookup.valFieldName]}}</ng-template>
+        </ng-template>
+      </td>
+      <!-- Action -->
+      <td nzRight>
+        <nz-button-group>
+          <button *ngIf="isEdit(row)" (click)="edit(row)" nz-button nzType="text">
+            <span nz-icon nzType="undo" nz-tooltip nzTooltipTitle="undo" class="action-icons"></span>
+          </button>
+          <button *ngIf="!isEdit(row)" (click)="edit(row)" nz-button nzType="text">
+            <span nz-icon nzType="edit" nz-tooltip nzTooltipTitle="edit" class="action-icons"></span>
+          </button>
+          <button *ngIf="!isEdit(row)" (click)="delete(row)" nz-button nzType="text">
+            <span nz-icon nzType="delete" nz-tooltip nzTooltipTitle="delete" class="action-icons"></span>
+          </button>
+          <button *ngIf="isEdit(row)" (click)="save(row)" nz-button nzType="text">
+            <span nz-icon nzType="check" nz-tooltip nzTooltipTitle="save" class="action-icons"></span>
+          </button>
+        </nz-button-group>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

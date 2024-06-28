@@ -1,0 +1,17 @@
+<nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+  <input type="text" nz-input placeholder="lookup" value="{{data?.[lookup.valFieldName]}}" readonly/>
+</nz-input-group>
+<ng-template #suffixIconButton>
+  <button (click)="openDialog(data, lookup.valFieldName)" nz-button nzType="default" nzSearch nz-tooltip nzTooltipTitle="lookup"><span nz-icon nzType="select"></span></button>
+  <nz-modal
+    [nzWidth]="1000"
+    nzDraggable
+    nzTitle="Select"
+    [(nzVisible)]="isVisible"
+    (nzOnCancel)="handleCancel()"
+    (nzOnOk)="handleOk(lookupTable.getFirstSelected(row, field, lookup))">
+    <ng-container *nzModalContent>
+      <table-data #lookup_table metaUrl="{{lookup.metaUrl}}"></table-data>
+    </ng-container>
+  </nz-modal>
+</ng-template>
