@@ -33,17 +33,14 @@ import {Lookup} from "../dto/lookup";
 })
 export class LookupComponent implements OnInit {
 
-  @Input() lookupMetaData!: any;
-  @Input() lookupData!: any;
   @Input() data!: any;
   @Input() lookup!: Lookup;
+  @Input() row!: any;
+  @Input() field!: any;
 
   isVisible = false;
 
   @ViewChild('lookup_table') lookupTable: TableComponent;
-  @Input() row!: any;
-  @Input() field!: any;
-
 
   constructor(lookupTable: TableComponent) {
     this.lookupTable = lookupTable;
