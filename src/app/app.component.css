@@ -10,16 +10,16 @@
 }
 
 .menu-sidebar {
+  /*
   position: relative;
   z-index: 10;
   min-height: 100vh;
   box-shadow: 2px 0 6px rgba(0,21,41,.35);
-  /*
+   */
   overflow: auto;
   height: 100%;
   position: fixed;
   left: 0;
-   */
 }
 
 .header-trigger {
@@ -53,7 +53,6 @@
 
 .sidebar-logo h1 {
   display: inline-block;
-  margin: 0 0 0 20px;
   color: #fff;
   font-weight: 600;
   font-size: 14px;
@@ -76,10 +75,13 @@ nz-header {
 }
 
 nz-content {
-  margin: 24px;
+  overflow: initial;
+  background: #fff;
 }
 
 .inner-content {
+  min-height: 100vh;
+  margin-left: 200px;
   padding: 24px;
   background: #fff;
 }

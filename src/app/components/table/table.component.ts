@@ -8,7 +8,7 @@ import {NzButtonComponent, NzButtonGroupComponent} from "ng-zorro-antd/button";
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzTooltipDirective} from "ng-zorro-antd/tooltip";
 import {NzMessageService} from "ng-zorro-antd/message";
-import { NzModalModule } from 'ng-zorro-antd/modal';
+import {NzModalModule, NzModalService} from 'ng-zorro-antd/modal';
 import {MetaData} from "../../dto/meta.data";
 import {LookupComponent} from "../lookup/lookup.component";
 import {Lookup} from "../../dto/lookup";
@@ -58,7 +58,7 @@ export class TableComponent implements OnInit {
   private mapOfBeforeEditValues = new Map<any, any>;
   metaData: MetaData = {url: '', keyFieldName: '', showSelect: false, showAction: false, showLoader: false, fields: []};
 
-  constructor(private http: HttpClient, private message: NzMessageService) {
+  constructor(private http: HttpClient, private message: NzMessageService, private modal: NzModalService) {
     this.sortField = "id";
     this.sortOrder = "asc";
   }
@@ -145,9 +145,10 @@ export class TableComponent implements OnInit {
     if (foreignKey == undefined) {
       row[fieldName] = null;
     } else {
-      const foreignValue = this.recordSet.filter((item) => item[lookup.keyFieldName] === foreignKey).at(0)[lookup.valFieldName];
       row[fieldName][lookup.keyFieldName] = foreignKey;
-      row[fieldName][lookup.valFieldName] = foreignValue;
+      row[fieldName][lookup.valFieldName] = this.recordSet
+        .filter((item) => item[lookup.keyFieldName] === foreignKey)
+        .at(0)[lookup.valFieldName];
     }
   }
 
@@ -179,10 +180,51 @@ export class TableComponent implements OnInit {
   }
 
   delete(row: any) {
-
+      this.modal.confirm({
+        nzTitle: 'Are you sure delete this record?',
+        nzContent: '<b style="color: red;">Some descriptions</b>',
+        nzOkText: 'Yes',
+        nzOkType: 'primary',
+        nzOkDanger: true,
+        nzOnOk: () => {
+          console.log('OK')
+          if (row.id !== null) {
+            this.http.delete(`${this.metaData.url}?id=${row.id}`) //.subscribe(() => this.refresh());
+              .subscribe({
+                error: (error) => {
+                  this.message.create('error', `Error: ${error.message}`);
+                },
+                complete: () => {
+                  this.refresh();
+                }
+              });
+          } else {
+            const data = this.recordSet;
+            const index = data.indexOf(row);
+            if (index !== -1) {
+              data.splice(index, 1);
+            }
+            this.recordSet = data;
+          }
+        },
+        nzCancelText: 'No',
+        nzOnCancel: () => console.log('Cancel')
+      });
   }
 
   add() {
-
+    const rsData = this.recordSet;
+    const row : any = {id: null, test: null, field1: null, field2: null, isEdit: true};
+    rsData.unshift(row);
+    this.recordSet = rsData;
+    this.setOfIsEdit.add(row)
   }
+
+  private refresh() {
+    this.loadData(this.page, this.pageSize, this.sortField + ',' + this.sortOrder);
+  }
+
+
 }
+
+
