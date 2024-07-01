@@ -37,10 +37,8 @@ export class LookupComponent implements OnInit {
   @Input() lookup!: Lookup;
   @Input() row!: any;
   @Input() field!: any;
-
-  isVisible = false;
-
   @ViewChild('lookup_table') lookupTable: TableComponent;
+  isVisible = false;
 
   constructor(lookupTable: TableComponent) {
     this.lookupTable = lookupTable;
@@ -55,13 +53,10 @@ export class LookupComponent implements OnInit {
   }
 
   handleOk(data: any): void {
-    console.log('Button ok clicked!');
-    console.log(data);
     this.isVisible = false;
   }
 
   handleCancel(): void {
-    console.log('Button cancel clicked!');
     this.isVisible = false;
   }
 

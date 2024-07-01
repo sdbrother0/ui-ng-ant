@@ -152,33 +152,6 @@ export class TableComponent implements OnInit {
     }
   }
 
-  updateCheckedSet(id: number, checked: boolean): void {
-    if (checked) {
-      this.setOfCheckedId.add(id);
-    } else {
-      this.setOfCheckedId.delete(id);
-    }
-  }
-
-  onItemChecked(id: number, checked: boolean): void {
-    this.updateCheckedSet(id, checked);
-    this.refreshCheckedStatus();
-  }
-
-  onAllChecked(value: boolean): void {
-    this.recordSet.forEach(item => this.updateCheckedSet(item.id, value));
-    this.refreshCheckedStatus();
-  }
-
-  onCurrentPageDataChange(recordSet: readonly any[]): void {
-    this.refreshCheckedStatus();
-  }
-
-  refreshCheckedStatus(): void {
-    this.checked = this.recordSet.every(item => this.setOfCheckedId.has(item.id));
-    this.indeterminate = this.recordSet.some(item => this.setOfCheckedId.has(item.id)) && !this.checked;
-  }
-
   delete(row: any) {
       this.modal.confirm({
         nzTitle: 'Are you sure delete this record?',
@@ -219,6 +192,33 @@ export class TableComponent implements OnInit {
     rsData.unshift(row);
     this.recordSet = rsData;
     this.setOfIsEdit.add(row)
+  }
+
+  updateCheckedSet(id: number, checked: boolean): void {
+    if (checked) {
+      this.setOfCheckedId.add(id);
+    } else {
+      this.setOfCheckedId.delete(id);
+    }
+  }
+
+  onItemChecked(id: number, checked: boolean): void {
+    this.updateCheckedSet(id, checked);
+    this.refreshCheckedStatus();
+  }
+
+  onAllChecked(value: boolean): void {
+    this.recordSet.forEach(item => this.updateCheckedSet(item.id, value));
+    this.refreshCheckedStatus();
+  }
+
+  onCurrentPageDataChange(recordSet: readonly any[]): void {
+    this.refreshCheckedStatus();
+  }
+
+  refreshCheckedStatus(): void {
+    this.checked = this.recordSet.every(item => this.setOfCheckedId.has(item.id));
+    this.indeterminate = this.recordSet.some(item => this.setOfCheckedId.has(item.id)) && !this.checked;
   }
 
 }
