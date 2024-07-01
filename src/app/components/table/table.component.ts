@@ -221,14 +221,6 @@ export class TableComponent implements OnInit {
     this.setOfIsEdit.add(row)
   }
 
-  private refresh() {
-    this.loadData(this.page, this.pageSize, this.sortField + ',' + this.sortOrder);
-  }
-
-
-  create() {
-
-  }
 }
 
 
