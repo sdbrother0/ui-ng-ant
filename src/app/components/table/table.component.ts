@@ -221,6 +221,9 @@ export class TableComponent implements OnInit {
     this.indeterminate = this.recordSet.some(item => this.setOfCheckedId.has(item.id)) && !this.checked;
   }
 
+  create() {
+    console.log('create');
+  }
 }
 
 
