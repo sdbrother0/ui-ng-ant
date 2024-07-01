@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {NzTableComponent, NzTableModule, NzTableQueryParams} from "ng-zorro-antd/table";
 import {HttpClient} from "@angular/common/http";
 import {JsonPipe, NgForOf, NgIf} from "@angular/common";
@@ -18,6 +18,7 @@ import {Lookup} from "../../dto/lookup";
   selector: 'table-data',
   standalone: true,
   templateUrl: './table.component.html',
+  styleUrls: ['./table.component.css'],
   imports: [
     NzTableModule,
     NzTableComponent,
@@ -33,19 +34,15 @@ import {Lookup} from "../../dto/lookup";
     NzTooltipDirective,
     NzModalModule,
     LookupComponent
-  ],
-  styleUrls: ['./table.component.css']
+  ]
 })
 export class TableComponent implements OnInit {
 
-  @Input()
-  metaUrl: string = 'title';
-  @Input()
-  page: number = 1;
-  @Input()
-  pageSize: number = 10;
-  @Input()
-  total: number = 0;
+  @Input() metaUrl: string = 'title';
+  @Input() page: number = 1;
+  @Input() pageSize: number = 10;
+  @Input() total: number = 0;
+  //@ViewChild('form_data') form: FormComponent;
 
   recordSet: any[] = [];
   sortField: string = "";
@@ -61,6 +58,7 @@ export class TableComponent implements OnInit {
   constructor(private http: HttpClient, private message: NzMessageService, private modal: NzModalService) {
     this.sortField = "id";
     this.sortOrder = "asc";
+    //this.form = form;
   }
 
   ngOnInit() {
@@ -113,6 +111,10 @@ export class TableComponent implements OnInit {
       this.setOfIsEdit.add(row);
       this.mapOfBeforeEditValues.set(row.id, structuredClone(row));
     }
+  }
+
+  formEdit(row: any) {
+    console.log(row);
   }
 
   save(row: any) {
@@ -224,6 +226,8 @@ export class TableComponent implements OnInit {
   create() {
     console.log('create');
   }
+
+
 }
 
 

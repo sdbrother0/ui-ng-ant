@@ -15,6 +15,7 @@ import {Lookup} from "../../dto/lookup";
   selector: 'lookup-data',
   standalone: true,
   templateUrl: './lookup.component.html',
+  styleUrls: ['./lookup.component.css'],
   imports: [
     NzTableModule,
     NzTableComponent,
@@ -29,7 +30,7 @@ import {Lookup} from "../../dto/lookup";
     NzModalModule,
     forwardRef(() => TableComponent)
   ],
-  styleUrls: ['./lookup.component.css']
+
 })
 export class LookupComponent implements OnInit {
 

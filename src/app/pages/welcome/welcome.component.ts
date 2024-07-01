@@ -6,12 +6,12 @@ import {TableComponent} from "../../components/table/table.component";
   selector: 'app-welcome',
   standalone: true,
   templateUrl: './welcome.component.html',
+  styleUrls: ['./welcome.component.css'],
   imports: [
     NzTableComponent,
     NzTableModule,
     TableComponent
-  ],
-  styleUrls: ['./welcome.component.css']
+  ]
 })
 export class WelcomeComponent implements OnInit {
 
