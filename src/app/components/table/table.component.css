@@ -5,7 +5,8 @@
 .action-th {
   width: 0;
 }
-.table-operations {
+
+.table-operations > [nz-button] {
   margin-right: 8px;
   margin-bottom: 12px;
 }

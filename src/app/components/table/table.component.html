@@ -1,13 +1,17 @@
-<div class="table-operations">
-  <button nz-button (click)="add()">Add</button>
-</div>
+<nz-button-group class="table-operations">
+  <button nz-button (click)="add()">
+    <span nz-icon nzType="plus" nzTheme="outline"></span>Create inline
+  </button>
+  <button nz-button (click)="create()">
+    <span nz-icon nzType="file-text" nzTheme="outline"></span>Create by form
+  </button>
+</nz-button-group>
 <!--
   [nzScroll]="{ x: '800px', y: '600px'}"
   [nzTitle]="'Table'"
 -->
 <nz-table
-
-  [nzSize]="'middle'"
+  [nzSize]="'small'"
   [nzData]="recordSet"
   [nzTotal]="total"
   [nzPageSize]="pageSize"

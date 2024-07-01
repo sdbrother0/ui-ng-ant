@@ -195,7 +195,8 @@ export class TableComponent implements OnInit {
                   this.message.create('error', `Error: ${error.message}`);
                 },
                 complete: () => {
-                  this.refresh();
+                  this.recordSet = this.recordSet.filter(d => d.id !== row.id);
+                  this.message.create('success', `Deleted: ${row.id}`);
                 }
               });
           } else {
@@ -225,6 +226,9 @@ export class TableComponent implements OnInit {
   }
 
 
+  create() {
+
+  }
 }
 
 
