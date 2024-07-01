@@ -66,6 +66,10 @@
           <button *ngIf="!isEdit(row)" (click)="edit(row)" nz-button nzType="text">
             <span nz-icon nzType="edit" nz-tooltip nzTooltipTitle="edit" class="action-icons"></span>
           </button>
+          <button *ngIf="!isEdit(row)" (click)="form(row)" nz-button nzType="text">
+            <span nz-icon nzType="form" nz-tooltip nzTooltipTitle="edit" class="action-icons"></span>
+          </button>
+          <form-edit #form_edit [metaData]=metaData [data]=row></form-edit>
           <button *ngIf="!isEdit(row)" (click)="delete(row)" nz-button nzType="text">
             <span nz-icon nzType="delete" nz-tooltip nzTooltipTitle="delete" class="action-icons"></span>
           </button>

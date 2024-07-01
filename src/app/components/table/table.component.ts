@@ -12,6 +12,7 @@ import {NzModalModule, NzModalService} from 'ng-zorro-antd/modal';
 import {MetaData} from "../../dto/meta.data";
 import {LookupComponent} from "../lookup/lookup.component";
 import {Lookup} from "../../dto/lookup";
+import {FormEditComponent} from "../form-edit/form-edit.component";
 
 @Component({
   host: { ngSkipHydration: 'true' },
@@ -33,7 +34,8 @@ import {Lookup} from "../../dto/lookup";
     NzButtonGroupComponent,
     NzTooltipDirective,
     NzModalModule,
-    LookupComponent
+    LookupComponent,
+    FormEditComponent
   ]
 })
 export class TableComponent implements OnInit {
@@ -42,7 +44,7 @@ export class TableComponent implements OnInit {
   @Input() page: number = 1;
   @Input() pageSize: number = 10;
   @Input() total: number = 0;
-  //@ViewChild('form_data') form: FormComponent;
+  @ViewChild("form_edit") formEdit: FormEditComponent | undefined;
 
   recordSet: any[] = [];
   sortField: string = "";
@@ -58,7 +60,6 @@ export class TableComponent implements OnInit {
   constructor(private http: HttpClient, private message: NzMessageService, private modal: NzModalService) {
     this.sortField = "id";
     this.sortOrder = "asc";
-    //this.form = form;
   }
 
   ngOnInit() {
@@ -113,8 +114,8 @@ export class TableComponent implements OnInit {
     }
   }
 
-  formEdit(row: any) {
-    console.log(row);
+  form(row: any) {
+    this.formEdit?.showDialog();
   }
 
   save(row: any) {
@@ -226,7 +227,6 @@ export class TableComponent implements OnInit {
   create() {
     console.log('create');
   }
-
 
 }
 
