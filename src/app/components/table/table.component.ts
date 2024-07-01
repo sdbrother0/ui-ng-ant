@@ -105,7 +105,7 @@ export class TableComponent implements OnInit {
     if (this.setOfIsEdit.has(row)) {
       this.setOfIsEdit.delete(row);
       const beforeEditRow = this.mapOfBeforeEditValues.get(row.id); //TODO id change to from meta data!!!
-      for (var i in beforeEditRow) {
+      for (const i in beforeEditRow) {
           row[i] = beforeEditRow[i];
       }
       this.mapOfBeforeEditValues.delete(row.id);
