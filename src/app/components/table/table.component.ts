@@ -189,7 +189,7 @@ export class TableComponent implements OnInit {
         nzOnOk: () => {
           console.log('OK')
           if (row.id !== null) {
-            this.http.delete(`${this.metaData.url}?id=${row.id}`) //.subscribe(() => this.refresh());
+            this.http.delete(`${this.metaData.url}?id=${row.id}`)
               .subscribe({
                 error: (error) => {
                   this.message.create('error', `Error: ${error.message}`);
