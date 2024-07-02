@@ -5,20 +5,12 @@ import {LookupComponent} from "../lookup/lookup.component";
 import {NzInputDirective, NzInputGroupComponent} from "ng-zorro-antd/input";
 import {MetaData} from "../../dto/meta.data";
 import {
-  NzFormControlComponent,
-  NzFormDirective,
-  NzFormItemComponent,
-  NzFormLabelComponent,
+  NzFormControlComponent, NzFormDirective, NzFormItemComponent, NzFormLabelComponent,
 } from "ng-zorro-antd/form";
 import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
 import {
-  AbstractControlOptions, FormBuilder,
-  FormControl,
-  FormGroup,
-  FormsModule,
-  NonNullableFormBuilder,
-  ReactiveFormsModule,
-  Validators
+  FormBuilder,
+  FormGroup, FormsModule, ReactiveFormsModule, Validators
 } from "@angular/forms";
 import {NzOptionComponent, NzSelectComponent} from "ng-zorro-antd/select";
 import {NzCheckboxComponent} from "ng-zorro-antd/checkbox";
@@ -60,25 +52,30 @@ export class FormEditComponent implements OnInit {
   isVisible: boolean = false;
   @ViewChild("form") form!: FormGroup;
 
-  validateForm!: FormGroup;
-  private formBuilder: NonNullableFormBuilder;
-  // validateForm: FormGroup<{
-  //   email: FormControl<string>;
-  // }>;
+  formGroup!: FormGroup;
+  private formBuilder: FormBuilder;
 
-  constructor(private fb: NonNullableFormBuilder) {
-    this.formBuilder = fb;
+  constructor(private nonNullableFormBuilder: FormBuilder) {
+    this.formBuilder = nonNullableFormBuilder;
   }
 
   ngOnInit(): void {
-    const controls: any = [];
-    controls["email"] = ['', [Validators.email, Validators.required]];
-    //add all fields
-    //console.log(this.metaData)
-    this.validateForm = this.fb.group(controls);
+
   }
 
-  showDialog() {
+  showDialog(row: any) {
+    const controls: any = [];
+    const validators: any[] = [];
+    //validators.push(Validators.email);
+    //TODO from server metaData
+    controls["id"] = [row["id"], []];
+    controls["test"] = [row["test"], [Validators.required]];
+    controls["test2"] = [row["test2"], Validators.required];
+
+    this.formGroup = this.nonNullableFormBuilder.group(controls);
+    console.log(this.data);
+    this.data = row;
+
     this.isVisible = true;
   }
 
@@ -87,17 +84,15 @@ export class FormEditComponent implements OnInit {
   }
 
   handleOk() {
-    if (this.validateForm.valid) {
+    if (this.formGroup.valid) {
       this.isVisible = false;
-      //console.log('controls');
-      //console.log(this.validateForm.controls);
-      Object.values(this.validateForm.controls).forEach(control => {
-        //console.log(control);
-        console.log(control.status);
-        console.log(control.value);
-      });
+
+      this.data["id"] = this.formGroup.controls["id"].value;
+      this.data["test"] = this.formGroup.controls["test"].value;
+      this.data["test2"] = this.formGroup.controls["test2"].value; //Валидация для поля!!!
+
     } else {
-      Object.values(this.validateForm.controls).forEach(control => {
+      Object.values(this.formGroup.controls).forEach(control => {
         if (control.invalid) {
           control.markAsDirty();
           control.updateValueAndValidity({ onlySelf: true });
@@ -107,16 +102,7 @@ export class FormEditComponent implements OnInit {
   }
 
   submitForm(): void {
-    if (this.validateForm.valid) {
-      console.log('submit', this.validateForm.value);
-    } else {
-      Object.values(this.validateForm.controls).forEach(control => {
-        if (control.invalid) {
-          control.markAsDirty();
-          control.updateValueAndValidity({ onlySelf: true });
-        }
-      });
-    }
+    console.log('submit');
   }
 
 

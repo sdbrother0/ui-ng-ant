@@ -9,7 +9,7 @@
     nzTitle="Select"
     [(nzVisible)]="isVisible"
     (nzOnCancel)="handleCancel()"
-    (nzOnOk)="handleOk(lookupTable.getFirstSelected(row, field, lookup))">
+    (nzOnOk)="handleOk(lookupTable.getFirstSelected(this, row, field, lookup))">
     <ng-container *nzModalContent>
       <table-data #lookup_table metaUrl="{{lookup.metaUrl}}"></table-data>
     </ng-container>

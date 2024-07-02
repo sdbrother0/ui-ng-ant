@@ -48,7 +48,7 @@
             <input nz-input [(ngModel)]="row[field.name]"/>
           </ng-template>
           <ng-template #lookup_editor>
-            <lookup-data [row]="row" [field]="field.name" [data]="row[field.name]" [lookup]="field.lookup"></lookup-data>
+            <lookup-data #inline_lookup [row]="row" [field]="field.name" [data]="row[field.name]" [lookup]="field.lookup"></lookup-data>
           </ng-template>
         </ng-template>
         <ng-template #simple_row>

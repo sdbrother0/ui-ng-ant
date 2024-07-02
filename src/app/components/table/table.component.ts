@@ -115,7 +115,7 @@ export class TableComponent implements OnInit {
   }
 
   form(row: any) {
-    this.formEdit?.showDialog();
+    this.formEdit?.showDialog(row);
   }
 
   save(row: any) {
@@ -138,21 +138,22 @@ export class TableComponent implements OnInit {
       });
   }
 
-  getFirstSelected(row: any, fieldName: string, lookup: Lookup): void {
-    console.log('getFirstSelected');
-    //TODO to refactor!
-    if (row[fieldName] == undefined) {
-      row[fieldName] = {}
-    }
-    const foreignKey = this.setOfCheckedId.values().next().value;
-    if (foreignKey == undefined) {
-      row[fieldName] = null;
+  getFirstSelected(obj: any, row: any, fieldName: string, lookup: Lookup): void {
+    const selectedIds = [...this.setOfCheckedId.values()];
+    if (selectedIds.length > 0) {
+      const firstSelectedKey = selectedIds[0];
+      const firstSelectedVal = this.recordSet.filter((item) => item[lookup.keyFieldName] === firstSelectedKey).at(0)[lookup.valFieldName];
+      row[fieldName] = {};
+      row[fieldName][lookup.keyFieldName] = firstSelectedKey;
+      row[fieldName][lookup.valFieldName] = firstSelectedVal;
+      obj.data = {};
+      obj.data[lookup.keyFieldName] = firstSelectedKey;
+      obj.data[lookup.valFieldName] = firstSelectedVal;
     } else {
-      row[fieldName][lookup.keyFieldName] = foreignKey;
-      row[fieldName][lookup.valFieldName] = this.recordSet
-        .filter((item) => item[lookup.keyFieldName] === foreignKey)
-        .at(0)[lookup.valFieldName];
+      row[fieldName] = null;
+      obj.data = null;
     }
+    obj.onChange(obj.data);
   }
 
   delete(row: any) {
