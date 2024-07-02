@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, forwardRef, Input, OnInit, ViewChild} from '@angular/core';
 import {NzTableComponent, NzTableModule, NzTableQueryParams} from "ng-zorro-antd/table";
 import {HttpClient} from "@angular/common/http";
 import {JsonPipe, NgForOf, NgIf} from "@angular/common";
@@ -34,8 +34,8 @@ import {FormEditComponent} from "../form-edit/form-edit.component";
     NzButtonGroupComponent,
     NzTooltipDirective,
     NzModalModule,
-    LookupComponent,
-    FormEditComponent
+    forwardRef(() => LookupComponent),
+    forwardRef(() => FormEditComponent)
   ]
 })
 export class TableComponent implements OnInit {
@@ -44,7 +44,7 @@ export class TableComponent implements OnInit {
   @Input() page: number = 1;
   @Input() pageSize: number = 10;
   @Input() total: number = 0;
-  @ViewChild("form_edit") formEdit: FormEditComponent | undefined;
+  @ViewChild("form_edit") formEdit!: FormEditComponent;
 
   recordSet: any[] = [];
   sortField: string = "";

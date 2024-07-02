@@ -1,15 +1,58 @@
 <nz-modal
+  nzDraggable
   [nzWidth]="1000"
   nzTitle="Form"
   [(nzVisible)]="isVisible"
   (nzOnCancel)="handleCancel()"
   (nzOnOk)="handleOk()">
   <ng-container *nzModalContent>
-    <pre>
-      {{metaData | json}}
-    </pre>
-    <pre>
-      {{data | json}}
-    </pre>
+
+    <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">E-mail</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
+          <input nz-input formControlName="email" id="email" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <!--
+      <nz-form-item *ngFor="let field of metaData.fields">
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="{{field.name}}">{{field.name}}</nz-form-label>
+        <nz-form-control nzErrorTip="The input is not valid">
+          <div *ngIf="undefined === field.lookup; then field_editor else lookup_editor"></div>
+          <ng-template #field_editor>
+            <input nz-input value="{{data[field.name]}}" id="{{field.name}}"/>
+          </ng-template>
+          <ng-template #lookup_editor>
+            <lookup-data [row]="data" [field]="field.name" [data]="data[field.name]" [lookup]="field.lookup"></lookup-data>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+      -->
+
+    </form>
+    <!--
+
+    <form nz-form #form (ngSubmit)="submitForm()">
+      <nz-form-item *ngFor="let field of metaData.fields">
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="{{field.name}}">{{field.name}}</nz-form-label>
+        <nz-form-control>
+          <div *ngIf="undefined === field.lookup; then field_editor else lookup_editor"></div>
+          <ng-template #field_editor>
+            <input nz-input value="{{data[field.name]}}"/>
+          </ng-template>
+          <ng-template #lookup_editor>
+            <lookup-data [row]="data" [field]="field.name" [data]="data[field.name]" [lookup]="field.lookup"></lookup-data>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+    -->
+    <br>
+    <!--
+    <nz-tabset nzType="card">
+      <nz-tab *ngFor="let tab of [1,2,3]" [nzTitle]="'Tab' + tab">Content of Tab Pane {{ tab }}</nz-tab>
+    </nz-tabset>
+    -->
   </ng-container>
 </nz-modal>
