@@ -9,6 +9,7 @@
 <!--
   [nzScroll]="{ x: '800px', y: '600px'}"
   [nzTitle]="'Table'"
+  [nzShowSizeChanger]="true"
 -->
 <nz-table
   [nzSize]="'small'"
@@ -21,7 +22,7 @@
   [nzFrontPagination]="false"
   [nzBordered]="true"
   [nzOuterBordered]="true"
-  [nzShowSizeChanger]="true"
+
   (nzQueryParams)="onQueryParams($event)"
   (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
   <thead>

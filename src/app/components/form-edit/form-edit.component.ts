@@ -15,6 +15,7 @@ import {
 import {NzOptionComponent, NzSelectComponent} from "ng-zorro-antd/select";
 import {NzCheckboxComponent} from "ng-zorro-antd/checkbox";
 import {NzButtonComponent} from "ng-zorro-antd/button";
+import {NzTabComponent, NzTabSetComponent} from "ng-zorro-antd/tabs";
 
 @Component({
   selector: 'form-edit',
@@ -42,6 +43,8 @@ import {NzButtonComponent} from "ng-zorro-antd/button";
     NzRowDirective,
     NzCheckboxComponent,
     NzButtonComponent,
+    NzTabSetComponent,
+    NzTabComponent,
   ]
 })
 export class FormEditComponent implements OnInit {
@@ -55,8 +58,8 @@ export class FormEditComponent implements OnInit {
   formGroup!: FormGroup;
   private formBuilder: FormBuilder;
 
-  constructor(private nonNullableFormBuilder: FormBuilder) {
-    this.formBuilder = nonNullableFormBuilder;
+  constructor(private fb: FormBuilder) {
+    this.formBuilder = fb;
   }
 
   ngOnInit(): void {
@@ -70,9 +73,9 @@ export class FormEditComponent implements OnInit {
     //TODO from server metaData
     controls["id"] = [row["id"], []];
     controls["test"] = [row["test"], [Validators.required]];
-    controls["test2"] = [row["test2"], Validators.required];
+    controls["test2"] = [row["test2"]];
 
-    this.formGroup = this.nonNullableFormBuilder.group(controls);
+    this.formGroup = this.formBuilder.group(controls);
     console.log(this.data);
     this.data = row;
 
@@ -89,7 +92,7 @@ export class FormEditComponent implements OnInit {
 
       this.data["id"] = this.formGroup.controls["id"].value;
       this.data["test"] = this.formGroup.controls["test"].value;
-      this.data["test2"] = this.formGroup.controls["test2"].value; //Валидация для поля!!!
+      //this.data["test2"] = this.formGroup.controls["test2"].value; //Валидация для поля!!!
 
     } else {
       Object.values(this.formGroup.controls).forEach(control => {
@@ -101,9 +104,8 @@ export class FormEditComponent implements OnInit {
     }
   }
 
-  submitForm(): void {
-    console.log('submit');
+
+  submitForm(ctrl: any) {
+    console.log('submit from form')
   }
-
-
 }

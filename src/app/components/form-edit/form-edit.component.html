@@ -6,8 +6,10 @@
   (nzOnCancel)="handleCancel()"
   (nzOnOk)="handleOk()">
   <ng-container *nzModalContent>
-
-    <form #form nz-form [formGroup]="formGroup" (ngSubmit)="submitForm()">
+    <!--
+    (ngSubmit)="submitForm(this)"
+    -->
+    <form #form nz-form [formGroup]="formGroup" >
       <nz-form-item *ngFor="let field of metaData.fields">
         <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">{{field.name}}</nz-form-label>
         <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid!">
@@ -18,11 +20,17 @@
           <ng-template #lookup_editor>
             <lookup-data #form_lookup formControlName="{{field.name}}" [row]="data" [field]="field.name" [data]="data[field.name]" [lookup]="field.lookup"></lookup-data>
           </ng-template>
-
         </nz-form-control>
       </nz-form-item>
-
     </form>
-    <br>
+
+    <nz-tabset nzType="card">
+      <nz-tab [nzTitle]="'Tab 1'">
+        Content of Tab Pane 1
+      </nz-tab>
+      <nz-tab [nzTitle]="'Tab 2'">
+        Content of Tab Pane 2
+      </nz-tab>
+    </nz-tabset>
   </ng-container>
 </nz-modal>

@@ -57,7 +57,7 @@ export class LookupComponent implements OnInit, ControlValueAccessor, Validator 
   @Input() row!: any;
   @Input() field!: any;
   @ViewChild('lookup_table') lookupTable!: TableComponent;
-  isVisible = false;
+  isDialogVisible = false;
 
   onChange = () => {};
   onTouched = () => {};
@@ -104,19 +104,19 @@ export class LookupComponent implements OnInit, ControlValueAccessor, Validator 
   }
 
   openDialog(lookupMetaData: any, lookupData: any) {
-    this.isVisible = true;
+    this.isDialogVisible = true;
   }
 
   handleOk(data: any): void {
-    this.isVisible = false;
+    this.isDialogVisible = false;
   }
 
   handleCancel(): void {
-    this.isVisible = false;
+    this.isDialogVisible = false;
   }
 
   showModal(): void {
-    this.isVisible = true;
+    this.isDialogVisible = true;
   }
 
 

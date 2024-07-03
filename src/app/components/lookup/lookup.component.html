@@ -2,12 +2,14 @@
   <input type="text" nz-input placeholder="lookup" value="{{data?.[lookup.valFieldName]}}" readonly/>
 </nz-input-group>
 <ng-template #suffixIconButton>
-  <button (click)="openDialog(data, lookup.valFieldName)" nz-button nzType="default" nzSearch nz-tooltip nzTooltipTitle="lookup"><span nz-icon nzType="select"></span></button>
+  <button (click)="openDialog(data, lookup.valFieldName)" nz-button nzType="default" nzSearch nz-tooltip nzTooltipTitle="lookup">
+    <span nz-icon nzType="select"></span>
+  </button>
   <nz-modal
     [nzWidth]="1000"
     nzDraggable
     nzTitle="Select"
-    [(nzVisible)]="isVisible"
+    [(nzVisible)]="isDialogVisible"
     (nzOnCancel)="handleCancel()"
     (nzOnOk)="handleOk(lookupTable.getFirstSelected(this, row, field, lookup))">
     <ng-container *nzModalContent>
