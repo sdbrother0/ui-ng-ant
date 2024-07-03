@@ -16,6 +16,7 @@ import {NzOptionComponent, NzSelectComponent} from "ng-zorro-antd/select";
 import {NzCheckboxComponent} from "ng-zorro-antd/checkbox";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzTabComponent, NzTabSetComponent} from "ng-zorro-antd/tabs";
+import {TableComponent} from "../table/table.component";
 
 @Component({
   selector: 'form-edit',
@@ -55,6 +56,8 @@ export class FormEditComponent implements OnInit {
   isVisible: boolean = false;
   @ViewChild("form") form!: FormGroup;
 
+  @Input() table!: TableComponent;
+
   formGroup!: FormGroup;
   private formBuilder: FormBuilder;
 
@@ -88,12 +91,11 @@ export class FormEditComponent implements OnInit {
 
   handleOk() {
     if (this.formGroup.valid) {
-      this.isVisible = false;
-
       this.data["id"] = this.formGroup.controls["id"].value;
       this.data["test"] = this.formGroup.controls["test"].value;
-      //this.data["test2"] = this.formGroup.controls["test2"].value; //Валидация для поля!!!
-
+      this.data["test2"] = this.formGroup.controls["test2"].value; //Валидация для поля!!!
+      this.table.save(this.data);
+      this.isVisible = false;
     } else {
       Object.values(this.formGroup.controls).forEach(control => {
         if (control.invalid) {
