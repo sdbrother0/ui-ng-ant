@@ -108,6 +108,9 @@ export class TableComponent implements OnInit {
           row[i] = beforeEditRow[i];
       }
       this.mapOfBeforeEditValues.delete(row.id);
+      if (row.id === null) {
+        this.deleteFromRecordSetByRow(row);
+      }
     } else {
       this.setOfIsEdit.add(row);
       this.mapOfBeforeEditValues.set(row.id, structuredClone(row));
@@ -177,17 +180,21 @@ export class TableComponent implements OnInit {
                 }
               });
           } else {
-            const data = this.recordSet;
-            const index = data.indexOf(row);
-            if (index !== -1) {
-              data.splice(index, 1);
-            }
-            this.recordSet = data;
+            this.deleteFromRecordSetByRow(row);
           }
         },
         nzCancelText: 'No',
         nzOnCancel: () => console.log('Cancel')
       });
+  }
+
+  deleteFromRecordSetByRow(row: any) {
+    const data = this.recordSet;
+    const index = data.indexOf(row);
+    if (index !== -1) {
+      data.splice(index, 1);
+    }
+    this.recordSet = data;
   }
 
   add() {
