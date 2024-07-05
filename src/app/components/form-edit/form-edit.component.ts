@@ -72,11 +72,14 @@ export class FormEditComponent implements OnInit {
   showDialog(row: any) {
     const controls: any = [];
     const validators: any[] = [];
-    //validators.push(Validators.email);
-    //TODO from server metaData
-    controls["id"] = [row["id"], []];
-    controls["test"] = [row["test"], [Validators.required]];
-    controls["test2"] = [row["test2"]];
+
+    this.metaData.fields.forEach((field) => {
+      controls[field.name] = [row[field.name], [Validators.required]];
+      //controls[field.name] = [row[field.name], []];
+      console.log('controls[field.name]');
+      console.log(controls[field.name]);
+      //Validators.required
+    })
 
     this.formGroup = this.formBuilder.group(controls);
     console.log(this.data);
@@ -91,9 +94,9 @@ export class FormEditComponent implements OnInit {
 
   handleOk() {
     if (this.formGroup.valid) {
-      this.data["id"] = this.formGroup.controls["id"].value;
-      this.data["test"] = this.formGroup.controls["test"].value;
-      this.data["test2"] = this.formGroup.controls["test2"].value; //Валидация для поля!!!
+      this.metaData.fields.forEach((field) => {
+        this.data[field.name] = this.formGroup.controls[field.name].value;
+      });
       this.table.save(this.data);
       this.isVisible = false;
     } else {

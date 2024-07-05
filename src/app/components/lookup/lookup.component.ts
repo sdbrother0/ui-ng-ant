@@ -8,7 +8,7 @@ import {
   FormsModule, NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
   ValidationErrors,
-  Validator
+  Validator, Validators
 } from "@angular/forms";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzIconDirective} from "ng-zorro-antd/icon";
@@ -72,12 +72,13 @@ export class LookupComponent implements OnInit, ControlValueAccessor, Validator 
 
   //for validate methods start:
   validate(control: AbstractControl): ValidationErrors | null {
-    console.log('validate');
-    if (this.data == null) {
-      console.log('NULL');
-      return {
-        error: {}
-      };
+    if (control.hasValidator(Validators.required)) {
+      if (this.data == null) {
+        console.log('NULL');
+        return {
+          error: {}
+        };
+      }
     }
     return null;
   }
