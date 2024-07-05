@@ -233,7 +233,7 @@ export class TableComponent implements OnInit {
   }
 
   create() {
-    console.log('create');
+    this.form({});
   }
 
 }

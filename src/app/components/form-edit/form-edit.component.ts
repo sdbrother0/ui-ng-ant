@@ -74,8 +74,8 @@ export class FormEditComponent implements OnInit {
     const validators: any[] = [];
 
     this.metaData.fields.forEach((field) => {
-      controls[field.name] = [row[field.name], [Validators.required]];
-      //controls[field.name] = [row[field.name], []];
+      //controls[field.name] = [row[field.name], [Validators.required]];
+      controls[field.name] = [row[field.name], []]; //TODO Validators from metaData.fields
       console.log('controls[field.name]');
       console.log(controls[field.name]);
       //Validators.required
