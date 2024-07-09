@@ -3,14 +3,11 @@
     <span nz-icon nzType="plus" nzTheme="outline"></span>Create inline
   </button>
   <button nz-button (click)="create()">
+    <form-edit #form_edit [metaData]=metaData [data]={} [table]="this"></form-edit>
     <span nz-icon nzType="plus" nzTheme="outline"></span>Create by form
   </button>
 </nz-button-group>
-<!--
-  [nzScroll]="{ x: '800px', y: '600px'}"
-  [nzTitle]="'Table'"
-  [nzShowSizeChanger]="true"
--->
+
 <nz-table
   [nzSize]="'small'"
   [nzData]="recordSet"

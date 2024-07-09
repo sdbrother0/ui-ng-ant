@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from "@angular/core";
+import {Component, forwardRef, Input, OnInit, ViewChild} from "@angular/core";
 import {JsonPipe, NgForOf, NgIf} from "@angular/common";
 import {NzModalComponent, NzModalContentDirective} from "ng-zorro-antd/modal";
 import {LookupComponent} from "../lookup/lookup.component";
@@ -46,6 +46,7 @@ import {TableComponent} from "../table/table.component";
     NzButtonComponent,
     NzTabSetComponent,
     NzTabComponent,
+    forwardRef(() => TableComponent)
   ]
 })
 export class FormEditComponent implements OnInit {
@@ -71,20 +72,12 @@ export class FormEditComponent implements OnInit {
 
   showDialog(row: any) {
     const controls: any = [];
-    const validators: any[] = [];
-
     this.metaData.fields.forEach((field) => {
       //controls[field.name] = [row[field.name], [Validators.required]];
       controls[field.name] = [row[field.name], []]; //TODO Validators from metaData.fields
-      console.log('controls[field.name]');
-      console.log(controls[field.name]);
-      //Validators.required
     })
-
     this.formGroup = this.formBuilder.group(controls);
-    console.log(this.data);
     this.data = row;
-
     this.isVisible = true;
   }
 
@@ -99,6 +92,7 @@ export class FormEditComponent implements OnInit {
       });
       this.table.save(this.data);
       this.isVisible = false;
+
     } else {
       Object.values(this.formGroup.controls).forEach(control => {
         if (control.invalid) {
@@ -109,8 +103,4 @@ export class FormEditComponent implements OnInit {
     }
   }
 
-
-  submitForm(ctrl: any) {
-    console.log('submit from form')
-  }
 }

@@ -1,4 +1,5 @@
 import {Field} from "./field";
+import {Detail} from "./detail";
 
 export interface MetaData {
   url: string;
@@ -7,4 +8,5 @@ export interface MetaData {
   showAction: boolean;
   showLoader: boolean;
   fields: Field[];
+  details: Detail[];
 }

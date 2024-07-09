@@ -6,9 +6,6 @@
   (nzOnCancel)="handleCancel()"
   (nzOnOk)="handleOk()">
   <ng-container *nzModalContent>
-    <!--
-    (ngSubmit)="submitForm(this)"
-    -->
     <form #form nz-form [formGroup]="formGroup" >
       <nz-form-item *ngFor="let field of metaData.fields">
         <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">{{field.name}}</nz-form-label>
@@ -23,13 +20,13 @@
         </nz-form-control>
       </nz-form-item>
     </form>
-
     <nz-tabset nzType="card">
-      <nz-tab [nzTitle]="'Tab 1'">
-        Content of Tab Pane 1
-      </nz-tab>
-      <nz-tab [nzTitle]="'Tab 2'">
-        Content of Tab Pane 2
+      <nz-tab *ngFor="let detail of metaData.details" [nzTitle]="detail.label">
+        <table-data [metaUrl]=detail.metaUrl
+                    [masterId]="data[detail.masterFieldKey]"
+                    [masterObjectName]=detail.masterObjectName
+                    [masterFieldKey]=detail.masterFieldKey
+        ></table-data>
       </nz-tab>
     </nz-tabset>
   </ng-container>

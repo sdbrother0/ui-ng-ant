@@ -13,6 +13,7 @@ import {MetaData} from "../../dto/meta.data";
 import {LookupComponent} from "../lookup/lookup.component";
 import {Lookup} from "../../dto/lookup";
 import {FormEditComponent} from "../form-edit/form-edit.component";
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   host: { ngSkipHydration: 'true' },
@@ -44,6 +45,10 @@ export class TableComponent implements OnInit {
   @Input() page: number = 1;
   @Input() pageSize: number = 10;
   @Input() total: number = 0;
+  @Input() masterId!: string;
+  @Input() masterObjectName!: string;
+  @Input() masterFieldKey!: string;
+
   @ViewChild("form_edit") formEdit!: FormEditComponent;
 
   recordSet: any[] = [];
@@ -55,7 +60,7 @@ export class TableComponent implements OnInit {
   private setOfCheckedId = new Set<number>();
   private setOfIsEdit = new Set<any>();
   private mapOfBeforeEditValues = new Map<any, any>;
-  metaData: MetaData = {url: '', keyFieldName: '', showSelect: false, showAction: false, showLoader: false, fields: []};
+  metaData: MetaData = {url: '', keyFieldName: '', showSelect: false, showAction: false, showLoader: false, fields: [], details: []};
 
   constructor(private http: HttpClient, private message: NzMessageService, private modal: NzModalService) {
     this.sortField = "id";
@@ -72,10 +77,14 @@ export class TableComponent implements OnInit {
   }
 
   loadData(page: number, size: number, sort: string) {
+
     this.loading = true;
-    console.log(this.metaData.url);
+
+    const params  = {page: page - 1, size, sort}
+    const paramsWithMasterId  = {page: page - 1, size, sort, masterId: this.masterId}
+
     this.http.get<any>(this.metaData.url, {
-      params: {page: page - 1, size, sort}
+      params: this.masterId ? paramsWithMasterId : params
     }).subscribe({
       next: (value) => {
         this.recordSet = value.content;
@@ -118,17 +127,21 @@ export class TableComponent implements OnInit {
   }
 
   form(row: any) {
-    this.formEdit?.showDialog(row);
+    this.formEdit.showDialog(row);
   }
 
   save(row: any) {
+    if (this.masterId) {
+      row[this.masterObjectName] = {};
+      row[this.masterObjectName][this.masterFieldKey] = this.masterId; //TODO from meta
+    }
     this.http.post(this.metaData.url, row)
       .subscribe({
-        next: (value) => {
-          console.log(value);
+        next: (value: Object) => {
           this.setOfIsEdit.delete(row);
           row[this.metaData.keyFieldName] = value;
           delete row.beforeEdit;
+          this.reload();
         },
         error: (error) => {
           console.error(error);
@@ -199,7 +212,7 @@ export class TableComponent implements OnInit {
 
   add() {
     const rsData = this.recordSet;
-    const row : any = {id: null, test: null, field1: null, field2: null, isEdit: true};
+    const row : any = {id: uuidv4(), test: null, field1: null, field2: null, isEdit: true};
     rsData.unshift(row);
     this.recordSet = rsData;
     this.setOfIsEdit.add(row)
@@ -233,7 +246,11 @@ export class TableComponent implements OnInit {
   }
 
   create() {
-    this.form({});
+    this.form({id : uuidv4()});
+  }
+
+  reload() {
+    this.loadData(this.page, this.pageSize, this.sortField + ',' + this.sortOrder);
   }
 
 }
