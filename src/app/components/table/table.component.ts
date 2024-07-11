@@ -154,7 +154,7 @@ export class TableComponent implements OnInit {
           this.setOfIsEdit.delete(row);
           row[this.metaData.keyFieldName] = value;
           delete row.beforeEdit;
-          //this.reload();
+          //this.reload(); //TODO return row from server
         }, error: (error) => {
           console.error(error);
           this.message.create('error', `Error: ${error.message}`);
