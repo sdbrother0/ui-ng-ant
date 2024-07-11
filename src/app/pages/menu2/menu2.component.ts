@@ -4,13 +4,13 @@ import {TableComponent} from "../../components/table/table.component";
 @Component({
   selector: 'app-monitor',
   standalone: true,
-  templateUrl: './table2.component.html',
+  templateUrl: './menu2.component.html',
   imports: [
     TableComponent
   ],
-  styleUrls: ['./table2.component.css']
+  styleUrls: ['./menu2.component.css']
 })
-export class Table2Component implements OnInit {
+export class Menu2Component implements OnInit {
 
   constructor() { }
 

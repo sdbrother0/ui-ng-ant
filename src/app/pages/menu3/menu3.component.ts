@@ -3,12 +3,12 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-form',
   standalone: true,
-  templateUrl: './table3.component.html',
+  templateUrl: './menu3.component.html',
   imports: [
   ],
-  styleUrls: ['./table3.component.css']
+  styleUrls: ['./menu3.component.css']
 })
-export class Table3Component implements OnInit {
+export class Menu3Component implements OnInit {
 
   constructor() { }
 
