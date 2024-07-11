@@ -162,14 +162,15 @@ export class TableComponent implements OnInit {
   getFirstSelected(obj: any, row: any, field: Field): void {
     const selectedIds = [...this.setOfCheckedId.values()];
     if (selectedIds.length > 0) {
+      const fieldType = field.type;
       const firstSelectedKey = selectedIds[0];
-      const firstSelectedVal = this.recordSet.filter((item) => item[field.type.keyFieldName] === firstSelectedKey).at(0)[field.type.valFieldName];
+      const firstSelectedVal = this.recordSet.filter((item) => item[fieldType.keyFieldName] === firstSelectedKey).at(0)[fieldType.valFieldName];
       row[field.name] = {};
-      row[field.name][field.type.keyFieldName] = firstSelectedKey;
-      row[field.name][field.type.valFieldName] = firstSelectedVal;
+      row[field.name][fieldType.keyFieldName] = firstSelectedKey;
+      row[field.name][fieldType.valFieldName] = firstSelectedVal;
       obj.data = {};
-      obj.data[field.type.keyFieldName] = firstSelectedKey;
-      obj.data[field.type.valFieldName] = firstSelectedVal;
+      obj.data[fieldType.keyFieldName] = firstSelectedKey;
+      obj.data[fieldType.valFieldName] = firstSelectedVal;
     } else {
       row[field.name] = null;
       obj.data = null;
