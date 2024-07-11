@@ -1,7 +1,7 @@
 import {Component, forwardRef, Input, OnInit, ViewChild} from '@angular/core';
 import {NzTableComponent, NzTableModule, NzTableQueryParams} from "ng-zorro-antd/table";
 import {HttpClient} from "@angular/common/http";
-import {JsonPipe, NgForOf, NgIf} from "@angular/common";
+import {JsonPipe, NgForOf, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault} from "@angular/common";
 import {NzInputDirective, NzInputGroupComponent} from "ng-zorro-antd/input";
 import {FormsModule} from "@angular/forms";
 import {NzButtonComponent, NzButtonGroupComponent} from "ng-zorro-antd/button";
@@ -14,6 +14,7 @@ import {LookupComponent} from "../lookup/lookup.component";
 import {Lookup} from "../../dto/lookup";
 import {FormEditComponent} from "../form-edit/form-edit.component";
 import { v4 as uuidv4 } from 'uuid';
+import {NzDatePickerComponent} from "ng-zorro-antd/date-picker";
 
 @Component({
   host: { ngSkipHydration: 'true' },
@@ -36,7 +37,11 @@ import { v4 as uuidv4 } from 'uuid';
     NzTooltipDirective,
     NzModalModule,
     forwardRef(() => LookupComponent),
-    forwardRef(() => FormEditComponent)
+    forwardRef(() => FormEditComponent),
+    NzDatePickerComponent,
+    NgSwitch,
+    NgSwitchCase,
+    NgSwitchDefault
   ]
 })
 export class TableComponent implements OnInit {

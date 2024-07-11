@@ -12,7 +12,14 @@
         <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid!">
           <div *ngIf="undefined === field.lookup; then field_editor else lookup_editor"></div>
           <ng-template #field_editor>
-            <input formControlName="{{field.name}}" nz-input id="{{field.name}}"/>
+            <div [ngSwitch]="field.type">
+              <ng-template ngSwitchCase="date">
+                <nz-date-picker formControlName="{{field.name}}" nz-input id="{{field.name}}" nzFormat="yyyy-MM-dd HH:mm:ss"></nz-date-picker>
+              </ng-template>
+              <ng-template ngSwitchDefault>
+                <input formControlName="{{field.name}}" nz-input id="{{field.name}}"/>
+              </ng-template>
+            </div>
           </ng-template>
           <ng-template #lookup_editor>
             <lookup-data #form_lookup formControlName="{{field.name}}" [row]="data" [field]="field.name" [data]="data[field.name]" [lookup]="field.lookup"></lookup-data>

@@ -1,5 +1,5 @@
 import {Component, forwardRef, Input, OnInit, ViewChild} from "@angular/core";
-import {JsonPipe, NgForOf, NgIf} from "@angular/common";
+import {JsonPipe, NgForOf, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault} from "@angular/common";
 import {NzModalComponent, NzModalContentDirective} from "ng-zorro-antd/modal";
 import {LookupComponent} from "../lookup/lookup.component";
 import {NzInputDirective, NzInputGroupComponent} from "ng-zorro-antd/input";
@@ -17,6 +17,7 @@ import {NzCheckboxComponent} from "ng-zorro-antd/checkbox";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzTabComponent, NzTabSetComponent} from "ng-zorro-antd/tabs";
 import {TableComponent} from "../table/table.component";
+import {NzDatePickerComponent} from "ng-zorro-antd/date-picker";
 
 @Component({
   selector: 'form-edit',
@@ -46,7 +47,11 @@ import {TableComponent} from "../table/table.component";
     NzButtonComponent,
     NzTabSetComponent,
     NzTabComponent,
-    forwardRef(() => TableComponent)
+    forwardRef(() => TableComponent),
+    NgSwitchCase,
+    NgSwitchDefault,
+    NzDatePickerComponent,
+    NgSwitch
   ]
 })
 export class FormEditComponent implements OnInit {

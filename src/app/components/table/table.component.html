@@ -42,9 +42,18 @@
         <div *ngIf="isEdit(row); then edit_row else simple_row"></div>
         <ng-template #edit_row>
           <div *ngIf="field.lookup === undefined; then field_editor else lookup_editor"></div>
+
           <ng-template #field_editor>
-            <input nz-input [(ngModel)]="row[field.name]"/>
+            <div [ngSwitch]="field.type">
+              <ng-template ngSwitchCase="date">
+                <nz-date-picker [(ngModel)]="row[field.name]" nzFormat="yyyy-MM-dd HH:mm:ss"></nz-date-picker>
+              </ng-template>
+              <ng-template ngSwitchDefault>
+                <input nz-input [(ngModel)]="row[field.name]"/>
+              </ng-template>
+            </div>
           </ng-template>
+
           <ng-template #lookup_editor>
             <lookup-data #inline_lookup [row]="row" [field]="field.name" [data]="row[field.name]" [lookup]="field.lookup"></lookup-data>
           </ng-template>
