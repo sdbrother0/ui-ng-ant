@@ -6,16 +6,17 @@
   (nzOnCancel)="handleCancel()"
   (nzOnOk)="handleOk()">
   <ng-container *nzModalContent>
-    <form #form nz-form [formGroup]="formGroup" >
+    <form #form nz-form [formGroup]="formGroup">
       <nz-form-item *ngFor="let field of metaData.fields">
-        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">{{field.name}}</nz-form-label>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">{{ field.name }}</nz-form-label>
         <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid!">
           <div [ngSwitch]="field.type.name">
             <ng-template ngSwitchCase="lookup">
               <lookup-data formControlName="{{field.name}}" [row]="data" [field]="field"></lookup-data>
             </ng-template>
             <ng-template ngSwitchCase="date">
-              <nz-date-picker formControlName="{{field.name}}" nz-input id="{{field.name}}" nzFormat="{{field.type.format}}"></nz-date-picker>
+              <nz-date-picker formControlName="{{field.name}}" nz-input id="{{field.name}}"
+                              nzFormat="{{field.type.format}}"></nz-date-picker>
             </ng-template>
             <ng-template ngSwitchDefault>
               <input formControlName="{{field.name}}" nz-input id="{{field.name}}"/>

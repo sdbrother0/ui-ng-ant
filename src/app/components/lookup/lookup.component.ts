@@ -1,14 +1,16 @@
-import {Component, forwardRef, Injectable, Injector, Input, OnInit, ViewChild} from "@angular/core";
+import {Component, forwardRef, Input, OnInit, ViewChild} from "@angular/core";
 import {NzTableComponent, NzTableModule} from "ng-zorro-antd/table";
 import {JsonPipe, NgForOf} from "@angular/common";
 import {NzInputDirective, NzInputGroupComponent} from "ng-zorro-antd/input";
 import {
   AbstractControl,
   ControlValueAccessor,
-  FormsModule, NG_VALIDATORS,
+  FormsModule,
+  NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
   ValidationErrors,
-  Validator, Validators
+  Validator,
+  Validators
 } from "@angular/forms";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzIconDirective} from "ng-zorro-antd/icon";
@@ -23,32 +25,12 @@ import {Field} from "../../dto/field";
   standalone: true,
   templateUrl: './lookup.component.html',
   styleUrls: ['./lookup.component.css'],
-  imports: [
-    NzTableModule,
-    NzTableComponent,
-    JsonPipe,
-    NgForOf,
-    NzInputDirective,
-    FormsModule,
-    NzButtonComponent,
-    NzInputGroupComponent,
-    NzIconDirective,
-    NzTooltipDirective,
-    NzModalModule,
-    forwardRef(() => TableComponent)
-  ],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      multi: true,
-      useExisting: LookupComponent
-    },
-    {
-      provide: NG_VALIDATORS,
-      multi: true,
-      useExisting: LookupComponent
-    },
-  ]
+  imports: [NzTableModule, NzTableComponent, JsonPipe, NgForOf, NzInputDirective, FormsModule, NzButtonComponent, NzInputGroupComponent, NzIconDirective, NzTooltipDirective, NzModalModule, forwardRef(() => TableComponent)],
+  providers: [{
+    provide: NG_VALUE_ACCESSOR, multi: true, useExisting: LookupComponent
+  }, {
+    provide: NG_VALIDATORS, multi: true, useExisting: LookupComponent
+  },]
 })
 export class LookupComponent implements OnInit, ControlValueAccessor, Validator {
 
@@ -57,8 +39,10 @@ export class LookupComponent implements OnInit, ControlValueAccessor, Validator 
   @ViewChild('lookup_table') lookupTable!: TableComponent;
   isDialogVisible = false;
 
-  onChange = () => {};
-  onTouched = () => {};
+  onChange = () => {
+  };
+  onTouched = () => {
+  };
 
   touched = false;
 
@@ -96,6 +80,7 @@ export class LookupComponent implements OnInit, ControlValueAccessor, Validator 
   setDisabledState?(isDisabled: boolean): void {
     this.disabled = isDisabled;
   }
+
   //for validate methods end
 
   ngOnInit(): void {

@@ -25,61 +25,69 @@
   <thead>
   <tr>
     <th id="#checkAll"
-      [nzChecked]="checked"
-      [nzIndeterminate]="indeterminate"
-      nzLabel="Select all"
-      (nzCheckedChange)="onAllChecked($event)"
-      class="action-th"
+        [nzChecked]="checked"
+        [nzIndeterminate]="indeterminate"
+        nzLabel="Select all"
+        (nzCheckedChange)="onAllChecked($event)"
+        class="action-th"
     ></th>
-    <th id="{{field.name}}" *ngFor="let field of metaData.fields">{{field.label}}</th>
+    <th id="{{field.name}}" *ngFor="let field of metaData.fields">{{ field.label }}</th>
     <th nzRight id="#action" class="action-th">Action</th>
   </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let row of recordSet">
-      <td [nzChecked]="isChecked(row)" (nzCheckedChange)="onItemChecked(row.id, $event)"></td>
-      <td *ngFor="let field of metaData.fields">
-        <div *ngIf="isEdit(row); then edit_row else simple_row"></div>
-        <ng-template #edit_row>
-          <div [ngSwitch]="field.type.name">
-            <ng-template ngSwitchCase="lookup">
-              <lookup-data #inline_lookup [row]="row" [field]="field"></lookup-data>
-            </ng-template>
-            <ng-template ngSwitchCase="date">
-              <nz-date-picker [(ngModel)]="row[field.name]" nzFormat="{{field.type.format}}"></nz-date-picker>
-            </ng-template>
-            <ng-template ngSwitchDefault>
-              <input nz-input [(ngModel)]="row[field.name]"/>
-            </ng-template>
-          </div>
-        </ng-template>
-        <ng-template #simple_row>
-          <div *ngIf="field.type.name === 'lookup'; then lookup_field else simple_field"></div>
-          <ng-template #lookup_field>{{row[field.name]?.[field.type.valFieldName]}}</ng-template>
-          <ng-template #simple_field>{{row[field.name]}}</ng-template>
-        </ng-template>
-      </td>
-      <!-- Action -->
-      <td nzRight>
-        <nz-button-group>
-          <button *ngIf="isEdit(row)" (click)="edit(row)" nz-button nzType="text">
-            <span nz-icon nzType="undo" nz-tooltip nzTooltipTitle="cancel" class="action-icons"></span>
-          </button>
-          <button *ngIf="!isEdit(row)" (click)="edit(row)" nz-button nzType="text">
-            <span nz-icon nzType="edit" nz-tooltip nzTooltipTitle="edit" class="action-icons"></span>
-          </button>
-          <button *ngIf="!isEdit(row)" (click)="form(row)" nz-button nzType="text">
-            <span nz-icon nzType="form" nz-tooltip nzTooltipTitle="edit" class="action-icons"></span>
-          </button>
-          <form-edit #form_edit [metaData]=metaData [data]=row [table]="this"></form-edit>
-          <button *ngIf="!isEdit(row)" (click)="delete(row)" nz-button nzType="text">
-            <span nz-icon nzType="delete" nz-tooltip nzTooltipTitle="delete" class="action-icons"></span>
-          </button>
-          <button *ngIf="isEdit(row)" (click)="save(row)" nz-button nzType="text">
-            <span nz-icon nzType="check" nz-tooltip nzTooltipTitle="save" class="action-icons"></span>
-          </button>
-        </nz-button-group>
-      </td>
-    </tr>
+  <tr *ngFor="let row of recordSet">
+    <td [nzChecked]="isChecked(row)" (nzCheckedChange)="onItemChecked(row.id, $event)"></td>
+    <td *ngFor="let field of metaData.fields">
+      <div *ngIf="isEdit(row); then edit_row else simple_row"></div>
+      <ng-template #edit_row>
+        <div [ngSwitch]="field.type.name">
+          <ng-template ngSwitchCase="lookup">
+            <lookup-data #inline_lookup [row]="row" [field]="field"></lookup-data>
+          </ng-template>
+          <ng-template ngSwitchCase="date">
+            <nz-date-picker [(ngModel)]="row[field.name]" nzFormat="{{field.type.format}}"></nz-date-picker>
+          </ng-template>
+          <ng-template ngSwitchDefault>
+            <input nz-input [(ngModel)]="row[field.name]"/>
+          </ng-template>
+        </div>
+      </ng-template>
+      <ng-template #simple_row>
+        <div [ngSwitch]="field.type.name">
+          <ng-template ngSwitchCase="lookup">
+            {{ row[field.name]?.[field.type.valFieldName] }}
+          </ng-template>
+          <ng-template ngSwitchCase="date">
+            {{ row[field.name] | date:field.type.format }}
+          </ng-template>
+          <ng-template ngSwitchDefault>
+            {{ row[field.name] }}
+          </ng-template>
+        </div>
+      </ng-template>
+    </td>
+    <!-- Action -->
+    <td nzRight>
+      <nz-button-group>
+        <button *ngIf="isEdit(row)" (click)="edit(row)" nz-button nzType="text">
+          <span nz-icon nzType="undo" nz-tooltip nzTooltipTitle="cancel" class="action-icons"></span>
+        </button>
+        <button *ngIf="!isEdit(row)" (click)="edit(row)" nz-button nzType="text">
+          <span nz-icon nzType="edit" nz-tooltip nzTooltipTitle="edit" class="action-icons"></span>
+        </button>
+        <button *ngIf="!isEdit(row)" (click)="form(row)" nz-button nzType="text">
+          <span nz-icon nzType="form" nz-tooltip nzTooltipTitle="edit" class="action-icons"></span>
+        </button>
+        <form-edit #form_edit [metaData]=metaData [data]=row [table]="this"></form-edit>
+        <button *ngIf="!isEdit(row)" (click)="delete(row)" nz-button nzType="text">
+          <span nz-icon nzType="delete" nz-tooltip nzTooltipTitle="delete" class="action-icons"></span>
+        </button>
+        <button *ngIf="isEdit(row)" (click)="save(row)" nz-button nzType="text">
+          <span nz-icon nzType="check" nz-tooltip nzTooltipTitle="save" class="action-icons"></span>
+        </button>
+      </nz-button-group>
+    </td>
+  </tr>
   </tbody>
 </nz-table>

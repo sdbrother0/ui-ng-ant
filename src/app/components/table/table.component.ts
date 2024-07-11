@@ -1,7 +1,7 @@
 import {Component, forwardRef, Input, OnInit, ViewChild} from '@angular/core';
 import {NzTableComponent, NzTableModule, NzTableQueryParams} from "ng-zorro-antd/table";
 import {HttpClient} from "@angular/common/http";
-import {JsonPipe, NgForOf, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault} from "@angular/common";
+import {DatePipe, JsonPipe, NgForOf, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault} from "@angular/common";
 import {NzInputDirective, NzInputGroupComponent} from "ng-zorro-antd/input";
 import {FormsModule} from "@angular/forms";
 import {NzButtonComponent, NzButtonGroupComponent} from "ng-zorro-antd/button";
@@ -12,37 +12,17 @@ import {NzModalModule, NzModalService} from 'ng-zorro-antd/modal';
 import {MetaData} from "../../dto/meta.data";
 import {LookupComponent} from "../lookup/lookup.component";
 import {FormEditComponent} from "../form-edit/form-edit.component";
-import { v4 as uuidv4 } from 'uuid';
+import {v4 as uuidv4} from 'uuid';
 import {NzDatePickerComponent} from "ng-zorro-antd/date-picker";
 import {Field} from "../../dto/field";
 
 @Component({
-  host: { ngSkipHydration: 'true' },
+  host: {ngSkipHydration: 'true'},
   selector: 'table-data',
   standalone: true,
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css'],
-  imports: [
-    NzTableModule,
-    NzTableComponent,
-    JsonPipe,
-    NgForOf,
-    NzInputDirective,
-    FormsModule,
-    NzButtonComponent,
-    NzInputGroupComponent,
-    NzIconDirective,
-    NgIf,
-    NzButtonGroupComponent,
-    NzTooltipDirective,
-    NzModalModule,
-    forwardRef(() => LookupComponent),
-    forwardRef(() => FormEditComponent),
-    NzDatePickerComponent,
-    NgSwitch,
-    NgSwitchCase,
-    NgSwitchDefault
-  ]
+  imports: [NzTableModule, NzTableComponent, JsonPipe, NgForOf, NzInputDirective, FormsModule, NzButtonComponent, NzInputGroupComponent, NzIconDirective, NgIf, NzButtonGroupComponent, NzTooltipDirective, NzModalModule, forwardRef(() => LookupComponent), forwardRef(() => FormEditComponent), NzDatePickerComponent, NgSwitch, NgSwitchCase, NgSwitchDefault, DatePipe]
 })
 export class TableComponent implements OnInit {
 
@@ -65,7 +45,15 @@ export class TableComponent implements OnInit {
   private setOfCheckedId = new Set<number>();
   private setOfIsEdit = new Set<any>();
   private mapOfBeforeEditValues = new Map<any, any>;
-  metaData: MetaData = {url: '', keyFieldName: '', showSelect: false, showAction: false, showLoader: false, fields: [], details: []};
+  metaData: MetaData = {
+    url: '',
+    keyFieldName: '',
+    showSelect: false,
+    showAction: false,
+    showLoader: false,
+    fields: [],
+    details: []
+  };
 
   constructor(private http: HttpClient, private message: NzMessageService, private modal: NzModalService) {
     this.sortField = "id";
@@ -78,15 +66,15 @@ export class TableComponent implements OnInit {
         next: (value: MetaData) => this.metaData = value,
         error: (error) => console.error(error),
         complete: () => this.loadData(this.page, this.pageSize, this.sortField + ',' + this.sortOrder)
-    });
+      });
   }
 
   loadData(page: number, size: number, sort: string) {
 
     this.loading = true;
 
-    const params  = {page: page - 1, size, sort}
-    const paramsWithMasterId  = {page: page - 1, size, sort, masterId: this.masterId}
+    const params = {page: page - 1, size, sort}
+    const paramsWithMasterId = {page: page - 1, size, sort, masterId: this.masterId}
 
     this.http.get<any>(this.metaData.url, {
       params: this.masterId ? paramsWithMasterId : params
@@ -94,9 +82,7 @@ export class TableComponent implements OnInit {
       next: (value) => {
         this.recordSet = value.content;
         this.total = value.totalElements;
-      },
-      error: (error) => console.error(error),
-      complete: () => this.loading = false
+      }, error: (error) => console.error(error), complete: () => this.loading = false
     })
   }
 
@@ -106,7 +92,7 @@ export class TableComponent implements OnInit {
     }
   }
 
-  isEdit(row: any) : boolean {
+  isEdit(row: any): boolean {
     return this.setOfIsEdit.has(row);
   }
 
@@ -119,7 +105,7 @@ export class TableComponent implements OnInit {
       this.setOfIsEdit.delete(row);
       const beforeEditRow = this.mapOfBeforeEditValues.get(row.id); //TODO id change to from meta data!!!
       for (const i in beforeEditRow) {
-          row[i] = beforeEditRow[i];
+        row[i] = beforeEditRow[i];
       }
       this.mapOfBeforeEditValues.delete(row.id);
       if (row.id === null) {
@@ -147,12 +133,10 @@ export class TableComponent implements OnInit {
           row[this.metaData.keyFieldName] = value;
           delete row.beforeEdit;
           this.reload();
-        },
-        error: (error) => {
+        }, error: (error) => {
           console.error(error);
           this.message.create('error', `Error: ${error.message}`);
-        },
-        complete: () => {
+        }, complete: () => {
           console.log('complete');
           this.message.create('success', `Saved: ${row.id}`);
         }
@@ -179,32 +163,31 @@ export class TableComponent implements OnInit {
   }
 
   delete(row: any) {
-      this.modal.confirm({
-        nzTitle: 'Are you sure delete this record?',
-        nzContent: '<b style="color: red;">Some descriptions</b>',
-        nzOkText: 'Yes',
-        nzOkType: 'primary',
-        nzOkDanger: true,
-        nzOnOk: () => {
-          console.log('OK')
-          if (row.id !== null) {
-            this.http.delete(`${this.metaData.url}?id=${row.id}`)
-              .subscribe({
-                error: (error) => {
-                  this.message.create('error', `Error: ${error.message}`);
-                },
-                complete: () => {
-                  this.recordSet = this.recordSet.filter(d => d.id !== row.id);
-                  this.message.create('success', `Deleted: ${row.id}`);
-                }
-              });
-          } else {
-            this.deleteFromRecordSetByRow(row);
-          }
-        },
-        nzCancelText: 'No',
-        nzOnCancel: () => console.log('Cancel')
-      });
+    this.modal.confirm({
+      nzTitle: 'Are you sure delete this record?',
+      nzContent: '<b style="color: red;">Some descriptions</b>',
+      nzOkText: 'Yes',
+      nzOkType: 'primary',
+      nzOkDanger: true,
+      nzOnOk: () => {
+        console.log('OK')
+        if (row.id !== null) {
+          this.http.delete(`${this.metaData.url}?id=${row.id}`)
+            .subscribe({
+              error: (error) => {
+                this.message.create('error', `Error: ${error.message}`);
+              }, complete: () => {
+                this.recordSet = this.recordSet.filter(d => d.id !== row.id);
+                this.message.create('success', `Deleted: ${row.id}`);
+              }
+            });
+        } else {
+          this.deleteFromRecordSetByRow(row);
+        }
+      },
+      nzCancelText: 'No',
+      nzOnCancel: () => console.log('Cancel')
+    });
   }
 
   deleteFromRecordSetByRow(row: any) {
@@ -218,7 +201,7 @@ export class TableComponent implements OnInit {
 
   add() {
     const rsData = this.recordSet;
-    const row : any = {id: uuidv4(), test: null, field1: null, field2: null, isEdit: true};
+    const row: any = {id: uuidv4(), test: null, field1: null, field2: null, isEdit: true};
     rsData.unshift(row);
     this.recordSet = rsData;
     this.setOfIsEdit.add(row)
@@ -252,7 +235,7 @@ export class TableComponent implements OnInit {
   }
 
   create() {
-    this.form({id : uuidv4()});
+    this.form({id: uuidv4()});
   }
 
   reload() {
