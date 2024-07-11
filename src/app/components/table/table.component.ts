@@ -1,6 +1,6 @@
 import {Component, forwardRef, Input, OnInit, ViewChild} from '@angular/core';
 import {NzTableComponent, NzTableModule, NzTableQueryParams} from "ng-zorro-antd/table";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {DatePipe, JsonPipe, NgForOf, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault} from "@angular/common";
 import {NzInputDirective, NzInputGroupComponent} from "ng-zorro-antd/input";
 import {FormsModule} from "@angular/forms";
@@ -15,6 +15,8 @@ import {FormEditComponent} from "../form-edit/form-edit.component";
 import {v4 as uuidv4} from 'uuid';
 import {NzDatePickerComponent} from "ng-zorro-antd/date-picker";
 import {Field} from "../../dto/field";
+import {NzTableSortOrder} from "ng-zorro-antd/table/src/table.types";
+import {NzDropdownMenuComponent} from "ng-zorro-antd/dropdown";
 
 @Component({
   host: {ngSkipHydration: 'true'},
@@ -22,23 +24,22 @@ import {Field} from "../../dto/field";
   standalone: true,
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css'],
-  imports: [NzTableModule, NzTableComponent, JsonPipe, NgForOf, NzInputDirective, FormsModule, NzButtonComponent, NzInputGroupComponent, NzIconDirective, NgIf, NzButtonGroupComponent, NzTooltipDirective, NzModalModule, forwardRef(() => LookupComponent), forwardRef(() => FormEditComponent), NzDatePickerComponent, NgSwitch, NgSwitchCase, NgSwitchDefault, DatePipe]
+  imports: [NzTableModule, NzTableComponent, JsonPipe, NgForOf, NzInputDirective, FormsModule, NzButtonComponent, NzInputGroupComponent, NzIconDirective, NgIf, NzButtonGroupComponent, NzTooltipDirective, NzModalModule, forwardRef(() => LookupComponent), forwardRef(() => FormEditComponent), NzDatePickerComponent, NgSwitch, NgSwitchCase, NgSwitchDefault, DatePipe, NzDropdownMenuComponent]
 })
 export class TableComponent implements OnInit {
 
   @Input() metaUrl: string = 'title';
-  @Input() page: number = 1;
+  @Input() pageIndex: number = 1;
   @Input() pageSize: number = 10;
   @Input() total: number = 0;
   @Input() masterId!: string;
   @Input() masterObjectName!: string;
   @Input() masterFieldKey!: string;
+  sort: Array<{ key: string; value: NzTableSortOrder; }> = [];
 
   @ViewChild("form_edit") formEdit!: FormEditComponent;
 
   recordSet: any[] = [];
-  sortField: string = "";
-  sortOrder: string = "";
   loading: boolean = true;
   checked = false;
   indeterminate = false;
@@ -55,29 +56,47 @@ export class TableComponent implements OnInit {
     details: []
   };
 
-  constructor(private http: HttpClient, private message: NzMessageService, private modal: NzModalService) {
-    this.sortField = "id";
-    this.sortOrder = "asc";
-  }
+  constructor(private http: HttpClient, private message: NzMessageService, private modal: NzModalService) {}
 
   ngOnInit() {
     this.http.get<MetaData>(this.metaUrl)
       .subscribe({
         next: (value: MetaData) => this.metaData = value,
-        error: (error) => console.error(error),
-        complete: () => this.loadData(this.page, this.pageSize, this.sortField + ',' + this.sortOrder)
+        error: (error) => {
+          console.error(error)
+          this.message.create('error', `Error: ${error.message}`);
+        },
+        complete: () => {
+          this.metaData.fields.forEach((field) => {
+            field.searchValue = '';
+            field.isVisibleSearch = false;
+          });
+        }
       });
   }
 
-  loadData(page: number, size: number, sort: string) {
-
+  loadData() {
     this.loading = true;
-
-    const params = {page: page - 1, size, sort}
-    const paramsWithMasterId = {page: page - 1, size, sort, masterId: this.masterId}
+    let params = new HttpParams().append('page', this.pageIndex - 1);
+    params = params.append('size', this.pageSize);
+    if (this.masterId) {
+      params = params.append('masterId', this.masterId);
+    }
+    this.sort.filter((item) => item.value).forEach((item) => {
+        params = params.append('sort', item.key + ',' + ('ascend' === item.value ? 'asc' : 'desc'));
+    });
+    this.metaData.fields.forEach((field) => {
+      if (field.searchValue.length > 0) {
+        if (field.type.name === 'lookup') {
+          params = params.append('search', `${field.name}.${field.type.valFieldName}=${field.searchValue}`);
+        } else {
+          params = params.append('search', `${field.name}=${field.searchValue}`);
+        }
+      }
+    });
 
     this.http.get<any>(this.metaData.url, {
-      params: this.masterId ? paramsWithMasterId : params
+      params: params
     }).subscribe({
       next: (value) => {
         this.recordSet = value.content;
@@ -88,7 +107,10 @@ export class TableComponent implements OnInit {
 
   onQueryParams(params: NzTableQueryParams): void {
     if (this.metaData.url) {
-      this.loadData(params.pageIndex, params.pageSize, this.sortField + ',' + this.sortOrder);
+      this.pageIndex = params.pageIndex;
+      this.pageSize = params.pageSize;
+      this.sort = params.sort;
+      this.loadData();
     }
   }
 
@@ -132,12 +154,11 @@ export class TableComponent implements OnInit {
           this.setOfIsEdit.delete(row);
           row[this.metaData.keyFieldName] = value;
           delete row.beforeEdit;
-          this.reload();
+          //this.reload();
         }, error: (error) => {
           console.error(error);
           this.message.create('error', `Error: ${error.message}`);
         }, complete: () => {
-          console.log('complete');
           this.message.create('success', `Saved: ${row.id}`);
         }
       });
@@ -170,7 +191,6 @@ export class TableComponent implements OnInit {
       nzOkType: 'primary',
       nzOkDanger: true,
       nzOnOk: () => {
-        console.log('OK')
         if (row.id !== null) {
           this.http.delete(`${this.metaData.url}?id=${row.id}`)
             .subscribe({
@@ -186,7 +206,9 @@ export class TableComponent implements OnInit {
         }
       },
       nzCancelText: 'No',
-      nzOnCancel: () => console.log('Cancel')
+      nzOnCancel: () => {
+        console.log('Cancel')
+      }
     });
   }
 
@@ -238,8 +260,14 @@ export class TableComponent implements OnInit {
     this.form({id: uuidv4()});
   }
 
-  reload() {
-    this.loadData(this.page, this.pageSize, this.sortField + ',' + this.sortOrder);
+  search(field: Field): void {
+    field.isVisibleSearch = false;
+    this.loadData();
+  }
+
+  reset(field: Field): void {
+    field.searchValue = '';
+    this.search(field);
   }
 
 }

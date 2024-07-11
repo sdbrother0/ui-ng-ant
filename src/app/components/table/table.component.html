@@ -13,13 +13,12 @@
   [nzData]="recordSet"
   [nzTotal]="total"
   [nzPageSize]="pageSize"
-  [nzPageIndex]="page"
+  [nzPageIndex]="pageIndex"
   [nzLoading]="loading"
   [nzShowPagination]="true"
   [nzFrontPagination]="false"
   [nzBordered]="true"
   [nzOuterBordered]="true"
-
   (nzQueryParams)="onQueryParams($event)"
   (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
   <thead>
@@ -31,7 +30,21 @@
         (nzCheckedChange)="onAllChecked($event)"
         class="action-th"
     ></th>
-    <th id="{{field.name}}" *ngFor="let field of metaData.fields">{{ field.label }}</th>
+    <th nzCustomFilter id="{{field.name}}" *ngFor="let field of metaData.fields" nzColumnKey="{{field.name}}" [nzSortFn]="true" [nzSortPriority]="true">
+      {{ field.label }}
+      <nz-filter-trigger [(nzVisible)]="field.isVisibleSearch" [nzActive]="field.searchValue.length > 0" [nzDropdownMenu]="menu">
+        <span nz-icon nzType="search"></span>
+      </nz-filter-trigger>
+      <nz-dropdown-menu #menu="nzDropdownMenu">
+        <div class="ant-table-filter-dropdown">
+          <div class="search-box">
+            <input type="text" nz-input placeholder="Search name" [(ngModel)]="field.searchValue" />
+            <button nz-button nzSize="small" nzType="primary" (click)="search(field)" class="search-button">Search</button>
+            <button nz-button nzSize="small" (click)="reset(field)">Reset</button>
+          </div>
+        </div>
+      </nz-dropdown-menu>
+    </th>
     <th nzRight id="#action" class="action-th">Action</th>
   </tr>
   </thead>

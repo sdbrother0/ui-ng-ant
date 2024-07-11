@@ -6,4 +6,6 @@ export interface Field {
   type: FieldType;
   editable: boolean;
   hidden: boolean;
+  isVisibleSearch: boolean;
+  searchValue: string;
 }
