@@ -43,7 +43,7 @@
       <ng-template #edit_row>
         <div [ngSwitch]="field.type.name">
           <ng-template ngSwitchCase="lookup">
-            <lookup-data #inline_lookup [row]="row" [field]="field"></lookup-data>
+            <lookup-data [row]="row" [field]="field"></lookup-data>
           </ng-template>
           <ng-template ngSwitchCase="date">
             <nz-date-picker [(ngModel)]="row[field.name]" nzFormat="{{field.type.format}}"></nz-date-picker>
@@ -79,7 +79,7 @@
         <button *ngIf="!isEdit(row)" (click)="form(row)" nz-button nzType="text">
           <span nz-icon nzType="form" nz-tooltip nzTooltipTitle="edit" class="action-icons"></span>
         </button>
-        <form-edit #form_edit [metaData]=metaData [data]=row [table]="this"></form-edit>
+        <form-edit [metaData]=metaData [data]=row [table]="this"></form-edit>
         <button *ngIf="!isEdit(row)" (click)="delete(row)" nz-button nzType="text">
           <span nz-icon nzType="delete" nz-tooltip nzTooltipTitle="delete" class="action-icons"></span>
         </button>
