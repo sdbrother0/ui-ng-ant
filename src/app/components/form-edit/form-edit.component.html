@@ -10,20 +10,17 @@
       <nz-form-item *ngFor="let field of metaData.fields">
         <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">{{field.name}}</nz-form-label>
         <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid!">
-          <div *ngIf="undefined === field.lookup; then field_editor else lookup_editor"></div>
-          <ng-template #field_editor>
-            <div [ngSwitch]="field.type">
-              <ng-template ngSwitchCase="date">
-                <nz-date-picker formControlName="{{field.name}}" nz-input id="{{field.name}}" nzFormat="yyyy-MM-dd HH:mm:ss"></nz-date-picker>
-              </ng-template>
-              <ng-template ngSwitchDefault>
-                <input formControlName="{{field.name}}" nz-input id="{{field.name}}"/>
-              </ng-template>
-            </div>
-          </ng-template>
-          <ng-template #lookup_editor>
-            <lookup-data #form_lookup formControlName="{{field.name}}" [row]="data" [field]="field.name" [data]="data[field.name]" [lookup]="field.lookup"></lookup-data>
-          </ng-template>
+          <div [ngSwitch]="field.type.name">
+            <ng-template ngSwitchCase="lookup">
+              <lookup-data formControlName="{{field.name}}" [row]="data" [field]="field"></lookup-data>
+            </ng-template>
+            <ng-template ngSwitchCase="date">
+              <nz-date-picker formControlName="{{field.name}}" nz-input id="{{field.name}}" nzFormat="{{field.type.format}}"></nz-date-picker>
+            </ng-template>
+            <ng-template ngSwitchDefault>
+              <input formControlName="{{field.name}}" nz-input id="{{field.name}}"/>
+            </ng-template>
+          </div>
         </nz-form-control>
       </nz-form-item>
     </form>

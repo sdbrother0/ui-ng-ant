@@ -11,10 +11,10 @@ import {NzMessageService} from "ng-zorro-antd/message";
 import {NzModalModule, NzModalService} from 'ng-zorro-antd/modal';
 import {MetaData} from "../../dto/meta.data";
 import {LookupComponent} from "../lookup/lookup.component";
-import {Lookup} from "../../dto/lookup";
 import {FormEditComponent} from "../form-edit/form-edit.component";
 import { v4 as uuidv4 } from 'uuid';
 import {NzDatePickerComponent} from "ng-zorro-antd/date-picker";
+import {Field} from "../../dto/field";
 
 @Component({
   host: { ngSkipHydration: 'true' },
@@ -159,19 +159,19 @@ export class TableComponent implements OnInit {
       });
   }
 
-  getFirstSelected(obj: any, row: any, fieldName: string, lookup: Lookup): void {
+  getFirstSelected(obj: any, row: any, field: Field): void {
     const selectedIds = [...this.setOfCheckedId.values()];
     if (selectedIds.length > 0) {
       const firstSelectedKey = selectedIds[0];
-      const firstSelectedVal = this.recordSet.filter((item) => item[lookup.keyFieldName] === firstSelectedKey).at(0)[lookup.valFieldName];
-      row[fieldName] = {};
-      row[fieldName][lookup.keyFieldName] = firstSelectedKey;
-      row[fieldName][lookup.valFieldName] = firstSelectedVal;
+      const firstSelectedVal = this.recordSet.filter((item) => item[field.type.keyFieldName] === firstSelectedKey).at(0)[field.type.valFieldName];
+      row[field.name] = {};
+      row[field.name][field.type.keyFieldName] = firstSelectedKey;
+      row[field.name][field.type.valFieldName] = firstSelectedVal;
       obj.data = {};
-      obj.data[lookup.keyFieldName] = firstSelectedKey;
-      obj.data[lookup.valFieldName] = firstSelectedVal;
+      obj.data[field.type.keyFieldName] = firstSelectedKey;
+      obj.data[field.type.valFieldName] = firstSelectedVal;
     } else {
-      row[fieldName] = null;
+      row[field.name] = null;
       obj.data = null;
     }
     obj.onChange(obj.data);

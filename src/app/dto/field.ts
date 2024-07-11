@@ -1,10 +1,9 @@
-import {Lookup} from "./lookup";
+import {FieldType} from "./field.type";
 
 export interface Field {
   name: string;
   label: string;
-  type: string;
+  type: FieldType;
   editable: boolean;
   hidden: boolean;
-  lookup: Lookup;
 }

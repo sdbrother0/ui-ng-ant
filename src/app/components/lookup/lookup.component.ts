@@ -15,7 +15,7 @@ import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzTooltipDirective} from "ng-zorro-antd/tooltip";
 import {NzModalModule} from 'ng-zorro-antd/modal';
 import {TableComponent} from "../table/table.component";
-import {Lookup} from "../../dto/lookup";
+import {Field} from "../../dto/field";
 
 @Component({
   host: {ngSkipHydration: 'true'},
@@ -52,10 +52,8 @@ import {Lookup} from "../../dto/lookup";
 })
 export class LookupComponent implements OnInit, ControlValueAccessor, Validator {
 
-  @Input() data!: any;
-  @Input() lookup!: Lookup;
   @Input() row!: any;
-  @Input() field!: any;
+  @Input() field!: Field;
   @ViewChild('lookup_table') lookupTable!: TableComponent;
   isDialogVisible = false;
 
@@ -73,7 +71,7 @@ export class LookupComponent implements OnInit, ControlValueAccessor, Validator 
   //for validate methods start:
   validate(control: AbstractControl): ValidationErrors | null {
     if (control.hasValidator(Validators.required)) {
-      if (this.data == null) {
+      if (this.row[this.field.name] == null) {
         console.log('NULL');
         return {
           error: {}
@@ -84,7 +82,7 @@ export class LookupComponent implements OnInit, ControlValueAccessor, Validator 
   }
 
   writeValue(obj: any): void {
-    this.data = obj;
+    this.row[this.field.name] = obj;
   }
 
   registerOnChange(fn: any): void {

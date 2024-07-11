@@ -41,27 +41,22 @@
       <td *ngFor="let field of metaData.fields">
         <div *ngIf="isEdit(row); then edit_row else simple_row"></div>
         <ng-template #edit_row>
-          <div *ngIf="field.lookup === undefined; then field_editor else lookup_editor"></div>
-
-          <ng-template #field_editor>
-            <div [ngSwitch]="field.type">
-              <ng-template ngSwitchCase="date">
-                <nz-date-picker [(ngModel)]="row[field.name]" nzFormat="yyyy-MM-dd HH:mm:ss"></nz-date-picker>
-              </ng-template>
-              <ng-template ngSwitchDefault>
-                <input nz-input [(ngModel)]="row[field.name]"/>
-              </ng-template>
-            </div>
-          </ng-template>
-
-          <ng-template #lookup_editor>
-            <lookup-data #inline_lookup [row]="row" [field]="field.name" [data]="row[field.name]" [lookup]="field.lookup"></lookup-data>
-          </ng-template>
+          <div [ngSwitch]="field.type.name">
+            <ng-template ngSwitchCase="lookup">
+              <lookup-data #inline_lookup [row]="row" [field]="field"></lookup-data>
+            </ng-template>
+            <ng-template ngSwitchCase="date">
+              <nz-date-picker [(ngModel)]="row[field.name]" nzFormat="{{field.type.format}}"></nz-date-picker>
+            </ng-template>
+            <ng-template ngSwitchDefault>
+              <input nz-input [(ngModel)]="row[field.name]"/>
+            </ng-template>
+          </div>
         </ng-template>
         <ng-template #simple_row>
-          <div *ngIf="field.lookup === undefined; then simple_field else lookup_field"></div>
+          <div *ngIf="field.type.name === 'lookup'; then lookup_field else simple_field"></div>
+          <ng-template #lookup_field>{{row[field.name]?.[field.type.valFieldName]}}</ng-template>
           <ng-template #simple_field>{{row[field.name]}}</ng-template>
-          <ng-template #lookup_field>{{row[field.name]?.[field.lookup.valFieldName]}}</ng-template>
         </ng-template>
       </td>
       <!-- Action -->
