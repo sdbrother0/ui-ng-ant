@@ -45,6 +45,7 @@ export class TableComponent implements OnInit {
   indeterminate = false;
   private setOfCheckedId = new Set<number>();
   private setOfIsEdit = new Set<any>();
+  private setOfNew = new Set<any>();
   private mapOfBeforeEditValues = new Map<any, any>;
   metaData: MetaData = {
     url: '',
@@ -130,10 +131,11 @@ export class TableComponent implements OnInit {
         row[i] = beforeEditRow[i];
       }
       this.mapOfBeforeEditValues.delete(row.id);
-      if (row.id === null) {
+      if (this.setOfNew.has(row)) {
         this.deleteFromRecordSetByRow(row);
       }
     } else {
+      this.setOfNew.delete(row);
       this.setOfIsEdit.add(row);
       this.mapOfBeforeEditValues.set(row.id, structuredClone(row));
     }
@@ -146,15 +148,20 @@ export class TableComponent implements OnInit {
   save(row: any) {
     if (this.masterId) {
       row[this.masterObjectName] = {};
-      row[this.masterObjectName][this.masterFieldKey] = this.masterId; //TODO from meta
+      row[this.masterObjectName][this.masterFieldKey] = this.masterId; //TODO from meta?
     }
     this.http.post(this.metaData.url, row)
       .subscribe({
-        next: (value: Object) => {
+        next: (value: any) => {
           this.setOfIsEdit.delete(row);
-          row[this.metaData.keyFieldName] = value;
+          row[this.metaData.keyFieldName] = value.id;
           delete row.beforeEdit;
-          //this.reload(); //TODO return row from server
+          if (this.recordSet.filter((item) => item.id === value.id).length == 0) {
+            const rsData = this.recordSet;
+            rsData.unshift(value);
+            this.recordSet = rsData;
+          }
+          this.setOfNew.delete(value);
         }, error: (error) => {
           console.error(error);
           this.message.create('error', `Error: ${error.message}`);
@@ -223,10 +230,11 @@ export class TableComponent implements OnInit {
 
   add() {
     const rsData = this.recordSet;
-    const row: any = {id: uuidv4(), test: null, field1: null, field2: null, isEdit: true};
+    const row: any = {id: uuidv4()}; //
     rsData.unshift(row);
     this.recordSet = rsData;
     this.setOfIsEdit.add(row)
+    this.setOfNew.add(row);
   }
 
   updateCheckedSet(id: number, checked: boolean): void {
@@ -257,7 +265,8 @@ export class TableComponent implements OnInit {
   }
 
   create() {
-    this.form({id: uuidv4()});
+    const row = {id: uuidv4()};
+    this.form(row);
   }
 
   search(field: Field): void {
