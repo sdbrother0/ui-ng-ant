@@ -12,11 +12,11 @@ import {NzModalModule, NzModalService} from 'ng-zorro-antd/modal';
 import {MetaData} from "../../dto/meta.data";
 import {LookupComponent} from "../lookup/lookup.component";
 import {FormEditComponent} from "../form-edit/form-edit.component";
-import {v4 as uuidv4} from 'uuid';
 import {NzDatePickerComponent} from "ng-zorro-antd/date-picker";
 import {Field} from "../../dto/field";
 import {NzTableSortOrder} from "ng-zorro-antd/table/src/table.types";
 import {NzDropdownMenuComponent} from "ng-zorro-antd/dropdown";
+import {SaveDto} from "../../dto/save";
 
 @Component({
   host: {ngSkipHydration: 'true'},
@@ -32,9 +32,10 @@ export class TableComponent implements OnInit {
   @Input() pageIndex: number = 1;
   @Input() pageSize: number = 10;
   @Input() total: number = 0;
-  @Input() masterId!: string;
-  @Input() masterObjectName!: string;
-  @Input() masterFieldKey!: string;
+  @Input() masterObjectComponent!: FormEditComponent;
+  @Input() masterId!: number;
+  @Input() forSelectKeyValue!: any;
+
   sort: Array<{ key: string; value: NzTableSortOrder; }> = [];
 
   @ViewChild("form_edit") formEdit!: FormEditComponent;
@@ -45,11 +46,11 @@ export class TableComponent implements OnInit {
   indeterminate = false;
   private setOfCheckedId = new Set<number>();
   private setOfIsEdit = new Set<any>();
-  private setOfNew = new Set<any>();
   private mapOfBeforeEditValues = new Map<any, any>;
   metaData: MetaData = {
+    name: '',
+    key: '',
     url: '',
-    keyFieldName: '',
     showSelect: false,
     showAction: false,
     showLoader: false,
@@ -83,6 +84,9 @@ export class TableComponent implements OnInit {
     if (this.masterId) {
       params = params.append('masterId', this.masterId);
     }
+    if (this.forSelectKeyValue) {
+      params = params.append('keyValue', this.forSelectKeyValue);
+    }
     this.sort.filter((item) => item.value).forEach((item) => {
         params = params.append('sort', item.key + ',' + ('ascend' === item.value ? 'asc' : 'desc'));
     });
@@ -102,7 +106,12 @@ export class TableComponent implements OnInit {
       next: (value) => {
         this.recordSet = value.content;
         this.total = value.totalElements;
-      }, error: (error) => console.error(error), complete: () => this.loading = false
+      }, error: (error) => console.error(error), complete: () => {
+        if (this.forSelectKeyValue) {
+          this.onItemChecked(this.forSelectKeyValue, true);
+        }
+        this.loading = false
+      }
     })
   }
 
@@ -131,11 +140,13 @@ export class TableComponent implements OnInit {
         row[i] = beforeEditRow[i];
       }
       this.mapOfBeforeEditValues.delete(row.id);
-      if (this.setOfNew.has(row)) {
-        this.deleteFromRecordSetByRow(row);
+      if (!row.id) {
+        const index = this.recordSet.indexOf(row);
+        if (index !== -1) {
+          this.recordSet.splice(index, 1);
+        }
       }
     } else {
-      this.setOfNew.delete(row);
       this.setOfIsEdit.add(row);
       this.mapOfBeforeEditValues.set(row.id, structuredClone(row));
     }
@@ -147,26 +158,42 @@ export class TableComponent implements OnInit {
 
   save(row: any) {
     if (this.masterId) {
-      row[this.masterObjectName] = {};
-      row[this.masterObjectName][this.masterFieldKey] = this.masterId; //TODO from meta?
+      row[this.masterObjectComponent.metaData.name] = {};
+      row[this.masterObjectComponent.metaData.name][this.masterObjectComponent.metaData.key] = this.masterId;
     }
-    this.http.post(this.metaData.url, row)
+    if (this.masterObjectComponent && !this.masterObjectComponent.formGroup.valid) {
+      for (const i in this.masterObjectComponent.formGroup.controls) {
+        this.masterObjectComponent.formGroup.controls[i].markAsTouched();
+        this.masterObjectComponent.formGroup.controls[i].updateValueAndValidity();
+      }
+      return;
+    }
+    const saveDto = new SaveDto(row);
+    if (this.masterObjectComponent) {
+      saveDto.masterObject = this.masterObjectComponent.getObject();
+    }
+    this.http.post<SaveDto>(this.metaData.url, saveDto)
       .subscribe({
-        next: (value: any) => {
+        next: (value: SaveDto) => {
+          const rsData = this.recordSet;
           this.setOfIsEdit.delete(row);
-          row[this.metaData.keyFieldName] = value.id;
+          row[this.metaData.key] = value.object[this.metaData.key];
           delete row.beforeEdit;
-          if (this.recordSet.filter((item) => item.id === value.id).length == 0) {
-            const rsData = this.recordSet;
-            rsData.unshift(value);
+          if (value.masterObject) {
+            this.masterId = value.masterObject[this.masterObjectComponent.metaData.key];
+            this.masterObjectComponent.setKeyValue(this.masterId);
+            this.masterObjectComponent.addTableRow(value.masterObject);
+            console.log('masterObjectComponent', this.masterObjectComponent);
+          }
+          if (this.recordSet.filter((item) => (item[this.metaData.key] === value.object[this.metaData.key])).length == 0) {
+            rsData.unshift(value.object);
             this.recordSet = rsData;
           }
-          this.setOfNew.delete(value);
         }, error: (error) => {
           console.error(error);
           this.message.create('error', `Error: ${error.message}`);
         }, complete: () => {
-          this.message.create('success', `Saved: ${row.id}`);
+          this.message.create('success', `Saved: ${row[this.metaData.key]}`);
         }
       });
   }
@@ -229,12 +256,13 @@ export class TableComponent implements OnInit {
   }
 
   add() {
+    console.log(this.recordSet);
     const rsData = this.recordSet;
-    const row: any = {id: uuidv4()}; //
+    const row: any = {}; //
     rsData.unshift(row);
     this.recordSet = rsData;
-    this.setOfIsEdit.add(row)
-    this.setOfNew.add(row);
+    this.setOfIsEdit.add(row);
+    console.log(this.recordSet);
   }
 
   updateCheckedSet(id: number, checked: boolean): void {
@@ -265,7 +293,7 @@ export class TableComponent implements OnInit {
   }
 
   create() {
-    const row = {id: uuidv4()};
+    const row = {};
     this.form(row);
   }
 

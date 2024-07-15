@@ -15,7 +15,7 @@
     (nzOnCancel)="handleCancel()"
     (nzOnOk)="handleOk(lookupTable.getFirstSelected(this, row, field))">
     <ng-container *nzModalContent>
-      <table-data #lookup_table metaUrl="{{field.type.metaUrl}}"></table-data>
+      <table-data #lookup_table metaUrl="{{field.type.metaUrl}}" [forSelectKeyValue]="row[this.field.name]?.[field.type.keyFieldName]"></table-data>
     </ng-container>
   </nz-modal>
 </ng-template>

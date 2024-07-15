@@ -6,7 +6,7 @@ import {NzInputDirective, NzInputGroupComponent} from "ng-zorro-antd/input";
 import {MetaData} from "../../dto/meta.data";
 import {NzFormControlComponent, NzFormDirective, NzFormItemComponent, NzFormLabelComponent,} from "ng-zorro-antd/form";
 import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
-import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {NzOptionComponent, NzSelectComponent} from "ng-zorro-antd/select";
 import {NzCheckboxComponent} from "ng-zorro-antd/checkbox";
 import {NzButtonComponent} from "ng-zorro-antd/button";
@@ -57,6 +57,27 @@ export class FormEditComponent implements OnInit {
     this.isVisible = false;
   }
 
+  setKeyValue(keyValue: number) {
+    console.log(this.data);
+    this.formGroup.patchValue({
+      id : keyValue
+    })
+  }
+
+  getObject() {
+    let object :any = {};
+    this.metaData.fields.forEach((field) => {
+      object[field.name] = this.formGroup.controls[field.name].value;
+    });
+    return object;
+  }
+
+  addTableRow(row : any) {
+    const rsData = this.table.recordSet;
+    rsData.unshift(row);
+    this.table.recordSet = rsData;
+  }
+
   handleOk() {
     if (this.formGroup.valid) {
       this.metaData.fields.forEach((field) => {
@@ -64,7 +85,6 @@ export class FormEditComponent implements OnInit {
       });
       this.table.save(this.data);
       this.isVisible = false;
-
     } else {
       Object.values(this.formGroup.controls).forEach(control => {
         if (control.invalid) {
@@ -75,4 +95,5 @@ export class FormEditComponent implements OnInit {
     }
   }
 
+  protected readonly console = console;
 }

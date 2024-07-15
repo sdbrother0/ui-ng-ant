@@ -27,10 +27,7 @@
     </form>
     <nz-tabset nzType="card">
       <nz-tab *ngFor="let detail of metaData.details" [nzTitle]="detail.label">
-        <table-data [metaUrl]=detail.metaUrl
-                    [masterId]="data[detail.masterFieldKey]"
-                    [masterObjectName]=detail.masterObjectName
-                    [masterFieldKey]=detail.masterFieldKey
+        <table-data [metaUrl]=detail.metaUrl [masterObjectComponent]="this" [masterId]="data[metaData.key]"
         ></table-data>
       </nz-tab>
     </nz-tabset>
