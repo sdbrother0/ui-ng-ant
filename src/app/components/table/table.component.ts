@@ -167,13 +167,13 @@ export class TableComponent implements OnInit {
         }
         row[this.masterObjectComponent.metaData.name][fieldName] = this.masterObjectComponent.formGroup.controls[fieldName].value;
       }
-    }
-    if (this.masterObjectComponent && !this.masterObjectComponent.formGroup.valid) {
-      for (const fieldName in this.masterObjectComponent.formGroup.controls) {
-        this.masterObjectComponent.formGroup.controls[fieldName].markAsTouched();
-        this.masterObjectComponent.formGroup.controls[fieldName].updateValueAndValidity();
+      if (!this.masterObjectComponent.formGroup.valid) {
+        for (const fieldName in this.masterObjectComponent.formGroup.controls) {
+          this.masterObjectComponent.formGroup.controls[fieldName].markAsTouched();
+          this.masterObjectComponent.formGroup.controls[fieldName].updateValueAndValidity();
+        }
+        return;
       }
-      return;
     }
 
     this.http.post(this.metaData.url, row)
