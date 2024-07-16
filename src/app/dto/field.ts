@@ -1,4 +1,5 @@
 import {FieldType} from "./field.type";
+import {Validation} from "./validation";
 
 export interface Field {
   name: string;
@@ -8,4 +9,5 @@ export interface Field {
   hidden: boolean;
   isVisibleSearch: boolean;
   searchValue: string;
+  validation: Validation;
 }

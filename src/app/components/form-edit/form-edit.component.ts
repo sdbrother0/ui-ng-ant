@@ -45,8 +45,11 @@ export class FormEditComponent implements OnInit {
   showDialog(row: any) {
     const controls: any = [];
     this.metaData.fields.forEach((field) => {
-      //controls[field.name] = [row[field.name], [Validators.required]];
-      controls[field.name] = [row[field.name], []]; //TODO Validators from metaData.fields
+      const fieldValidations = [];
+      if (field?.validation?.required === true) {
+        fieldValidations.push(Validators.required);
+      }
+      controls[field.name] = [row[field.name], fieldValidations];
     })
     this.formGroup = this.formBuilder.group(controls);
     this.data = row;
