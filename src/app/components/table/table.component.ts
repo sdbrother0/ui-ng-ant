@@ -16,6 +16,7 @@ import {NzDatePickerComponent} from "ng-zorro-antd/date-picker";
 import {Field} from "../../dto/field";
 import {NzTableSortOrder} from "ng-zorro-antd/table/src/table.types";
 import {NzDropdownMenuComponent} from "ng-zorro-antd/dropdown";
+import {randomUUID} from "node:crypto";
 
 @Component({
   host: {ngSkipHydration: 'true'},
@@ -44,7 +45,7 @@ export class TableComponent implements OnInit {
   checked = false;
   indeterminate = false;
   private setOfCheckedId = new Set<number>();
-  private setOfIsEdit = new Set<any>();
+  setOfIsEdit = new Set<any>();
   private mapOfBeforeEditValues = new Map<any, any>;
   metaData: MetaData = {
     name: '',
@@ -149,6 +150,10 @@ export class TableComponent implements OnInit {
       this.setOfIsEdit.add(row);
       this.mapOfBeforeEditValues.set(row.id, structuredClone(row));
     }
+
+    if (this.recordSet.length == 0) {
+      this.recordSet = [];
+    }
   }
 
   form(row: any) {
@@ -156,7 +161,6 @@ export class TableComponent implements OnInit {
   }
 
   save(row: any) {
-
     if (this.masterObjectComponent) {
       for (const fieldName in this.masterObjectComponent.formGroup.controls) {
         if (!row[this.masterObjectComponent.metaData.name]) {
@@ -183,17 +187,20 @@ export class TableComponent implements OnInit {
 
           if (this.masterObjectComponent) {
             this.masterId = value[this.masterObjectComponent.metaData.name][this.masterObjectComponent.metaData.key];
-
             for (const fieldName in this.masterObjectComponent.formGroup.controls) {
               this.masterObjectComponent.formGroup.controls[fieldName].setValue(value[this.masterObjectComponent.metaData.name][fieldName])
             }
-
             this.masterObjectComponent.setKeyValue(this.masterId);
             this.masterObjectComponent.addTableRow(value[this.masterObjectComponent.metaData.name]);
           }
+
           if (this.recordSet.filter((item) => (item[this.metaData.key] === value[this.metaData.key])).length == 0) {
-            rsData.unshift(value);
-            this.recordSet = rsData;
+            if (this.recordSet.length == 0) {
+              this.recordSet = [row];
+            } else {
+              rsData.unshift(value);
+              this.recordSet = rsData;
+            }
           }
         }, error: (error) => {
           console.error(error);
@@ -262,13 +269,17 @@ export class TableComponent implements OnInit {
   }
 
   add() {
-    console.log(this.recordSet);
-    const rsData = this.recordSet;
-    const row: any = {}; //
-    rsData.unshift(row);
-    this.recordSet = rsData;
-    this.setOfIsEdit.add(row);
-    console.log(this.recordSet);
+    if (this.recordSet.length == 0) {
+      const row = {};
+      this.recordSet = [row];
+      this.setOfIsEdit.add(row);
+    } else {
+      const rsData = this.recordSet;
+      const row: any = {};
+      rsData.unshift(row);
+      this.setOfIsEdit.add(row);
+      this.recordSet = rsData;
+    }
   }
 
   updateCheckedSet(id: number, checked: boolean): void {
