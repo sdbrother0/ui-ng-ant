@@ -8,7 +8,7 @@
   <ng-container *nzModalContent>
     <form #form nz-form [formGroup]="formGroup">
       <nz-form-item *ngFor="let field of metaData.fields">
-          <nz-form-label *ngIf="!field.hidden" [nzSm]="6" [nzXs]="24" nzRequired nzFor="{{field.name}}">{{ field.name }}</nz-form-label>
+          <nz-form-label *ngIf="!field.hidden" [nzSm]="6" [nzXs]="24" nzRequired nzFor="{{field.name}}">{{ field.label }}</nz-form-label>
           <nz-form-control *ngIf="!field.hidden" [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid!">
             <div *ngIf="!field.hidden" [ngSwitch]="field.type.name">
               <ng-template ngSwitchCase="lookup">
@@ -19,7 +19,7 @@
                                 nzFormat="{{field.type.format}}"></nz-date-picker>
               </ng-template>
               <ng-template ngSwitchDefault>
-                <input formControlName="{{field.name}}" nz-input id="{{field.name}}" [readonly]="!field?.editable"/>
+                <input formControlName="{{field.name}}" nz-input id="{{field.name}}" [readonly]="!field?.editable" [nzBorderless]="!field?.editable"/>
               </ng-template>
             </div>
           </nz-form-control>
