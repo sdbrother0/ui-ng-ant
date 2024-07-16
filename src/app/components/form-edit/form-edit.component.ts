@@ -74,10 +74,14 @@ export class FormEditComponent implements OnInit {
 
   addTableRow(row : any) {
     const rsData = this.table.recordSet;
-    if (rsData.filter((item) => item.id === row.id).length == 0) {
-      rsData.unshift(row);
+    if (this.table.recordSet.length == 0) {
+      this.table.recordSet = [row];
+    } else {
+      if (rsData.filter((item) => item.id === row.id).length == 0) {
+        rsData.unshift(row);
+      }
+      this.table.recordSet = rsData;
     }
-    this.table.recordSet = rsData;
   }
 
   handleOk() {

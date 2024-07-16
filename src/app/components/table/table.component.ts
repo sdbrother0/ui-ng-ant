@@ -16,7 +16,6 @@ import {NzDatePickerComponent} from "ng-zorro-antd/date-picker";
 import {Field} from "../../dto/field";
 import {NzTableSortOrder} from "ng-zorro-antd/table/src/table.types";
 import {NzDropdownMenuComponent} from "ng-zorro-antd/dropdown";
-import {randomUUID} from "node:crypto";
 
 @Component({
   host: {ngSkipHydration: 'true'},
@@ -187,11 +186,9 @@ export class TableComponent implements OnInit {
 
           if (this.masterObjectComponent) {
             this.masterId = value[this.masterObjectComponent.metaData.name][this.masterObjectComponent.metaData.key];
-            for (const fieldName in this.masterObjectComponent.formGroup.controls) {
-              this.masterObjectComponent.formGroup.controls[fieldName].setValue(value[this.masterObjectComponent.metaData.name][fieldName])
-            }
             this.masterObjectComponent.setKeyValue(this.masterId);
             this.masterObjectComponent.addTableRow(value[this.masterObjectComponent.metaData.name]);
+            this.refreshMaterForm(value);
           }
 
           if (this.recordSet.filter((item) => (item[this.metaData.key] === value[this.metaData.key])).length == 0) {
@@ -241,6 +238,9 @@ export class TableComponent implements OnInit {
         if (row.id !== null) {
           this.http.delete(`${this.metaData.url}?id=${row.id}`)
             .subscribe({
+              next: (value: any) => {
+                this.refreshMaterForm(value);
+              },
               error: (error) => {
                 this.message.create('error', `Error: ${error.message}`);
               }, complete: () => {
@@ -322,6 +322,15 @@ export class TableComponent implements OnInit {
   reset(field: Field): void {
     field.searchValue = '';
     this.search(field);
+  }
+
+  refreshMaterForm(value : any) {
+    if (this.masterObjectComponent) {
+      for (const fieldName in this.masterObjectComponent.formGroup.controls) {
+        this.masterObjectComponent.formGroup.controls[fieldName].setValue(value[this.masterObjectComponent.metaData.name][fieldName])
+        this.masterObjectComponent.data[fieldName] = value[this.masterObjectComponent.metaData.name][fieldName];
+      }
+    }
   }
 
 }
