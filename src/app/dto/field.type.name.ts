@@ -1,6 +1,7 @@
 export enum FieldTypeName {
-  TEXT = 'text',
+  STRING = 'string',
   NUMBER = 'number',
+  TEXT = 'text',
   DATE = 'date',
   LOOKUP = 'lookup'
 }

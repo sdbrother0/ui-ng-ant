@@ -20,6 +20,9 @@
               <ng-template ngSwitchCase="{{FieldTypeName.NUMBER}}">
                 <input formControlName="{{field.name}}" nz-input id="{{field.name}}" [readonly]="!field?.editable" [nzBorderless]="!field?.editable" type="number"/>
               </ng-template>
+              <ng-template ngSwitchCase="{{FieldTypeName.TEXT}}">
+                <textarea formControlName="{{field.name}}" nz-input id="{{field.name}}" [readonly]="!field?.editable" [nzBorderless]="!field?.editable" type="text"></textarea>
+              </ng-template>
               <ng-template ngSwitchDefault>
                 <input formControlName="{{field.name}}" nz-input id="{{field.name}}" [readonly]="!field?.editable" [nzBorderless]="!field?.editable"/>
               </ng-template>
