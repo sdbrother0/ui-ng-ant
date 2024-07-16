@@ -16,7 +16,6 @@ import {NzDatePickerComponent} from "ng-zorro-antd/date-picker";
 import {Field} from "../../dto/field";
 import {NzTableSortOrder} from "ng-zorro-antd/table/src/table.types";
 import {NzDropdownMenuComponent} from "ng-zorro-antd/dropdown";
-import {SaveDto} from "../../dto/save";
 
 @Component({
   host: {ngSkipHydration: 'true'},
@@ -157,36 +156,43 @@ export class TableComponent implements OnInit {
   }
 
   save(row: any) {
-    if (this.masterId) {
-      row[this.masterObjectComponent.metaData.name] = {};
-      row[this.masterObjectComponent.metaData.name][this.masterObjectComponent.metaData.key] = this.masterId;
+
+    if (this.masterObjectComponent) {
+      for (const fieldName in this.masterObjectComponent.formGroup.controls) {
+        if (!row[this.masterObjectComponent.metaData.name]) {
+          row[this.masterObjectComponent.metaData.name] = {}
+        }
+        row[this.masterObjectComponent.metaData.name][fieldName] = this.masterObjectComponent.formGroup.controls[fieldName].value;
+      }
     }
     if (this.masterObjectComponent && !this.masterObjectComponent.formGroup.valid) {
-      for (const i in this.masterObjectComponent.formGroup.controls) {
-        this.masterObjectComponent.formGroup.controls[i].markAsTouched();
-        this.masterObjectComponent.formGroup.controls[i].updateValueAndValidity();
+      for (const fieldName in this.masterObjectComponent.formGroup.controls) {
+        this.masterObjectComponent.formGroup.controls[fieldName].markAsTouched();
+        this.masterObjectComponent.formGroup.controls[fieldName].updateValueAndValidity();
       }
       return;
     }
-    const saveDto = new SaveDto(row);
-    if (this.masterObjectComponent) {
-      saveDto.masterObject = this.masterObjectComponent.getObject();
-    }
-    this.http.post<SaveDto>(this.metaData.url, saveDto)
+
+    this.http.post(this.metaData.url, row)
       .subscribe({
-        next: (value: SaveDto) => {
+        next: (value: any) => {
           const rsData = this.recordSet;
           this.setOfIsEdit.delete(row);
-          row[this.metaData.key] = value.object[this.metaData.key];
+          row[this.metaData.key] = value[this.metaData.key];
           delete row.beforeEdit;
-          if (value.masterObject) {
-            this.masterId = value.masterObject[this.masterObjectComponent.metaData.key];
+
+          if (this.masterObjectComponent) {
+            this.masterId = value[this.masterObjectComponent.metaData.name][this.masterObjectComponent.metaData.key];
+
+            for (const fieldName in this.masterObjectComponent.formGroup.controls) {
+              this.masterObjectComponent.formGroup.controls[fieldName].setValue(value[this.masterObjectComponent.metaData.name][fieldName])
+            }
+
             this.masterObjectComponent.setKeyValue(this.masterId);
-            this.masterObjectComponent.addTableRow(value.masterObject);
-            console.log('masterObjectComponent', this.masterObjectComponent);
+            this.masterObjectComponent.addTableRow(value[this.masterObjectComponent.metaData.name]);
           }
-          if (this.recordSet.filter((item) => (item[this.metaData.key] === value.object[this.metaData.key])).length == 0) {
-            rsData.unshift(value.object);
+          if (this.recordSet.filter((item) => (item[this.metaData.key] === value[this.metaData.key])).length == 0) {
+            rsData.unshift(value);
             this.recordSet = rsData;
           }
         }, error: (error) => {

@@ -19,7 +19,7 @@
                                 nzFormat="{{field.type.format}}"></nz-date-picker>
               </ng-template>
               <ng-template ngSwitchDefault>
-                <input formControlName="{{field.name}}" nz-input id="{{field.name}}"/>
+                <input formControlName="{{field.name}}" nz-input id="{{field.name}}" [readonly]="!field?.editable"/>
               </ng-template>
             </div>
           </nz-form-control>
@@ -27,8 +27,7 @@
     </form>
     <nz-tabset nzType="card">
       <nz-tab *ngFor="let detail of metaData.details" [nzTitle]="detail.label">
-        <table-data [metaUrl]=detail.metaUrl [masterObjectComponent]="this" [masterId]="data[metaData.key]"
-        ></table-data>
+        <table-data [metaUrl]=detail.metaUrl [masterObjectComponent]="this" [masterId]="data[metaData.key]"/>
       </nz-tab>
     </nz-tabset>
   </ng-container>
