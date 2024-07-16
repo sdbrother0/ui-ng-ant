@@ -30,7 +30,10 @@
         (nzCheckedChange)="onAllChecked($event)"
         class="action-th"
     ></th>
-    <th [ngStyle]="{ display : (field.hidden) ? 'none' : 'table-cell'}" nzCustomFilter id="{{field.name}}" *ngFor="let field of metaData.fields" nzColumnKey="{{field.name}}" [nzSortFn]="true" [nzSortPriority]="true">
+    <th [ngStyle]="{ display : (field.hidden) ? 'none' : 'table-cell'}"
+        nzCustomFilter id="{{field.name}}" *ngFor="let field of metaData.fields" nzColumnKey="{{field.name}}"
+        [nzSortFn]="true"
+        [nzSortPriority]="true">
       {{ field.label }}
       <nz-filter-trigger [(nzVisible)]="field.isVisibleSearch" [nzActive]="field.searchValue.length > 0" [nzDropdownMenu]="menu">
         <span nz-icon nzType="search"></span>
@@ -51,7 +54,9 @@
   <tbody>
   <tr *ngFor="let row of recordSet">
     <td [nzChecked]="isChecked(row)" (nzCheckedChange)="onItemChecked(row.id, $event)"></td>
-    <td *ngFor="let field of metaData.fields" [ngStyle]="{ display : (field.hidden) ? 'none' : 'table-cell'}">
+    <td *ngFor="let field of metaData.fields"
+        [ngStyle]="{ display : (field.hidden) ? 'none' : 'table-cell'}"
+        [nzAlign]="field.type.name === FieldTypeName.NUMBER ? 'right': 'left'">
       <div *ngIf="isEdit(row); then edit_row else simple_row"></div>
       <ng-template #edit_row>
         <div [ngSwitch]="field.type.name">
@@ -71,11 +76,14 @@
       </ng-template>
       <ng-template #simple_row>
         <div [ngSwitch]="field.type.name">
-          <ng-template ngSwitchCase="lookup">
+          <ng-template ngSwitchCase="{{FieldTypeName.LOOKUP}}">
             {{ row[field.name]?.[field.type.valFieldName] }}
           </ng-template>
-          <ng-template ngSwitchCase="date">
+          <ng-template ngSwitchCase="{{FieldTypeName.DATE}}">
             {{ row[field.name] | date:field.type.format }}
+          </ng-template>
+          <ng-template ngSwitchCase="{{FieldTypeName.NUMBER}}">
+            {{ row[field.name] }}
           </ng-template>
           <ng-template ngSwitchDefault>
             {{ row[field.name] }}
