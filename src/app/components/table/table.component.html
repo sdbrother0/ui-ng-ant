@@ -67,7 +67,7 @@
             <nz-date-picker [(ngModel)]="row[field.name]" nzFormat="{{field.type.format}}"/>
           </ng-template>
           <ng-template ngSwitchCase="{{FieldTypeName.NUMBER}}">
-            <input nz-input [(ngModel)]="row[field.name]" [readonly]="!field?.editable" [nzBorderless]="!field?.editable" type="number"/>
+            <input nz-input [(ngModel)]="row[field.name]" [readonly]="!field?.editable" [nzBorderless]="!field?.editable" type="number" [ngStyle]="{ 'text-align' : field.type.name === FieldTypeName.NUMBER ? 'right': 'left'}" />
           </ng-template>
           <ng-template ngSwitchDefault>
             <input nz-input [(ngModel)]="row[field.name]" [readonly]="!field?.editable" [nzBorderless]="!field?.editable"/>
