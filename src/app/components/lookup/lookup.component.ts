@@ -2,6 +2,12 @@ import {Component, forwardRef, Input, OnInit, ViewChild} from "@angular/core";
 import {NzTableComponent, NzTableModule} from "ng-zorro-antd/table";
 import {JsonPipe, NgForOf} from "@angular/common";
 import {NzInputDirective, NzInputGroupComponent} from "ng-zorro-antd/input";
+import {NzButtonComponent} from "ng-zorro-antd/button";
+import {NzIconDirective} from "ng-zorro-antd/icon";
+import {NzTooltipDirective} from "ng-zorro-antd/tooltip";
+import {NzModalModule} from 'ng-zorro-antd/modal';
+import {TableComponent} from "../table/table.component";
+import {Field} from "../../dto/field";
 import {
   AbstractControl,
   ControlValueAccessor,
@@ -12,12 +18,6 @@ import {
   Validator,
   Validators
 } from "@angular/forms";
-import {NzButtonComponent} from "ng-zorro-antd/button";
-import {NzIconDirective} from "ng-zorro-antd/icon";
-import {NzTooltipDirective} from "ng-zorro-antd/tooltip";
-import {NzModalModule} from 'ng-zorro-antd/modal';
-import {TableComponent} from "../table/table.component";
-import {Field} from "../../dto/field";
 
 @Component({
   host: {ngSkipHydration: 'true'},
