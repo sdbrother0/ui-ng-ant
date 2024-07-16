@@ -11,11 +11,14 @@
           <nz-form-label *ngIf="!field.hidden" [nzSm]="6" [nzXs]="24" [nzRequired]="field?.validation?.required" nzFor="{{field.name}}">{{ field.label }}</nz-form-label>
           <nz-form-control *ngIf="!field.hidden" [nzSm]="14" [nzXs]="24" [nzErrorTip]="field?.validation?.message">
             <div *ngIf="!field.hidden" [ngSwitch]="field.type.name">
-              <ng-template ngSwitchCase="lookup">
+              <ng-template ngSwitchCase="{{FieldTypeName.LOOKUP}}">
                 <lookup-data formControlName="{{field.name}}" [row]="data" [field]="field"/>
               </ng-template>
-              <ng-template ngSwitchCase="date">
+              <ng-template ngSwitchCase="{{FieldTypeName.DATE}}">
                 <nz-date-picker formControlName="{{field.name}}" nz-input id="{{field.name}}" nzFormat="{{field.type.format}}"/>
+              </ng-template>
+              <ng-template ngSwitchCase="{{FieldTypeName.NUMBER}}">
+                <input formControlName="{{field.name}}" nz-input id="{{field.name}}" [readonly]="!field?.editable" [nzBorderless]="!field?.editable" type="number"/>
               </ng-template>
               <ng-template ngSwitchDefault>
                 <input formControlName="{{field.name}}" nz-input id="{{field.name}}" [readonly]="!field?.editable" [nzBorderless]="!field?.editable"/>

@@ -13,6 +13,7 @@ import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzTabComponent, NzTabSetComponent} from "ng-zorro-antd/tabs";
 import {TableComponent} from "../table/table.component";
 import {NzDatePickerComponent} from "ng-zorro-antd/date-picker";
+import {FieldTypeName} from "../../dto/field.type.name";
 
 @Component({
   selector: 'form-edit',
@@ -105,4 +106,5 @@ export class FormEditComponent implements OnInit {
   }
 
   protected readonly console = console;
+  protected readonly FieldTypeName = FieldTypeName;
 }

@@ -16,6 +16,7 @@ import {NzDatePickerComponent} from "ng-zorro-antd/date-picker";
 import {Field} from "../../dto/field";
 import {NzTableSortOrder} from "ng-zorro-antd/table/src/table.types";
 import {NzDropdownMenuComponent} from "ng-zorro-antd/dropdown";
+import {FieldTypeName} from "../../dto/field.type.name";
 
 @Component({
   host: {ngSkipHydration: 'true'},
@@ -333,6 +334,7 @@ export class TableComponent implements OnInit {
     }
   }
 
+  protected readonly FieldTypeName = FieldTypeName;
 }
 
 
