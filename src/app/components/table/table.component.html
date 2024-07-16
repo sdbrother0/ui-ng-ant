@@ -3,7 +3,7 @@
     <span nz-icon nzType="plus" nzTheme="outline"></span>Create inline
   </button>
   <button nz-button (click)="create()">
-    <form-edit #form_edit [metaData]=metaData [data]={} [table]="this"></form-edit>
+    <form-edit #form_edit [metaData]=metaData [data]={} [table]="this"/>
     <span nz-icon nzType="plus" nzTheme="outline"></span>Create by form
   </button>
 </nz-button-group>
@@ -56,10 +56,10 @@
       <ng-template #edit_row>
         <div [ngSwitch]="field.type.name">
           <ng-template ngSwitchCase="lookup">
-            <lookup-data [row]="row" [field]="field"></lookup-data>
+            <lookup-data [row]="row" [field]="field"/>
           </ng-template>
           <ng-template ngSwitchCase="date">
-            <nz-date-picker [(ngModel)]="row[field.name]" nzFormat="{{field.type.format}}"></nz-date-picker>
+            <nz-date-picker [(ngModel)]="row[field.name]" nzFormat="{{field.type.format}}"/>
           </ng-template>
           <ng-template ngSwitchDefault>
             <input nz-input [(ngModel)]="row[field.name]" [readonly]="!field?.editable" [nzBorderless]="!field?.editable"/>
