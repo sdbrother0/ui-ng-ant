@@ -45,12 +45,14 @@ export class FormEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.metaData.reports.length > 0) {
-      this.selectedPrintUrl = this.metaData.reports[0].url;
-    }
+
   }
 
   showDialog(row: any) {
+    if (this.metaData.reports) {
+      if (this.metaData.reports.length > 0)
+      this.selectedPrintUrl = this.metaData.reports[0].url;
+    }
     const controls: any = [];
     this.metaData.fields.forEach((field) => {
       const fieldValidations = [];

@@ -47,10 +47,10 @@
     </nz-tabset>
   </ng-container>
   <ng-template #modalFooter>
-    <nz-select [(ngModel)]="selectedPrintUrl">
+    <nz-select *ngIf="metaData.reports" [(ngModel)]="selectedPrintUrl">
       <nz-option *ngFor="let rep of metaData.reports" nzValue="{{rep.url}}" nzLabel="{{rep.label}}"></nz-option>
     </nz-select>
-    <button nz-button nzType="default" (click)="report(data[metaData.key], selectedPrintUrl)">
+    <button *ngIf="metaData.reports" nz-button nzType="default" (click)="report(data[metaData.key], selectedPrintUrl)">
       <span nz-icon nzType="printer" nzTheme="outline"></span>Report
     </button>
     <button nz-button nzType="default" (click)="handleCancel()">
