@@ -1,10 +1,10 @@
 <nz-button-group class="table-operations">
   <button nz-button (click)="add()">
-    <span nz-icon nzType="edit" nzTheme="outline"></span>add
+    <span nz-icon nzType="edit" nzTheme="outline"></span>Add row
   </button>
   <button nz-button (click)="create()">
     <form-edit #form_edit [metaData]=metaData [data]={} [table]="this"/>
-    <span nz-icon nzType="form" nzTheme="outline"></span>create
+    <span nz-icon nzType="form" nzTheme="outline"></span>Create
   </button>
 </nz-button-group>
 
