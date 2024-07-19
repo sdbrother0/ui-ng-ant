@@ -9,18 +9,21 @@ import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {NzOptionComponent, NzSelectComponent} from "ng-zorro-antd/select";
 import {NzCheckboxComponent} from "ng-zorro-antd/checkbox";
-import {NzButtonComponent} from "ng-zorro-antd/button";
+import {NzButtonComponent, NzButtonGroupComponent} from "ng-zorro-antd/button";
 import {NzTabComponent, NzTabSetComponent} from "ng-zorro-antd/tabs";
 import {TableComponent} from "../table/table.component";
 import {NzDatePickerComponent} from "ng-zorro-antd/date-picker";
 import {FieldTypeName} from "../../dto/field.type.name";
+import {NzIconDirective} from "ng-zorro-antd/icon";
+import {NzDividerComponent} from "ng-zorro-antd/divider";
+import {ReportComponent} from "../report/report.component";
 
 @Component({
   selector: 'form-edit',
   templateUrl: './form-edit.component.html',
   styleUrls: ['./form-edit.component.css'],
   standalone: true,
-  imports: [NzModalComponent, NzModalContentDirective, JsonPipe, LookupComponent, NgForOf, NgIf, NzInputDirective, NzFormItemComponent, NzFormLabelComponent, NzFormControlComponent, NzColDirective, NzFormDirective, FormsModule, ReactiveFormsModule, NzInputGroupComponent, NzSelectComponent, NzOptionComponent, NzRowDirective, NzCheckboxComponent, NzButtonComponent, NzTabSetComponent, NzTabComponent, forwardRef(() => TableComponent), NgSwitchCase, NgSwitchDefault, NzDatePickerComponent, NgSwitch]
+  imports: [NzModalComponent, NzModalContentDirective, JsonPipe, LookupComponent, NgForOf, NgIf, NzInputDirective, NzFormItemComponent, NzFormLabelComponent, NzFormControlComponent, NzColDirective, NzFormDirective, FormsModule, ReactiveFormsModule, NzInputGroupComponent, NzSelectComponent, NzOptionComponent, NzRowDirective, NzCheckboxComponent, NzButtonComponent, NzTabSetComponent, NzTabComponent, forwardRef(() => TableComponent), NgSwitchCase, NgSwitchDefault, NzDatePickerComponent, NgSwitch, NzButtonGroupComponent, NzIconDirective, NzDividerComponent, ReportComponent]
 })
 export class FormEditComponent implements OnInit {
 
@@ -29,6 +32,7 @@ export class FormEditComponent implements OnInit {
 
   isVisible: boolean = false;
   @ViewChild("form") form!: FormGroup;
+  @ViewChild("rep") reportComponent!: ReportComponent;
 
   @Input() table!: TableComponent;
 
@@ -107,4 +111,9 @@ export class FormEditComponent implements OnInit {
 
   protected readonly console = console;
   protected readonly FieldTypeName = FieldTypeName;
+
+  report(keyValue: any) {
+    console.log(keyValue);
+    this.reportComponent.showDialog(keyValue);
+  }
 }

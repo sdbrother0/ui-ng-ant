@@ -1,10 +1,10 @@
 <nz-button-group class="table-operations">
   <button nz-button (click)="add()">
-    <span nz-icon nzType="edit" nzTheme="outline"></span>Add
+    <span nz-icon nzType="edit" nzTheme="outline"></span>add
   </button>
   <button nz-button (click)="create()">
     <form-edit #form_edit [metaData]=metaData [data]={} [table]="this"/>
-    <span nz-icon nzType="form" nzTheme="outline"></span>Create
+    <span nz-icon nzType="form" nzTheme="outline"></span>create
   </button>
 </nz-button-group>
 
@@ -103,7 +103,7 @@
         <button *ngIf="!isEdit(row)" (click)="form(row)" nz-button nzType="text">
           <span nz-icon nzType="form" nz-tooltip nzTooltipTitle="edit" class="action-icons"></span>
         </button>
-        <form-edit [metaData]=metaData [data]=row [table]="this"></form-edit>
+        <form-edit [metaData]=metaData [data]=row [table]="this"/>
         <button *ngIf="!isEdit(row)" (click)="delete(row)" nz-button nzType="text">
           <span nz-icon nzType="delete" nz-tooltip nzTooltipTitle="delete" class="action-icons"></span>
         </button>
