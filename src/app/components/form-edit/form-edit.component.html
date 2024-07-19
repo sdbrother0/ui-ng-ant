@@ -3,16 +3,19 @@
   nzDraggable
   [nzWidth]="1000"
   nzTitle="Form edit"
+  [nzFooter]="modalFooter"
   [(nzVisible)]="isVisible"
   (nzOnCancel)="handleCancel()"
   (nzOnOk)="handleOk()">
   <ng-container *nzModalContent>
+    <!--
     <nz-button-group class="table-operations">
       <button nz-button (click)="report(data[metaData.key])">
         <span nz-icon nzType="printer" nzTheme="outline"></span>report
       </button>
     </nz-button-group>
     <nz-divider></nz-divider>
+    -->
     <form #form nz-form [formGroup]="formGroup">
       <nz-form-item *ngFor="let field of metaData.fields">
           <nz-form-label *ngIf="!field.hidden" [nzSm]="6" [nzXs]="24" [nzRequired]="field?.validation?.required" nzFor="{{field.name}}">{{ field.label }}</nz-form-label>
@@ -43,4 +46,15 @@
       </nz-tab>
     </nz-tabset>
   </ng-container>
+  <ng-template #modalFooter>
+    <button nz-button nzType="default" (click)="report(data[metaData.key])">
+      <span nz-icon nzType="printer" nzTheme="outline"></span>Report
+    </button>
+    <button nz-button nzType="default" (click)="handleCancel()">
+      <span nz-icon nzType="undo" nzTheme="outline"></span>Cancel
+    </button>
+    <button nz-button nzType="primary" (click)="handleOk()">
+      <span nz-icon nzType="save" nzTheme="outline"></span>Save
+    </button>
+  </ng-template>
 </nz-modal>
