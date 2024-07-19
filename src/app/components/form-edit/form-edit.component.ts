@@ -29,6 +29,7 @@ export class FormEditComponent implements OnInit {
 
   @Input() metaData!: MetaData;
   @Input() data: any;
+  selectedPrintUrl!: string;
 
   isVisible: boolean = false;
   @ViewChild("form") form!: FormGroup;
@@ -44,7 +45,9 @@ export class FormEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    if (this.metaData.reports.length > 0) {
+      this.selectedPrintUrl = this.metaData.reports[0].url;
+    }
   }
 
   showDialog(row: any) {
@@ -112,8 +115,7 @@ export class FormEditComponent implements OnInit {
   protected readonly console = console;
   protected readonly FieldTypeName = FieldTypeName;
 
-  report(keyValue: any) {
-    console.log(keyValue);
-    this.reportComponent.showDialog(keyValue);
+  report(keyValue: any, url: string) {
+    this.reportComponent.showDialog(keyValue, url);
   }
 }

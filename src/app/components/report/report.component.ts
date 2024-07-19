@@ -31,8 +31,8 @@ export class ReportComponent implements OnInit {
 
   }
 
-  showDialog(data: any) {
-    this.url = "http://localhost:8090/report?id="+data
+  showDialog(data: any, url: string) {
+    this.url = url + '/' + data
     this.data = data;
     this.isVisible = true;
   }

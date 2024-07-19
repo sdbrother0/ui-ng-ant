@@ -55,7 +55,8 @@ export class TableComponent implements OnInit {
     showAction: false,
     showLoader: false,
     fields: [],
-    details: []
+    details: [],
+    reports: []
   };
 
   constructor(private http: HttpClient, private message: NzMessageService, private modal: NzModalService) {}
