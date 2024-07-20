@@ -3,6 +3,8 @@ import { FlatTreeControl } from '@angular/cdk/tree';
 import { AfterViewInit, Component } from '@angular/core';
 
 import {
+  NzTreeFlatDataSource,
+  NzTreeFlattener,
   NzTreeNodeComponent, NzTreeNodeDefDirective,
   NzTreeNodeNoopToggleDirective, NzTreeNodeOptionComponent, NzTreeNodePaddingDirective,
   NzTreeNodeToggleDirective, NzTreeNodeToggleRotateIconDirective, NzTreeViewComponent
