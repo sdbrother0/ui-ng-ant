@@ -67,35 +67,7 @@ interface ExampleFlatNode {
     NzTreeNodeToggleRotateIconDirective
   ],
   standalone: true,
-  template: `
-    <nz-tree-view [nzTreeControl]="treeControl" [nzDataSource]="dataSource" [nzDirectoryTree]="true">
-      <nz-tree-node *nzTreeNodeDef="let node" nzTreeNodePadding>
-        <nz-tree-node-toggle nzTreeNodeNoopToggle></nz-tree-node-toggle>
-        <nz-tree-node-option
-          [nzDisabled]="node.disabled"
-          [nzSelected]="selectListSelection.isSelected(node)"
-          (nzClick)="selectListSelection.toggle(node)"
-        >
-          <span nz-icon nzType="file" nzTheme="outline"></span>
-          {{ node.name }}
-        </nz-tree-node-option>
-      </nz-tree-node>
-
-      <nz-tree-node *nzTreeNodeDef="let node; when: hasChild" nzTreeNodePadding>
-        <nz-tree-node-toggle>
-          <span nz-icon nzType="caret-down" nzTreeNodeToggleRotateIcon></span>
-        </nz-tree-node-toggle>
-        <nz-tree-node-option
-          [nzDisabled]="node.disabled"
-          [nzSelected]="selectListSelection.isSelected(node)"
-          (nzClick)="selectListSelection.toggle(node)"
-        >
-          <span nz-icon [nzType]="treeControl.isExpanded(node) ? 'folder-open' : 'folder'" nzTheme="outline"></span>
-          {{ node.name }}
-        </nz-tree-node-option>
-      </nz-tree-node>
-    </nz-tree-view>
-  `
+  templateUrl: "tree.component.html"
 })
 export class NzDemoTreeViewDirectoryComponent implements AfterViewInit {
   private transformer = (node: FoodNode, level: number): ExampleFlatNode => ({
@@ -107,7 +79,7 @@ export class NzDemoTreeViewDirectoryComponent implements AfterViewInit {
   selectListSelection = new SelectionModel<ExampleFlatNode>();
 
   treeControl = new FlatTreeControl<ExampleFlatNode>(
-    node => node.level,
+      (node: { level: number; }) => node.level,
     node => node.expandable
   );
 
