@@ -16,6 +16,7 @@
   [nzPageIndex]="pageIndex"
   [nzLoading]="loading"
   [nzShowPagination]="true"
+  [nzShowSizeChanger]="true"
   [nzFrontPagination]="false"
   [nzBordered]="true"
   [nzOuterBordered]="true"
@@ -28,8 +29,8 @@
         [nzIndeterminate]="indeterminate"
         nzLabel="Select all"
         (nzCheckedChange)="onAllChecked($event)"
-        class="action-th"
-    ></th>
+        class="action-th">
+    </th>
     <th [ngStyle]="{ display : (field.hidden) ? 'none' : 'table-cell'}"
         nzCustomFilter id="{{field.name}}" *ngFor="let field of metaData.fields" nzColumnKey="{{field.name}}"
         [nzSortFn]="true"

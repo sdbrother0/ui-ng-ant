@@ -21,7 +21,7 @@ interface FoodNode {
 const TREE_DATA: FoodNode[] = [
   {
     name: 'Fruit',
-    children: [{ name: 'Apple' }, { name: 'Banana', disabled: true }, { name: 'Fruit loops' }]
+    children: [{ name: 'Apple' }, { name: 'Banana', disabled: false }, { name: 'Fruit loops' }]
   },
   {
     name: 'Vegetables',
