@@ -24,7 +24,7 @@
   (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
   <thead>
   <tr>
-    <th id="#checkAll"
+    <th *ngIf="metaData.showSelect" id="#checkAll"
         [nzChecked]="checked"
         [nzIndeterminate]="indeterminate"
         nzLabel="Select all"
@@ -54,7 +54,7 @@
   </thead>
   <tbody>
   <tr *ngFor="let row of recordSet">
-    <td [nzChecked]="isChecked(row)" (nzCheckedChange)="onItemChecked(row.id, $event)"></td>
+    <td *ngIf="metaData.showSelect" [nzChecked]="isChecked(row)" (nzCheckedChange)="onItemChecked(row.id, $event)"></td>
     <td *ngFor="let field of metaData.fields"
         [ngStyle]="{ display : (field.hidden) ? 'none' : 'table-cell'}"
         [nzAlign]="field.type.name === FieldTypeName.NUMBER ? 'right': 'left'">
