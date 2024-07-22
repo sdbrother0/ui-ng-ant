@@ -30,11 +30,12 @@ export class TableComponent implements OnInit {
 
   @Input() metaUrl: string = 'title';
   @Input() pageIndex: number = 1;
-  @Input() pageSize: number = 10;
+  @Input() pageSize: number = 20;
   @Input() total: number = 0;
   @Input() masterObjectComponent!: FormEditComponent;
   @Input() masterId!: number;
   @Input() forSelectKeyValue!: any;
+  @Input() showSelect!: boolean;
 
   sort: Array<{ key: string; value: NzTableSortOrder; }> = [];
 
