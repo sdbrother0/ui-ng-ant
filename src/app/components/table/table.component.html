@@ -1,3 +1,6 @@
+<!--<div *ngIf="showTree" class="tree">-->
+<!--  <tree-data/>-->
+<!--</div>-->
 <nz-button-group class="table-operations">
   <button nz-button (click)="add()">
     <span nz-icon nzType="edit" nzTheme="outline"></span>Add row
@@ -7,7 +10,6 @@
     <span nz-icon nzType="form" nzTheme="outline"></span>Create
   </button>
 </nz-button-group>
-
 <nz-table
   [nzSize]="'small'"
   [nzData]="recordSet"
@@ -24,7 +26,7 @@
   (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
   <thead>
   <tr>
-    <th *ngIf="metaData.showSelect || showSelect" id="#checkAll"
+    <th *ngIf="metaData.showSelect" id="#checkAll"
         [nzChecked]="checked"
         [nzIndeterminate]="indeterminate"
         nzLabel="Select all"
@@ -53,8 +55,8 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let row of recordSet">
-    <td *ngIf="metaData.showSelect || showSelect" [nzChecked]="isChecked(row)" (nzCheckedChange)="onItemChecked(row.id, $event)"></td>
+  <tr *ngFor="let row of recordSet; let i = index">
+    <td *ngIf="metaData.showSelect" [nzChecked]="isChecked(row)" (nzCheckedChange)="onItemChecked(row.id, $event)"></td>
     <td *ngFor="let field of metaData.fields"
         [ngStyle]="{ display : (field.hidden) ? 'none' : 'table-cell'}"
         [nzAlign]="field.type.name === FieldTypeName.NUMBER ? 'right': 'left'">
@@ -105,7 +107,7 @@
           <span nz-icon nzType="form" nz-tooltip nzTooltipTitle="edit" class="action-icons"></span>
         </button>
         <form-edit [metaData]=metaData [data]=row [table]="this"/>
-        <button *ngIf="!isEdit(row)" (click)="delete(row)" nz-button nzType="text">
+        <button nz-popconfirm nzPopconfirmTitle="Sure to delete?" *ngIf="!isEdit(row)" (nzOnConfirm)="delete(row)" nz-button nzType="text">
           <span nz-icon nzType="delete" nz-tooltip nzTooltipTitle="delete" class="action-icons"></span>
         </button>
         <button *ngIf="isEdit(row)" (click)="save(row)" nz-button nzType="text">

@@ -47,7 +47,7 @@ interface ExampleFlatNode {
 }
 
 @Component({
-  selector: 'nz-demo-tree-view-directory',
+  selector: 'tree-data',
   imports: [
     NzIconDirective,
     NzTreeViewComponent,

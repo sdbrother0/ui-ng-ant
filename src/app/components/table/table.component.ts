@@ -1,7 +1,17 @@
 import {Component, forwardRef, Input, OnInit, ViewChild} from '@angular/core';
 import {NzTableComponent, NzTableModule, NzTableQueryParams} from "ng-zorro-antd/table";
 import {HttpClient, HttpParams} from "@angular/common/http";
-import {DatePipe, JsonPipe, NgForOf, NgIf, NgStyle, NgSwitch, NgSwitchCase, NgSwitchDefault} from "@angular/common";
+import {
+  DatePipe,
+  JsonPipe,
+  NgForOf,
+  NgIf,
+  NgStyle,
+  NgSwitch,
+  NgSwitchCase,
+  NgSwitchDefault,
+  registerLocaleData
+} from "@angular/common";
 import {NzInputDirective, NzInputGroupComponent} from "ng-zorro-antd/input";
 import {FormsModule} from "@angular/forms";
 import {NzButtonComponent, NzButtonGroupComponent} from "ng-zorro-antd/button";
@@ -17,6 +27,10 @@ import {Field} from "../../dto/field";
 import {NzTableSortOrder} from "ng-zorro-antd/table/src/table.types";
 import {NzDropdownMenuComponent} from "ng-zorro-antd/dropdown";
 import {FieldTypeName} from "../../dto/field.type.name";
+import {NzDemoTreeViewDirectoryComponent} from "../tree/tree.component";
+import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
+import {NzDividerComponent} from "ng-zorro-antd/divider";
+import {NzPopconfirmDirective} from "ng-zorro-antd/popconfirm";
 
 @Component({
   host: {ngSkipHydration: 'true'},
@@ -24,18 +38,19 @@ import {FieldTypeName} from "../../dto/field.type.name";
   standalone: true,
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css'],
-  imports: [NzTableModule, NzTableComponent, JsonPipe, NgForOf, NzInputDirective, FormsModule, NzButtonComponent, NzInputGroupComponent, NzIconDirective, NgIf, NzButtonGroupComponent, NzTooltipDirective, NzModalModule, forwardRef(() => LookupComponent), forwardRef(() => FormEditComponent), NzDatePickerComponent, NgSwitch, NgSwitchCase, NgSwitchDefault, DatePipe, NzDropdownMenuComponent, NgStyle]
+  imports: [NzTableModule, NzTableComponent, JsonPipe, NgForOf, NzInputDirective, FormsModule, NzButtonComponent, NzInputGroupComponent, NzIconDirective, NgIf, NzButtonGroupComponent, NzTooltipDirective, NzModalModule, forwardRef(() => LookupComponent), forwardRef(() => FormEditComponent), NzDatePickerComponent, NgSwitch, NgSwitchCase, NgSwitchDefault, DatePipe, NzDropdownMenuComponent, NgStyle, NzDemoTreeViewDirectoryComponent, NzColDirective, NzRowDirective, NzDividerComponent, NzPopconfirmDirective]
 })
 export class TableComponent implements OnInit {
 
   @Input() metaUrl: string = 'title';
   @Input() pageIndex: number = 1;
-  @Input() pageSize: number = 20;
+  @Input() pageSize: number = 10;
   @Input() total: number = 0;
   @Input() masterObjectComponent!: FormEditComponent;
   @Input() masterId!: number;
   @Input() forSelectKeyValue!: any;
   @Input() showSelect!: boolean;
+  @Input() showTree!: boolean;
 
   sort: Array<{ key: string; value: NzTableSortOrder; }> = [];
 
@@ -65,7 +80,10 @@ export class TableComponent implements OnInit {
   ngOnInit() {
     this.http.get<MetaData>(this.metaUrl)
       .subscribe({
-        next: (value: MetaData) => this.metaData = value,
+        next: (value: MetaData) => {
+          this.metaData = value
+          this.metaData.showSelect = this.showSelect
+        },
         error: (error) => {
           console.error(error)
           this.message.create('error', `Error: ${error.message}`);
@@ -231,35 +249,51 @@ export class TableComponent implements OnInit {
   }
 
   delete(row: any) {
-    this.modal.confirm({
-      nzTitle: 'Are you sure delete this record?',
-      nzContent: '<b style="color: red;">Some descriptions</b>',
-      nzOkText: 'Yes',
-      nzOkType: 'primary',
-      nzOkDanger: true,
-      nzOnOk: () => {
-        if (row.id !== null) {
-          this.http.delete(`${this.metaData.url}?id=${row.id}`)
-            .subscribe({
-              next: (value: any) => {
-                this.refreshMaterForm(value);
-              },
-              error: (error) => {
-                this.message.create('error', `Error: ${error.message}`);
-              }, complete: () => {
-                this.recordSet = this.recordSet.filter(d => d.id !== row.id);
-                this.message.create('success', `Deleted: ${row.id}`);
-              }
-            });
-        } else {
-          this.deleteFromRecordSetByRow(row);
-        }
-      },
-      nzCancelText: 'No',
-      nzOnCancel: () => {
-        console.log('Cancel')
-      }
-    });
+    if (row.id !== null) {
+      this.http.delete(`${this.metaData.url}?id=${row.id}`)
+        .subscribe({
+          next: (value: any) => {
+            this.refreshMaterForm(value);
+          }, error: (error) => {
+            this.message.create('error', `Error: ${error.message}`);
+          }, complete: () => {
+            this.recordSet = this.recordSet.filter(d => d.id !== row.id);
+            this.message.create('success', `Deleted: ${row.id}`);
+          }
+        });
+    } else {
+      this.deleteFromRecordSetByRow(row);
+    }
+
+    // this.modal.confirm({
+    //   nzTitle: 'Are you sure delete this record?',
+    //   nzContent: '<b style="color: red;">Some descriptions</b>',
+    //   nzOkText: 'Yes',
+    //   nzOkType: 'primary',
+    //   nzOkDanger: true,
+    //   nzOnOk: () => {
+    //     if (row.id !== null) {
+    //       this.http.delete(`${this.metaData.url}?id=${row.id}`)
+    //         .subscribe({
+    //           next: (value: any) => {
+    //             this.refreshMaterForm(value);
+    //           },
+    //           error: (error) => {
+    //             this.message.create('error', `Error: ${error.message}`);
+    //           }, complete: () => {
+    //             this.recordSet = this.recordSet.filter(d => d.id !== row.id);
+    //             this.message.create('success', `Deleted: ${row.id}`);
+    //           }
+    //         });
+    //     } else {
+    //       this.deleteFromRecordSetByRow(row);
+    //     }
+    //   },
+    //   nzCancelText: 'No',
+    //   nzOnCancel: () => {
+    //     console.log('Cancel')
+    //   }
+    // });
   }
 
   deleteFromRecordSetByRow(row: any) {
