@@ -7,7 +7,8 @@ export const routes: Routes = [
   { path: 'menu3', loadChildren: () => import('./pages/menu3/menu3.routes').then(m => m.MENU3_ROUTES) },
 
   { path: 'product', loadChildren: () => import('./pages/product/product.routes').then(m => m.PRODUCT_ROUTES) },
-  { path: 'customer', loadChildren: () => import('./pages/customer/customer.routes').then(m => m.CUSTOMER_ROUTES) }
+  { path: 'customer', loadChildren: () => import('./pages/customer/customer.routes').then(m => m.CUSTOMER_ROUTES) },
 
+  { path: 'invoice', loadChildren: () => import('./pages/invoice/invoice.routes').then(m => m.INVOICE_ROUTES) },
 
 ];
