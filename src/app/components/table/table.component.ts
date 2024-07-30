@@ -204,12 +204,16 @@ export class TableComponent implements OnInit {
           this.setOfIsEdit.delete(row);
           row[this.metaData.key] = value[this.metaData.key];
           delete row.beforeEdit;
-
+          //refresh data in table:
+          for (const [key, val] of Object.entries(value)) {
+            row[key] = val;
+          }
+          //refresh data in masterForm (if this is details table)
           if (this.masterObjectComponent) {
             this.masterId = value[this.masterObjectComponent.metaData.name][this.masterObjectComponent.metaData.key];
             this.masterObjectComponent.setKeyValue(this.masterId);
             this.masterObjectComponent.addTableRow(value[this.masterObjectComponent.metaData.name]);
-            this.refreshMaterForm(value);
+            this.refreshMasterForm(value);
           }
 
           if (this.recordSet.filter((item) => (item[this.metaData.key] === value[this.metaData.key])).length == 0) {
@@ -240,8 +244,8 @@ export class TableComponent implements OnInit {
       row[field.name][fieldType.keyFieldName] = firstSelectedKey;
       row[field.name][fieldType.valFieldName] = firstSelectedVal;
       //TODO
-      if (field.type.mapping) {
-        for (const [key, value] of Object.entries(field.type.mapping)) {
+      if (field.type.masterMapping) {
+        for (const [key, value] of Object.entries(field.type.masterMapping)) {
           if (value in firstSelectedRow) {
             row[key] = firstSelectedRow[value];
           } else {
@@ -264,7 +268,7 @@ export class TableComponent implements OnInit {
       this.http.delete(`${this.metaData.url}?id=${row.id}`)
         .subscribe({
           next: (value: any) => {
-            this.refreshMaterForm(value);
+            this.refreshMasterForm(value);
           }, error: (error) => {
             this.message.create('error', `Error: ${error.message}`);
           }, complete: () => {
@@ -372,7 +376,7 @@ export class TableComponent implements OnInit {
     this.search(field);
   }
 
-  refreshMaterForm(value : any) {
+  refreshMasterForm(value : any) {
     if (this.masterObjectComponent) {
       for (const fieldName in this.masterObjectComponent.formGroup.controls) {
         this.masterObjectComponent.formGroup.controls[fieldName].setValue(value[this.masterObjectComponent.metaData.name][fieldName])

@@ -4,7 +4,7 @@ export interface FieldType {
   valFieldName : string;
   keyFieldName: string;
   metaUrl: string;
-  mapping: Map<any, any>;
+  masterMapping: Map<any, any>;
 
   //date
   format: string
