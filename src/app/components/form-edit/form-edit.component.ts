@@ -71,7 +71,6 @@ export class FormEditComponent implements OnInit {
   }
 
   setKeyValue(keyValue: number) {
-    console.log(this.data);
     this.formGroup.patchValue({
       id : keyValue
     })

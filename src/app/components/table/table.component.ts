@@ -229,15 +229,26 @@ export class TableComponent implements OnInit {
       });
   }
 
-  getFirstSelected(obj: any, row: any, field: Field): void {
+  getFirstSelected(obj: any, row: any, field: Field): any {
     const selectedIds = [...this.setOfCheckedId.values()];
     if (selectedIds.length > 0) {
       const fieldType = field.type;
       const firstSelectedKey = selectedIds[0];
-      const firstSelectedVal = this.recordSet.filter((item) => item[fieldType.keyFieldName] === firstSelectedKey).at(0)[fieldType.valFieldName];
+      const firstSelectedRow = this.recordSet.filter((item) => item[fieldType.keyFieldName] === firstSelectedKey).at(0);
+      const firstSelectedVal = firstSelectedRow[fieldType.valFieldName];
       row[field.name] = {};
       row[field.name][fieldType.keyFieldName] = firstSelectedKey;
       row[field.name][fieldType.valFieldName] = firstSelectedVal;
+      //TODO
+      if (field.type.mapping) {
+        for (const [key, value] of Object.entries(field.type.mapping)) {
+          if (value in firstSelectedRow) {
+            row[key] = firstSelectedRow[value];
+          } else {
+            row[key] = value;
+          }
+        }
+      }
       obj.data = {};
       obj.data[fieldType.keyFieldName] = firstSelectedKey;
       obj.data[fieldType.valFieldName] = firstSelectedVal;
@@ -371,6 +382,7 @@ export class TableComponent implements OnInit {
   }
 
   protected readonly FieldTypeName = FieldTypeName;
+  @Input() data!: any;
 
 }
 

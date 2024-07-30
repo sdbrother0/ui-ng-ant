@@ -56,7 +56,6 @@ export class LookupComponent implements OnInit, ControlValueAccessor, Validator 
   validate(control: AbstractControl): ValidationErrors | null {
     if (control.hasValidator(Validators.required)) {
       if (this.row[this.field.name] == null) {
-        console.log('NULL');
         return {
           error: {}
         };
@@ -87,7 +86,7 @@ export class LookupComponent implements OnInit, ControlValueAccessor, Validator 
 
   }
 
-  openDialog(lookupMetaData: any, lookupData: any) {
+  openDialog() {
     this.isDialogVisible = true;
   }
 

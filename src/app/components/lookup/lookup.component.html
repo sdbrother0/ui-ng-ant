@@ -2,7 +2,7 @@
   <input type="text" nz-input placeholder="lookup" value="{{row[this.field.name]?.[field.type.valFieldName]}}" readonly/>
 </nz-input-group>
 <ng-template #suffixIconButton>
-  <button (click)="openDialog(row[this.field.name], field.type.valFieldName)" nz-button nzType="default" nzSearch nz-tooltip nzTooltipTitle="lookup">
+  <button (click)="openDialog()" nz-button nzType="default" nzSearch nz-tooltip nzTooltipTitle="lookup">
     <span nz-icon nzType="select"></span>
   </button>
   <nz-modal
