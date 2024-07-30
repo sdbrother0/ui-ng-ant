@@ -364,6 +364,5 @@ export class TableComponent implements OnInit {
   }
 
   protected readonly FieldTypeName = FieldTypeName;
-  @Input() data!: any;
 
 }
