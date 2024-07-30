@@ -287,36 +287,6 @@ export class TableComponent implements OnInit {
     } else {
       this.deleteFromRecordSetByRow(row);
     }
-
-    // this.modal.confirm({
-    //   nzTitle: 'Are you sure delete this record?',
-    //   nzContent: '<b style="color: red;">Some descriptions</b>',
-    //   nzOkText: 'Yes',
-    //   nzOkType: 'primary',
-    //   nzOkDanger: true,
-    //   nzOnOk: () => {
-    //     if (row.id !== null) {
-    //       this.http.delete(`${this.metaData.url}?id=${row.id}`)
-    //         .subscribe({
-    //           next: (value: any) => {
-    //             this.refreshMaterForm(value);
-    //           },
-    //           error: (error) => {
-    //             this.message.create('error', `Error: ${error.message}`);
-    //           }, complete: () => {
-    //             this.recordSet = this.recordSet.filter(d => d.id !== row.id);
-    //             this.message.create('success', `Deleted: ${row.id}`);
-    //           }
-    //         });
-    //     } else {
-    //       this.deleteFromRecordSetByRow(row);
-    //     }
-    //   },
-    //   nzCancelText: 'No',
-    //   nzOnCancel: () => {
-    //     console.log('Cancel')
-    //   }
-    // });
   }
 
   deleteFromRecordSetByRow(row: any) {
@@ -397,5 +367,3 @@ export class TableComponent implements OnInit {
   @Input() data!: any;
 
 }
-
-
