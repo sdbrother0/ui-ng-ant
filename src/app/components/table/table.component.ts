@@ -243,7 +243,6 @@ export class TableComponent implements OnInit {
       row[field.name] = {};
       row[field.name][fieldType.keyFieldName] = firstSelectedKey;
       row[field.name][fieldType.valFieldName] = firstSelectedVal;
-      //TODO
       if (field.type.masterMapping) {
         for (const [key, value] of Object.entries(field.type.masterMapping)) {
           if (value in firstSelectedRow) {
