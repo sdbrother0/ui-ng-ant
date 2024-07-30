@@ -11,6 +11,7 @@
   </button>
 </nz-button-group>
 <nz-table
+  [nzScroll]="{ x: '1000px', y: '1000px' }"
   [nzSize]="'small'"
   [nzData]="recordSet"
   [nzTotal]="total"
@@ -20,13 +21,13 @@
   [nzShowPagination]="true"
   [nzShowSizeChanger]="true"
   [nzFrontPagination]="false"
-  [nzBordered]="true"
   [nzOuterBordered]="true"
   (nzQueryParams)="onQueryParams($event)"
   (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
   <thead>
   <tr>
     <th *ngIf="metaData.showSelect" id="#checkAll"
+        [nzWidth]="'50px'"
         [nzChecked]="checked"
         [nzIndeterminate]="indeterminate"
         nzLabel="Select all"
@@ -51,7 +52,7 @@
         </div>
       </nz-dropdown-menu>
     </th>
-    <th nzRight id="#action" class="action-th">Action</th>
+    <th nzRight [nzWidth]="'120px'" id="#action" class="action-th" nzAlign="center">Action</th>
   </tr>
   </thead>
   <tbody>
@@ -95,7 +96,7 @@
       </ng-template>
     </td>
     <!-- Action -->
-    <td nzRight>
+    <td nzRight nzAlign="center">
       <nz-button-group>
         <button *ngIf="isEdit(row)" (click)="edit(row)" nz-button nzType="text">
           <span nz-icon nzType="undo" nz-tooltip nzTooltipTitle="cancel" class="action-icons"></span>

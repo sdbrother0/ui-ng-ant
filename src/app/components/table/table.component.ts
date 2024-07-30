@@ -250,7 +250,17 @@ export class TableComponent implements OnInit {
             row[key] = value;
           }
         }
+        if (obj.parentForm?.formGroup) {
+          for (const [key, value] of Object.entries(field.type.masterMapping)) {
+            if (value in firstSelectedRow) {
+              obj.parentForm.formGroup.controls[key].setValue(firstSelectedRow[value]);
+            } else {
+              obj.parentForm.formGroup.controls[key].setValue(value);
+            }
+          }
+        }
       }
+
       obj.data = {};
       obj.data[fieldType.keyFieldName] = firstSelectedKey;
       obj.data[fieldType.valFieldName] = firstSelectedVal;

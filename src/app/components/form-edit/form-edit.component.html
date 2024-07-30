@@ -1,7 +1,7 @@
 <report #rep/>
 <nz-modal
   nzDraggable
-  [nzWidth]="1000"
+  [nzWidth]="1100"
   nzTitle="Form edit"
   [nzFooter]="modalFooter"
   [(nzVisible)]="isVisible"
@@ -22,7 +22,7 @@
           <nz-form-control *ngIf="!field.hidden" [nzSm]="14" [nzXs]="24" [nzErrorTip]="field?.validation?.message">
             <div *ngIf="!field.hidden" [ngSwitch]="field.type.name">
               <ng-template ngSwitchCase="{{FieldTypeName.LOOKUP}}">
-                <lookup-data formControlName="{{field.name}}" [row]="data" [field]="field"/>
+                <lookup-data formControlName="{{field.name}}" [row]="data" [field]="field" [parentForm]="this"/>
               </ng-template>
               <ng-template ngSwitchCase="{{FieldTypeName.DATE}}">
                 <nz-date-picker formControlName="{{field.name}}" nz-input id="{{field.name}}" nzFormat="{{field.type.format}}"/>

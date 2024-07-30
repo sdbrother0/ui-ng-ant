@@ -18,6 +18,7 @@ import {
   Validator,
   Validators
 } from "@angular/forms";
+import {FormEditComponent} from "../form-edit/form-edit.component";
 
 @Component({
   host: {ngSkipHydration: 'true'},
@@ -36,6 +37,8 @@ export class LookupComponent implements OnInit, ControlValueAccessor, Validator 
 
   @Input() row!: any;
   @Input() field!: Field;
+  @Input() parentForm!: FormEditComponent;
+
   @ViewChild('lookup_table') lookupTable!: TableComponent;
   isDialogVisible = false;
 
@@ -79,8 +82,6 @@ export class LookupComponent implements OnInit, ControlValueAccessor, Validator 
   setDisabledState?(isDisabled: boolean): void {
     this.disabled = isDisabled;
   }
-
-  //for validate methods end
 
   ngOnInit(): void {
 
