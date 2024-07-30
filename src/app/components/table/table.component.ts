@@ -9,8 +9,7 @@ import {
   NgStyle,
   NgSwitch,
   NgSwitchCase,
-  NgSwitchDefault,
-  registerLocaleData
+  NgSwitchDefault
 } from "@angular/common";
 import {NzInputDirective, NzInputGroupComponent} from "ng-zorro-antd/input";
 import {FormsModule} from "@angular/forms";
