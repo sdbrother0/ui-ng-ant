@@ -1,17 +1,17 @@
 # Getting Started
 
-## About UI (Based on components):
+## Key Features:
 
-### Tables inline edit with column data types: 
+### 1. Tables inline edit based on column data types 
 ![inline-edit.png](img%2Finline-edit.png)
 
-### Lookup component:
+### 2. Lookup component
 ![lookup.png](img%2Flookup.png)
 
-### Table form edit and Master details:
+### 3. Table edit by form and Master-Details support
 ![master-details.png](img%2Fmaster-details.png)
 
-### Reports:
+### 4. Reports
 ![rep.png](img%2Frep.png)
 
 ## UI for https://github.com/sdbrother0/srv 
