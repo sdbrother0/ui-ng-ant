@@ -113,9 +113,6 @@ export class FormEditComponent implements OnInit {
     }
   }
 
-  protected readonly console = console;
-  protected readonly FieldTypeName = FieldTypeName;
-
   report(keyValue: any, url: string) {
     this.reportComponent.showDialog(keyValue, url);
   }
