@@ -16,7 +16,7 @@
 
 ## UI for https://github.com/sdbrother0/srv 
 
-### clone and build:
+### Clone and build:
 
 ```
 git clone https://github.com/sdbrother0/ui-ng-ant.git
