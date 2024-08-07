@@ -1,5 +1,19 @@
 # Getting Started
 
+### About UI (Based on components):
+
+## Tables inline edit with column data types: 
+![inline-edit.png](img%2Finline-edit.png)
+
+## Lookup component:
+![lookup.png](img%2Flookup.png)
+
+## Table form edit and Master details:
+![master-details.png](img%2Fmaster-details.png)
+
+## Reports:
+![rep.png](img%2Frep.png)
+
 ### UI for (https://github.c
 om/sdbrother0/srv) clone and build:
 
@@ -22,17 +36,3 @@ export const environment = {
 ```
 ng serve
 ```
-
-### About UI (Based on components):
-
-## Inline edit:
-![inline-edit.png](img%2Finline-edit.png)
-
-## Lookup component:
-![lookup.png](img%2Flookup.png)
-
-## Master details:
-![master-details.png](img%2Fmaster-details.png)
-
-## Reports:
-![rep.png](img%2Frep.png)
