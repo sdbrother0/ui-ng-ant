@@ -16,15 +16,15 @@
 
 ## UI for https://github.com/sdbrother0/srv 
 
-### 1. Clone and build:
+### 1. Run server from https://github.com/sdbrother0/srv
+
+### 2. Clone and build:
 
 ```
 git clone https://github.com/sdbrother0/ui-ng-ant.git
 cd ui-ng-ant
 npm i
 ```
-
-### 2. Run server from https://github.com/sdbrother0/srv
 
 ### 3. Change API_URL:
 
