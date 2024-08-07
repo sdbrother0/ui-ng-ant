@@ -30,6 +30,7 @@ import {NzDemoTreeViewDirectoryComponent} from "../tree/tree.component";
 import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
 import {NzDividerComponent} from "ng-zorro-antd/divider";
 import {NzPopconfirmDirective} from "ng-zorro-antd/popconfirm";
+import {environment} from "../../../environments/environment";
 
 @Component({
   host: {ngSkipHydration: 'true'},
@@ -77,7 +78,7 @@ export class TableComponent implements OnInit {
   constructor(private http: HttpClient, private message: NzMessageService, private modal: NzModalService) {}
 
   ngOnInit() {
-    this.http.get<MetaData>(this.metaUrl)
+    this.http.get<MetaData>(environment.apiUrl + this.metaUrl)
       .subscribe({
         next: (value: MetaData) => {
           this.metaData = value
@@ -119,7 +120,7 @@ export class TableComponent implements OnInit {
       }
     });
 
-    this.http.get<any>(this.metaData.url, {
+    this.http.get<any>(environment.apiUrl + this.metaData.url, {
       params: params
     }).subscribe({
       next: (value) => {
@@ -196,7 +197,7 @@ export class TableComponent implements OnInit {
       }
     }
 
-    this.http.post(this.metaData.url, row)
+    this.http.post(environment.apiUrl + this.metaData.url, row)
       .subscribe({
         next: (value: any) => {
           const rsData = this.recordSet;
@@ -273,7 +274,7 @@ export class TableComponent implements OnInit {
 
   delete(row: any) {
     if (row.id !== null) {
-      this.http.delete(`${this.metaData.url}?id=${row.id}`)
+      this.http.delete(`${environment.apiUrl + this.metaData.url}?id=${row.id}`)
         .subscribe({
           next: (value: any) => {
             this.refreshMasterForm(value);
