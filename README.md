@@ -1,17 +1,17 @@
 # Getting Started
 
-### About UI (Based on components):
+## About UI (Based on components):
 
-## Tables inline edit with column data types: 
+### Tables inline edit with column data types: 
 ![inline-edit.png](img%2Finline-edit.png)
 
-## Lookup component:
+### Lookup component:
 ![lookup.png](img%2Flookup.png)
 
-## Table form edit and Master details:
+### Table form edit and Master details:
 ![master-details.png](img%2Fmaster-details.png)
 
-## Reports:
+### Reports:
 ![rep.png](img%2Frep.png)
 
 ### UI for (https://github.c
