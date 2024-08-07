@@ -24,7 +24,7 @@ cd ui-ng-ant
 npm i
 ```
 
-### Change apiUrl:
+### Change API_URL:
 
 change API_URL in file: https://github.com/sdbrother0/ui-ng-ant/blob/main/src/environments/environment.ts#L2 to your
 (e.g.: `http://localhost:8090` -> `http://192.168.1.20:8090`)
