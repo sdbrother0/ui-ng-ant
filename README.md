@@ -14,7 +14,7 @@
 ### Reports:
 ![rep.png](img%2Frep.png)
 
-### UI for (https://github.c
+### UI for https://github.c
 om/sdbrother0/srv) clone and build:
 
 ```
