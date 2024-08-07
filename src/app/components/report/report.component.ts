@@ -13,6 +13,7 @@ import {NzDatePickerComponent} from "ng-zorro-antd/date-picker";
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzDividerComponent} from "ng-zorro-antd/divider";
 import {SafePipe} from "../../helper/safe.pipe";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'report',
@@ -32,7 +33,7 @@ export class ReportComponent implements OnInit {
   }
 
   showDialog(data: any, url: string) {
-    this.url = url + '/' + data
+    this.url = environment.API_URL + url + '/' + data
     this.data = data;
     this.isVisible = true;
   }

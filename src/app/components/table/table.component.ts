@@ -274,7 +274,7 @@ export class TableComponent implements OnInit {
 
   delete(row: any) {
     if (row.id !== null) {
-      this.http.delete(`${environment + this.metaData.url}?id=${row.id}`)
+      this.http.delete(`${environment.API_URL + this.metaData.url}?id=${row.id}`)
         .subscribe({
           next: (value: any) => {
             this.refreshMasterForm(value);
