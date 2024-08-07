@@ -13,6 +13,7 @@ import {NzButtonComponent, NzButtonGroupComponent} from "ng-zorro-antd/button";
 import {NzTabComponent, NzTabSetComponent} from "ng-zorro-antd/tabs";
 import {TableComponent} from "../table/table.component";
 import {NzDatePickerComponent} from "ng-zorro-antd/date-picker";
+import {FieldTypeName} from "../../dto/field.type.name";
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzDividerComponent} from "ng-zorro-antd/divider";
 import {ReportComponent} from "../report/report.component";
@@ -38,6 +39,8 @@ export class FormEditComponent implements OnInit {
 
   formGroup!: FormGroup;
   private formBuilder: FormBuilder;
+
+  protected readonly FieldTypeName = FieldTypeName;
 
   constructor(private fb: FormBuilder) {
     this.formBuilder = fb;
