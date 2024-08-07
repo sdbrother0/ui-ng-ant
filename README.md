@@ -10,7 +10,7 @@
 ### 2. Lookup component
 ![lookup.png](img%2Flookup.png)
 
-### 3. Table edit by form and Master-Details support
+### 3. Table edit by form and support Master-Details and validation rules from backend
 ![master-details.png](img%2Fmaster-details.png)
 
 ### 4. Reports
