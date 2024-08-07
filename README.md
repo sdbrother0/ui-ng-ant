@@ -16,6 +16,87 @@
 ### 4. Reports
 ![rep.png](img%2Frep.png)
 
+## Backend MetaData example for Invoice
+
+```
+{
+  "url" : "/invoice",
+  "name": "invoice",
+  "key": "id",
+  "showSelect": true,
+  "showAction": true,
+  "showLoader": true,
+  "fields": [
+      {
+          "name": "id",
+          "label": "Id",
+          "type": {
+              "name": "string"
+          },
+          "hidden": false
+      },
+      {
+          "name": "created",
+          "label": "Date time",
+          "type": {
+              "name": "date",
+              "format": "yyyy-MM-dd HH:mm:ss"
+          },
+          "editable": true,
+          "validation": {
+              "required": true,
+              "message": "Input date please!!!"
+          }
+      },
+      {
+          "name": "customer",
+          "label": "Customer",
+          "type": {
+              "name": "lookup",
+              "metaUrl": "/meta/customer",
+              "foreignKey": "customer_id",
+              "keyFieldName": "id",
+              "valFieldName": "name"
+          },
+          "validation": {
+              "required": true,
+              "message": "Select customer please!!!"
+          },
+          "editable": true
+      },
+      {
+          "name": "total",
+          "label": "Total",
+          "type": {
+              "name": "number"
+          },
+          "editable": false
+      },
+      {
+          "name": "taxTotal",
+          "label": "Tax total",
+          "type": {
+              "name": "number"
+          },
+          "editable": false
+      }
+  ],
+  "details": [
+        {
+          "label": "Invoice details",
+          "metaUrl" : "/meta/invoice_details"
+        }
+  ],
+  "reports": [
+      {
+          "label": "Invoice pdf",
+          "url": "/reports/invoice"
+      }
+  ]
+}
+```
+https://github.com/sdbrother0/srv/blob/main/src/main/java/srv/service/InvoiceService.java#L80
+
 ## UI for https://github.com/sdbrother0/srv 
 
 ### 1. Run server from https://github.com/sdbrother0/srv
