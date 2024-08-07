@@ -1,6 +1,6 @@
 # Experiment UI (Angular + Ant)
 
-#### Used https://ng.ant.design/docs/introduce/en
+#### Used https://ng.ant.design
 
 ## Key Features:
 
