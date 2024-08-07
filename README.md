@@ -1,6 +1,7 @@
 # Getting Started
 
-### UI for (https://github.com/sdbrother0/srv) clone and build:
+### UI for (https://github.c
+om/sdbrother0/srv) clone and build:
 
 ```
 git clone https://github.com/sdbrother0/ui-ng-ant.git
@@ -21,3 +22,17 @@ export const environment = {
 ```
 ng serve
 ```
+
+### About UI (Based on components):
+
+## Inline edit:
+![inline-edit.png](img%2Finline-edit.png)
+
+## Lookup component:
+![lookup.png](img%2Flookup.png)
+
+## Master details:
+![master-details.png](img%2Fmaster-details.png)
+
+## Reports:
+![rep.png](img%2Frep.png)
