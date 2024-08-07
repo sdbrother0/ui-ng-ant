@@ -98,7 +98,7 @@
 ```
 https://github.com/sdbrother0/srv/blob/main/src/main/java/srv/service/InvoiceService.java#L80
 
-## Run
+## Run UI
 
 ### 1. Run server from https://github.com/sdbrother0/srv
 
