@@ -78,7 +78,7 @@ export class TableComponent implements OnInit {
   constructor(private http: HttpClient, private message: NzMessageService, private modal: NzModalService) {}
 
   ngOnInit() {
-    this.http.get<MetaData>(environment.apiUrl + this.metaUrl)
+    this.http.get<MetaData>(environment.API_URL + this.metaUrl)
       .subscribe({
         next: (value: MetaData) => {
           this.metaData = value
@@ -120,7 +120,7 @@ export class TableComponent implements OnInit {
       }
     });
 
-    this.http.get<any>(environment.apiUrl + this.metaData.url, {
+    this.http.get<any>(environment.API_URL + this.metaData.url, {
       params: params
     }).subscribe({
       next: (value) => {
@@ -197,7 +197,7 @@ export class TableComponent implements OnInit {
       }
     }
 
-    this.http.post(environment.apiUrl + this.metaData.url, row)
+    this.http.post(environment.API_URL + this.metaData.url, row)
       .subscribe({
         next: (value: any) => {
           const rsData = this.recordSet;
@@ -274,7 +274,7 @@ export class TableComponent implements OnInit {
 
   delete(row: any) {
     if (row.id !== null) {
-      this.http.delete(`${environment.apiUrl + this.metaData.url}?id=${row.id}`)
+      this.http.delete(`${environment + this.metaData.url}?id=${row.id}`)
         .subscribe({
           next: (value: any) => {
             this.refreshMasterForm(value);
