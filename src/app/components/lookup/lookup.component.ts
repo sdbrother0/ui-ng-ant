@@ -18,11 +18,11 @@ import {
   Validator,
   Validators
 } from "@angular/forms";
-import {FormEditComponent} from "../form-edit/form-edit.component";
+import {FormComponent} from "../form/form.component";
 
 @Component({
   host: {ngSkipHydration: 'true'},
-  selector: 'lookup-data',
+  selector: 'lookup-component',
   standalone: true,
   templateUrl: './lookup.component.html',
   styleUrls: ['./lookup.component.css'],
@@ -37,7 +37,7 @@ export class LookupComponent implements OnInit, ControlValueAccessor, Validator 
 
   @Input() row!: any;
   @Input() field!: Field;
-  @Input() parentForm!: FormEditComponent;
+  @Input() parentForm!: FormComponent;
 
   @ViewChild('lookup_table') lookupTable!: TableComponent;
   isDialogVisible = false;
@@ -97,10 +97,6 @@ export class LookupComponent implements OnInit, ControlValueAccessor, Validator 
 
   handleCancel(): void {
     this.isDialogVisible = false;
-  }
-
-  showModal(): void {
-    this.isDialogVisible = true;
   }
 
 

@@ -16,7 +16,7 @@ import {SafePipe} from "../../helper/safe.pipe";
 import {environment} from "../../../environments/environment";
 
 @Component({
-  selector: 'report',
+  selector: 'report-component',
   templateUrl: './report.component.html',
   styleUrls: ['./report.component.css'],
   standalone: true,

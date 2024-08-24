@@ -17,15 +17,16 @@ import {FieldTypeName} from "../../dto/field.type.name";
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzDividerComponent} from "ng-zorro-antd/divider";
 import {ReportComponent} from "../report/report.component";
+import {DateComponent} from "../date/date.component";
 
 @Component({
-  selector: 'form-edit',
-  templateUrl: './form-edit.component.html',
-  styleUrls: ['./form-edit.component.css'],
+  selector: 'form-component',
+  templateUrl: './form.component.html',
+  styleUrls: ['./form.component.css'],
   standalone: true,
-  imports: [NzModalComponent, NzModalContentDirective, JsonPipe, LookupComponent, NgForOf, NgIf, NzInputDirective, NzFormItemComponent, NzFormLabelComponent, NzFormControlComponent, NzColDirective, NzFormDirective, FormsModule, ReactiveFormsModule, NzInputGroupComponent, NzSelectComponent, NzOptionComponent, NzRowDirective, NzCheckboxComponent, NzButtonComponent, NzTabSetComponent, NzTabComponent, forwardRef(() => TableComponent), NgSwitchCase, NgSwitchDefault, NzDatePickerComponent, NgSwitch, NzButtonGroupComponent, NzIconDirective, NzDividerComponent, ReportComponent]
+  imports: [NzModalComponent, NzModalContentDirective, JsonPipe, LookupComponent, NgForOf, NgIf, NzInputDirective, NzFormItemComponent, NzFormLabelComponent, NzFormControlComponent, NzColDirective, NzFormDirective, FormsModule, ReactiveFormsModule, NzInputGroupComponent, NzSelectComponent, NzOptionComponent, NzRowDirective, NzCheckboxComponent, NzButtonComponent, NzTabSetComponent, NzTabComponent, forwardRef(() => TableComponent), NgSwitchCase, NgSwitchDefault, NzDatePickerComponent, NgSwitch, NzButtonGroupComponent, NzIconDirective, NzDividerComponent, ReportComponent, DateComponent]
 })
-export class FormEditComponent implements OnInit {
+export class FormComponent implements OnInit {
 
   @Input() metaData!: MetaData;
   @Input() data: any;
@@ -101,6 +102,8 @@ export class FormEditComponent implements OnInit {
   handleOk() {
     if (this.formGroup.valid) {
       this.metaData.fields.forEach((field) => {
+        //console.log('field.name', field.name);
+        console.log(field.name, this.formGroup.controls[field.name]);
         this.data[field.name] = this.formGroup.controls[field.name].value;
       });
       this.table.save(this.data);

@@ -20,7 +20,7 @@ import {NzMessageService} from "ng-zorro-antd/message";
 import {NzModalModule, NzModalService} from 'ng-zorro-antd/modal';
 import {MetaData} from "../../dto/meta.data";
 import {LookupComponent} from "../lookup/lookup.component";
-import {FormEditComponent} from "../form-edit/form-edit.component";
+import {FormComponent} from "../form/form.component";
 import {NzDatePickerComponent} from "ng-zorro-antd/date-picker";
 import {Field} from "../../dto/field";
 import {NzTableSortOrder} from "ng-zorro-antd/table/src/table.types";
@@ -31,14 +31,15 @@ import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
 import {NzDividerComponent} from "ng-zorro-antd/divider";
 import {NzPopconfirmDirective} from "ng-zorro-antd/popconfirm";
 import {environment} from "../../../environments/environment";
+import {DateComponent} from "../date/date.component";
 
 @Component({
   host: {ngSkipHydration: 'true'},
-  selector: 'table-data',
+  selector: 'table-component',
   standalone: true,
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css'],
-  imports: [NzTableModule, NzTableComponent, JsonPipe, NgForOf, NzInputDirective, FormsModule, NzButtonComponent, NzInputGroupComponent, NzIconDirective, NgIf, NzButtonGroupComponent, NzTooltipDirective, NzModalModule, forwardRef(() => LookupComponent), forwardRef(() => FormEditComponent), NzDatePickerComponent, NgSwitch, NgSwitchCase, NgSwitchDefault, DatePipe, NzDropdownMenuComponent, NgStyle, NzDemoTreeViewDirectoryComponent, NzColDirective, NzRowDirective, NzDividerComponent, NzPopconfirmDirective]
+  imports: [NzTableModule, NzTableComponent, JsonPipe, NgForOf, NzInputDirective, FormsModule, NzButtonComponent, NzInputGroupComponent, NzIconDirective, NgIf, NzButtonGroupComponent, NzTooltipDirective, NzModalModule, forwardRef(() => LookupComponent), forwardRef(() => FormComponent), NzDatePickerComponent, NgSwitch, NgSwitchCase, NgSwitchDefault, DatePipe, NzDropdownMenuComponent, NgStyle, NzDemoTreeViewDirectoryComponent, NzColDirective, NzRowDirective, NzDividerComponent, NzPopconfirmDirective, DateComponent]
 })
 export class TableComponent implements OnInit {
 
@@ -46,7 +47,7 @@ export class TableComponent implements OnInit {
   @Input() pageIndex: number = 1;
   @Input() pageSize: number = 10;
   @Input() total: number = 0;
-  @Input() masterObjectComponent!: FormEditComponent;
+  @Input() masterObjectComponent!: FormComponent;
   @Input() masterId!: number;
   @Input() forSelectKeyValue!: any;
   @Input() showSelect!: boolean;
@@ -54,7 +55,7 @@ export class TableComponent implements OnInit {
 
   sort: Array<{ key: string; value: NzTableSortOrder; }> = [];
 
-  @ViewChild("form_edit") formEdit!: FormEditComponent;
+  @ViewChild("form_edit") formEdit!: FormComponent;
 
   recordSet: any[] = [];
   loading: boolean = true;

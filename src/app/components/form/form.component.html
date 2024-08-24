@@ -1,4 +1,4 @@
-<report #rep/>
+<report-component #rep/>
 <nz-modal
   nzDraggable
   [nzWidth]="1100"
@@ -14,10 +14,10 @@
           <nz-form-control *ngIf="!field.hidden" [nzSm]="14" [nzXs]="24" [nzErrorTip]="field?.validation?.message">
             <div *ngIf="!field.hidden" [ngSwitch]="field.type.name">
               <ng-template ngSwitchCase="{{FieldTypeName.LOOKUP}}">
-                <lookup-data formControlName="{{field.name}}" [row]="data" [field]="field" [parentForm]="this"/>
+                <lookup-component formControlName="{{field.name}}" [row]="data" [field]="field" [parentForm]="this"/>
               </ng-template>
               <ng-template ngSwitchCase="{{FieldTypeName.DATE}}">
-                <nz-date-picker formControlName="{{field.name}}" nz-input id="{{field.name}}" nzFormat="{{field.type.format}}"/>
+                <date-component formControlName="{{field.name}}" [row]="data" [field]="field" [format]="field.type.format" [parentForm]="this"/>
               </ng-template>
               <ng-template ngSwitchCase="{{FieldTypeName.NUMBER}}">
                 <input formControlName="{{field.name}}" nz-input id="{{field.name}}" [readonly]="!field?.editable" [nzBorderless]="!field?.editable" type="number"/>
@@ -34,7 +34,7 @@
     </form>
     <nz-tabset nzType="card">
       <nz-tab *ngFor="let detail of metaData.details" [nzTitle]="detail.label">
-        <table-data [metaUrl]=detail.metaUrl [masterObjectComponent]="this" [masterId]="data[metaData.key]"/>
+        <table-component [metaUrl]=detail.metaUrl [masterObjectComponent]="this" [masterId]="data[metaData.key]"/>
       </nz-tab>
     </nz-tabset>
   </ng-container>
