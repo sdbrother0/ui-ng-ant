@@ -80,7 +80,7 @@ export class DateComponent implements OnInit, ControlValueAccessor, Validator {
     return null;
   }
 
-  writeValue(obj: any): void {
+  writeValue(obj: Date): void {
     this.row[this.field.name] = obj;
   }
 
