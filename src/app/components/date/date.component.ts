@@ -42,12 +42,6 @@ export class DateComponent implements OnInit, ControlValueAccessor, Validator {
 
   date!: Date;
 
-  ngOnInit(): void {
-    if (Object.keys(this.row).length) {
-      this.date = new Date(this.row[this.field.name]);
-    }
-  }
-
   onChange = () => {
 
   };
@@ -60,6 +54,18 @@ export class DateComponent implements OnInit, ControlValueAccessor, Validator {
   disabled = false;
 
   constructor(public datepipe: DatePipe) {
+  }
+
+  ngOnInit(): void {
+    if (Object.keys(this.row).length) {
+      this.date = new Date(this.row[this.field.name]);
+    }
+  }
+
+  onDateChange($event: any) {
+    const strValue = this.datepipe.transform($event, this.format);
+    this.row[this.field.name] = strValue;
+    this.parentForm.formGroup.controls[this.field.name].setValue(strValue);
   }
 
   //for validate methods start:
@@ -88,11 +94,5 @@ export class DateComponent implements OnInit, ControlValueAccessor, Validator {
 
   setDisabledState?(isDisabled: boolean): void {
     this.disabled = isDisabled;
-  }
-
-  onDateChange($event: any) {
-    const strValue = this.datepipe.transform($event, this.format);
-    this.row[this.field.name] = strValue;
-    this.parentForm.formGroup.controls[this.field.name].setValue(strValue);
   }
 }
