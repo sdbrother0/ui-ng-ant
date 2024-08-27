@@ -130,3 +130,8 @@ ng serve
 docker build -t sdbrother/ui:v0 .
 docker run -d -p 4200:4200 sdbrother/ui:v0
 ```
+
+### 6. Build prod
+```
+ng build --c=production ui-ng-ant
+```
