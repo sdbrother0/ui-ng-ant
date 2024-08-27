@@ -96,7 +96,6 @@ export class FormComponent implements OnInit {
   handleOk() {
     if (this.formGroup.valid) {
       this.metaData.fields.forEach((field) => {
-        //console.log('field.name', field.name);
         console.log(field.name, this.formGroup.controls[field.name]);
         this.data[field.name] = this.formGroup.controls[field.name].value;
       });
