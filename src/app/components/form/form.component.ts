@@ -70,6 +70,7 @@ export class FormComponent implements OnInit {
   }
 
   handleCancel() {
+    console.log(this.data);
     this.isVisible = false;
   }
 
@@ -77,14 +78,6 @@ export class FormComponent implements OnInit {
     this.formGroup.patchValue({
       id : keyValue
     })
-  }
-
-  getObject() {
-    let object :any = {};
-    this.metaData.fields.forEach((field) => {
-      object[field.name] = this.formGroup.controls[field.name].value;
-    });
-    return object;
   }
 
   addTableRow(row : any) {

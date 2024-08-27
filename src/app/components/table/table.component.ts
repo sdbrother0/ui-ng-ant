@@ -153,25 +153,28 @@ export class TableComponent implements OnInit {
     return this.setOfCheckedId.has(row.id);
   }
 
+  undo(row: any) {
+    this.setOfIsEdit.delete(row);
+    const beforeEditRow = this.mapOfBeforeEditValues.get(row[this.metaData.key]);
+    for (const i in beforeEditRow) {
+      row[i] = beforeEditRow[i];
+    }
+    this.mapOfBeforeEditValues.delete(row.id);
+    if (!row.id) {
+      const index = this.recordSet.indexOf(row);
+      if (index !== -1) {
+        this.recordSet.splice(index, 1);
+      }
+    }
+  }
+
   edit(row: any) {
     if (this.setOfIsEdit.has(row)) {
-      this.setOfIsEdit.delete(row);
-      const beforeEditRow = this.mapOfBeforeEditValues.get(row.id); //TODO id change to from meta data!!!
-      for (const i in beforeEditRow) {
-        row[i] = beforeEditRow[i];
-      }
-      this.mapOfBeforeEditValues.delete(row.id);
-      if (!row.id) {
-        const index = this.recordSet.indexOf(row);
-        if (index !== -1) {
-          this.recordSet.splice(index, 1);
-        }
-      }
+      this.undo(row);
     } else {
       this.setOfIsEdit.add(row);
-      this.mapOfBeforeEditValues.set(row.id, structuredClone(row));
+      this.mapOfBeforeEditValues.set(row[this.metaData.key], structuredClone(row));
     }
-
     if (this.recordSet.length == 0) {
       this.recordSet = [];
     }
