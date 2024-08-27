@@ -95,7 +95,7 @@
     <!-- Action -->
     <td nzRight nzAlign="center">
       <nz-button-group>
-        <button *ngIf="isEdit(row)" (click)="edit(row)" nz-button nzType="text">
+        <button *ngIf="isEdit(row)" (click)="undo(row)" nz-button nzType="text">
           <span nz-icon nzType="undo" nz-tooltip nzTooltipTitle="cancel" class="action-icons"></span>
         </button>
         <button *ngIf="!isEdit(row)" (click)="edit(row)" nz-button nzType="text">

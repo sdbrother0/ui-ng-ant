@@ -63,7 +63,7 @@ export class TableComponent implements OnInit {
   indeterminate = false;
   private setOfCheckedId = new Set<number>();
   setOfIsEdit = new Set<any>();
-  private mapOfBeforeEditValues = new Map<any, any>;
+  mapOfBeforeEditValues = new Map<any, any>;
   metaData: MetaData = {
     name: '',
     key: '',
@@ -166,15 +166,14 @@ export class TableComponent implements OnInit {
         this.recordSet.splice(index, 1);
       }
     }
+    if (this.recordSet.length == 0) {
+      this.recordSet = [];
+    }
   }
 
   edit(row: any) {
-    if (this.setOfIsEdit.has(row)) {
-      this.undo(row);
-    } else {
-      this.setOfIsEdit.add(row);
-      this.mapOfBeforeEditValues.set(row[this.metaData.key], structuredClone(row));
-    }
+    this.setOfIsEdit.add(row);
+    this.mapOfBeforeEditValues.set(row[this.metaData.key], structuredClone(row));
     if (this.recordSet.length == 0) {
       this.recordSet = [];
     }

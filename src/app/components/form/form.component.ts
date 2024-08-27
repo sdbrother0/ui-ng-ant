@@ -52,6 +52,7 @@ export class FormComponent implements OnInit {
   }
 
   showDialog(row: any) {
+    this.table.mapOfBeforeEditValues.set(row[this.metaData.key], structuredClone(row));
     if (this.metaData.reports) {
       if (this.metaData.reports.length > 0)
       this.selectedPrintUrl = this.metaData.reports[0].url;
@@ -71,6 +72,7 @@ export class FormComponent implements OnInit {
 
   handleCancel() {
     console.log(this.data);
+    this.table.undo(this.data);
     this.isVisible = false;
   }
 
