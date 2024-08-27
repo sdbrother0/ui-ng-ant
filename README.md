@@ -124,3 +124,9 @@ export const environment = {
 ```
 ng serve
 ```
+
+### 5. Docker build and run
+```
+docker build -t sdbrother/ui:v0 .
+docker run -d -p 4200:4200 sdbrother/ui:v0
+```
