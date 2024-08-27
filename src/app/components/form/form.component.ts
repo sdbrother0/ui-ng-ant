@@ -71,7 +71,6 @@ export class FormComponent implements OnInit {
   }
 
   handleCancel() {
-    console.log(this.data);
     this.table.undo(this.data);
     this.isVisible = false;
   }
