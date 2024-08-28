@@ -106,7 +106,7 @@
         </button>
         <form-component [metaData]=metaData [data]=row [table]="this"/>
         <button nz-popconfirm nzPopconfirmTitle="Sure to delete?" *ngIf="!isEdit(row)" (nzOnConfirm)="delete(row)" nz-button nzType="text">
-          <span nz-icon nzType="delete" nz-tooltip nzTooltipTitle="delete" class="action-icons"></span>
+          <span nz-icon nzType="delete" nz-tooltip nzTooltipTitle="delete" class="action-icons" style="color: red;"></span>
         </button>
         <button *ngIf="isEdit(row)" (click)="save(row)" nz-button nzType="text">
           <span nz-icon nzType="check" nz-tooltip nzTooltipTitle="save" class="action-icons"></span>
