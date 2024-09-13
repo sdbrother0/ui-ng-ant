@@ -1,7 +1,7 @@
 # Experiment UI (Angular + Ant)
 
 ### Video example:
-[example_video.mov](img/example_video.mov)
+https://www.youtube.com/watch?v=qHkae5jq7e0
 
 ### Visit for example https://sdbrother.org/
 
