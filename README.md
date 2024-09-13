@@ -1,11 +1,11 @@
 # Experiment UI (Angular + Ant)
 
-## Video example:
+### Video example:
 [example_video.mov](img/example_video.mov)
 
-## Visit for example https://sdbrother.org/
+### Visit for example https://sdbrother.org/
 
-## UI for https://github.com/sdbrother0/srv
+### UI for https://github.com/sdbrother0/srv
 
 #### Used https://ng.ant.design
 
