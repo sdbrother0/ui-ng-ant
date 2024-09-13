@@ -1,5 +1,4 @@
 /mnt/SDCARD/Roms/ZXS
-scp onion@192.168.1.43:/mnt/SDCARD/Roms/FC/
 
 git pull
 sed -i -e 's/http:\/\/localhost:8090/https:\/\/sdbrother.org\/api/g' /home/sd/pet/ui-ng-ant/src/environments/environment.ts
