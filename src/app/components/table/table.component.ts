@@ -213,6 +213,7 @@ export class TableComponent implements OnInit {
           }
           //refresh data in masterForm (if this is details table)
           if (this.masterObjectComponent) {
+            console.log('master');
             this.masterId = value[this.masterObjectComponent.metaData.name][this.masterObjectComponent.metaData.key];
             this.masterObjectComponent.setKeyValue(this.masterId);
             this.masterObjectComponent.addTableRow(value[this.masterObjectComponent.metaData.name]);
@@ -291,6 +292,7 @@ export class TableComponent implements OnInit {
     } else {
       this.deleteFromRecordSetByRow(row);
     }
+    console.log('master');
   }
 
   deleteFromRecordSetByRow(row: any) {
@@ -365,6 +367,7 @@ export class TableComponent implements OnInit {
         this.masterObjectComponent.data[fieldName] = value[this.masterObjectComponent.metaData.name][fieldName];
       }
     }
+    this.masterObjectComponent.table.mapOfBeforeEditValues.delete(value[this.masterObjectComponent.metaData.name][this.masterObjectComponent.metaData.key]);
   }
 
   protected readonly FieldTypeName = FieldTypeName;
