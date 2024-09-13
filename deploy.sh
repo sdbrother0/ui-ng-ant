@@ -1,4 +1,4 @@
-/mnt/SDCARD/Roms/ZXS
+#!/bin/bash
 
 git pull
 sed -i -e 's/http:\/\/localhost:8090/https:\/\/sdbrother.org\/api/g' /home/sd/pet/ui-ng-ant/src/environments/environment.ts
