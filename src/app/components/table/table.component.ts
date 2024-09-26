@@ -68,9 +68,6 @@ export class TableComponent implements OnInit {
     name: '',
     key: '',
     url: '',
-    showSelect: false,
-    showAction: false,
-    showLoader: false,
     fields: [],
     details: [],
     reports: []
@@ -83,7 +80,6 @@ export class TableComponent implements OnInit {
       .subscribe({
         next: (value: MetaData) => {
           this.metaData = value
-          this.metaData.showSelect = this.showSelect
         },
         error: (error) => {
           console.error(error)

@@ -30,9 +30,6 @@ https://www.youtube.com/watch?v=qHkae5jq7e0
   "url" : "/invoice",
   "name": "invoice",
   "key": "id",
-  "showSelect": true,
-  "showAction": true,
-  "showLoader": true,
   "fields": [
       {
           "name": "id",
