@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {NzDemoTreeViewDirectoryComponent} from "../../components/tree/tree.component";
 import {TableComponent} from "../../components/table/table.component";
 import {
   NzContentComponent,
@@ -18,7 +17,6 @@ import {NzDividerComponent} from "ng-zorro-antd/divider";
   standalone: true,
   templateUrl: './customer.component.html',
   imports: [
-    NzDemoTreeViewDirectoryComponent,
     TableComponent,
     NzLayoutComponent,
     NzSiderComponent,

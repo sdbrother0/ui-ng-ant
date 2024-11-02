@@ -26,7 +26,6 @@ import {Field} from "../../dto/field";
 import {NzTableSortOrder} from "ng-zorro-antd/table/src/table.types";
 import {NzDropdownMenuComponent} from "ng-zorro-antd/dropdown";
 import {FieldTypeName} from "../../dto/field.type.name";
-import {NzDemoTreeViewDirectoryComponent} from "../tree/tree.component";
 import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
 import {NzDividerComponent} from "ng-zorro-antd/divider";
 import {NzPopconfirmDirective} from "ng-zorro-antd/popconfirm";
@@ -39,7 +38,7 @@ import {DateComponent} from "../date/date.component";
   standalone: true,
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css'],
-  imports: [NzTableModule, NzTableComponent, JsonPipe, NgForOf, NzInputDirective, FormsModule, NzButtonComponent, NzInputGroupComponent, NzIconDirective, NgIf, NzButtonGroupComponent, NzTooltipDirective, NzModalModule, forwardRef(() => LookupComponent), forwardRef(() => FormComponent), NzDatePickerComponent, NgSwitch, NgSwitchCase, NgSwitchDefault, DatePipe, NzDropdownMenuComponent, NgStyle, NzDemoTreeViewDirectoryComponent, NzColDirective, NzRowDirective, NzDividerComponent, NzPopconfirmDirective, DateComponent]
+  imports: [NzTableModule, NzTableComponent, JsonPipe, NgForOf, NzInputDirective, FormsModule, NzButtonComponent, NzInputGroupComponent, NzIconDirective, NgIf, NzButtonGroupComponent, NzTooltipDirective, NzModalModule, forwardRef(() => LookupComponent), forwardRef(() => FormComponent), NzDatePickerComponent, NgSwitch, NgSwitchCase, NgSwitchDefault, DatePipe, NzDropdownMenuComponent, NgStyle, NzColDirective, NzRowDirective, NzDividerComponent, NzPopconfirmDirective, DateComponent]
 })
 export class TableComponent implements OnInit {
 
