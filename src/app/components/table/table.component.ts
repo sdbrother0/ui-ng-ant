@@ -42,7 +42,7 @@ import {DateComponent} from "../date/date.component";
 })
 export class TableComponent implements OnInit {
 
-  @Input() metaUrl: string = 'title';
+  @Input() metaUrl?: string;
   @Input() pageIndex: number = 1;
   @Input() pageSize: number = 10;
   @Input() total: number = 0;

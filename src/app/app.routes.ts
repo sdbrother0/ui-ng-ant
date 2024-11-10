@@ -1,7 +1,8 @@
-import { Routes } from '@angular/router';
+import {Routes} from '@angular/router';
+import {BaseComponent} from "./content/base.component";
 
-export const routes: Routes = [
-  { path: 'product', loadChildren: () => import('./pages/product/product.routes').then(m => m.PRODUCT_ROUTES) },
-  { path: 'customer', loadChildren: () => import('./pages/customer/customer.routes').then(m => m.CUSTOMER_ROUTES) },
-  { path: 'invoice', loadChildren: () => import('./pages/invoice/invoice.routes').then(m => m.INVOICE_ROUTES) },
-];
+export let routes: Routes = [
+    {
+      path: 'test', component: BaseComponent
+    }
+  ];

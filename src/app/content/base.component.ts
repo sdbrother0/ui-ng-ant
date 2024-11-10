@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {TableComponent} from "../../components/table/table.component";
+import {Component, Input, OnInit} from '@angular/core';
+import {TableComponent} from "../components/table/table.component";
 import {
   NzContentComponent,
   NzFooterComponent,
@@ -11,11 +11,13 @@ import {NzFlexDirective} from "ng-zorro-antd/flex";
 import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
 import {NzTableComponent} from "ng-zorro-antd/table";
 import {NzDividerComponent} from "ng-zorro-antd/divider";
+import {ActivatedRoute} from "@angular/router";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-form',
   standalone: true,
-  templateUrl: './invoice.component.html',
+  templateUrl: './base.component.html',
   imports: [
     TableComponent,
     NzLayoutComponent,
@@ -27,14 +29,21 @@ import {NzDividerComponent} from "ng-zorro-antd/divider";
     NzTableComponent,
     NzDividerComponent,
     NzHeaderComponent,
-    NzFooterComponent
+    NzFooterComponent,
+    NgIf
   ],
-  styleUrls: ['./invoice.component.css']
+  styleUrls: ['./base.component.css']
 })
-export class InvoiceComponent implements OnInit {
+export class BaseComponent implements OnInit {
+  @Input()
+  metaUrl?: string;
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) {}
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.route.data.subscribe(data => {
+      this.metaUrl = data['metaUrl'];
+    });
+  }
 
 }
