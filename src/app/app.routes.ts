@@ -1,8 +1,6 @@
 import {Routes} from '@angular/router';
-import {BaseComponent} from "./content/base.component";
+import {LoginComponent} from "./login/login.component";
 
 export let routes: Routes = [
-    {
-      path: 'test', component: BaseComponent
-    }
-  ];
+
+];

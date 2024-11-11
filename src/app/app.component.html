@@ -1,20 +1,21 @@
-<nz-layout class="app-layout">
-  <nz-sider class="menu-sidebar">
+<nz-layout>
+  <nz-sider>
     <ul nz-menu nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <!--TODO to SERVER!!! -->
       <li nz-submenu nzOpen nzTitle="Invoice example" nzIcon="form">
         <ul>
           <li *ngFor="let route of routers" nz-menu-item nzMatchRouter>
-            <a routerLink="{{route.path}}">{{route.title}}</a>
+            <a routerLink="{{route.path}}">{{ route.title }}</a>
           </li>
         </ul>
       </li>
     </ul>
   </nz-sider>
-  <nz-layout>
-    <nz-content>
-      <div class="inner-content">
-        <router-outlet></router-outlet>
-      </div>
-    </nz-content>
-  </nz-layout>
+  <nz-content>
+    <div class="inner-content">
+<!--      <button nz-button (click)="logout()">Logout</button>-->
+<!--      <nz-divider></nz-divider>-->
+      <router-outlet></router-outlet>
+    </div>
+  </nz-content>
 </nz-layout>

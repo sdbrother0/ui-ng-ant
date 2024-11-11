@@ -13,6 +13,7 @@ import {NzTableComponent} from "ng-zorro-antd/table";
 import {NzDividerComponent} from "ng-zorro-antd/divider";
 import {ActivatedRoute} from "@angular/router";
 import {NgIf} from "@angular/common";
+import {NzPageHeaderComponent} from "ng-zorro-antd/page-header";
 
 @Component({
   selector: 'app-form',
@@ -30,7 +31,8 @@ import {NgIf} from "@angular/common";
     NzDividerComponent,
     NzHeaderComponent,
     NzFooterComponent,
-    NgIf
+    NgIf,
+    NzPageHeaderComponent
   ],
   styleUrls: ['./base.component.css']
 })
