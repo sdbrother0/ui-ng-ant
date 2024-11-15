@@ -1,10 +1,9 @@
 <nz-layout>
   <nz-sider>
     <ul nz-menu nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-      <!--TODO to SERVER!!! -->
-      <li nz-submenu nzOpen nzTitle="Invoice example" nzIcon="form">
+      <li *ngFor="let menu of menuList" nz-submenu nzOpen nzTitle="{{menu.title}}" nzIcon="form">
         <ul>
-          <li *ngFor="let route of routers" nz-menu-item nzMatchRouter>
+          <li *ngFor="let route of menu.routes" nz-menu-item nzMatchRouter>
             <a routerLink="{{route.path}}">{{ route.title }}</a>
           </li>
         </ul>
@@ -13,8 +12,8 @@
   </nz-sider>
   <nz-content>
     <div class="inner-content">
-<!--      <button nz-button (click)="logout()">Logout</button>-->
-<!--      <nz-divider></nz-divider>-->
+      <!--      <button nz-button (click)="logout()">Logout</button>-->
+      <!--      <nz-divider></nz-divider>-->
       <router-outlet></router-outlet>
     </div>
   </nz-content>

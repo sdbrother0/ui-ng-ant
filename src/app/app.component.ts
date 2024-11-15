@@ -4,7 +4,6 @@ import {NzIconModule} from 'ng-zorro-antd/icon';
 import {NzLayoutModule} from 'ng-zorro-antd/layout';
 import {NzMenuModule} from 'ng-zorro-antd/menu';
 import {HttpClient} from "@angular/common/http";
-import {Route} from "./dto/route";
 import {environment} from "../environments/environment";
 import {Router, RouterLink, RouterOutlet} from "@angular/router";
 import {BaseComponent} from "./content/base.component";
@@ -21,6 +20,7 @@ import {NonNullableFormBuilder, ReactiveFormsModule, Validators} from "@angular/
 import {NzInputDirective, NzInputGroupComponent} from "ng-zorro-antd/input";
 import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
 import {NzCheckboxComponent} from "ng-zorro-antd/checkbox";
+import {Menu} from "./dto/menu";
 
 @Component({
   selector: 'app-root',
@@ -32,7 +32,7 @@ import {NzCheckboxComponent} from "ng-zorro-antd/checkbox";
 
 export class AppComponent {
   isCollapsed = false;
-  routers: Route[] = [];
+  menuList: Menu[] = [];
   authService: AuthService;
 
   validateForm = this.fb.group({
@@ -43,18 +43,20 @@ export class AppComponent {
 
   constructor(private fb: NonNullableFormBuilder, authService: AuthService, http: HttpClient, router: Router) {
     this.authService = authService;
-    http.get<Route[]>(environment.API_URL + '/meta/routes')
+    http.get<Menu[]>(environment.API_URL + '/meta/menu')
       .subscribe({
-        next: (route) => {
-          route.forEach(r =>
-            router.config.push({
-              path: r.path,
-              component: BaseComponent,
-              canActivate: [AuthGuard],
-              data: {metaUrl: r.metaUrl}
-            })
-          );
-          this.routers = route;
+        next: (menuList) => {
+          this.menuList = menuList;
+          menuList.forEach((menu) => {
+            menu.routes.forEach((route) => {
+              router.config.push({
+                 path: route.path,
+                 component: BaseComponent,
+                 canActivate: [AuthGuard],
+                 data: {metaUrl: route.metaUrl}
+              })
+            });
+          });
         },
         error: (error) => {
           console.error(error)
