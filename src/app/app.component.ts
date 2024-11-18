@@ -6,10 +6,10 @@ import {NzMenuModule} from 'ng-zorro-antd/menu';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../environments/environment";
 import {Router, RouterLink, RouterOutlet} from "@angular/router";
-import {BaseComponent} from "./content/base.component";
+import {BaseComponent} from "./content/base-component";
 import {AuthService} from "./auth.service";
 import {AuthGuard} from "./auth.guard";
-import {LoginComponent} from "./login/login.component";
+import {LoginComponent} from "./components/login/login-component";
 import {NzPageHeaderComponent, NzPageHeaderExtraDirective} from "ng-zorro-antd/page-header";
 import {NzDividerComponent} from "ng-zorro-antd/divider";
 import {NzButtonComponent} from "ng-zorro-antd/button";
@@ -41,7 +41,7 @@ export class AppComponent {
     remember: this.fb.control(true)
   });
 
-  constructor(private fb: NonNullableFormBuilder, authService: AuthService, http: HttpClient, router: Router) {
+  constructor(private fb: NonNullableFormBuilder, authService: AuthService, http: HttpClient, private router: Router) {
     this.authService = authService;
     http.get<Menu[]>(environment.API_URL + '/meta/menu')
       .subscribe({
@@ -66,6 +66,7 @@ export class AppComponent {
 
   logout() {
     this.authService.logout();
+    this.router.navigate(['/']);
   }
 
 }

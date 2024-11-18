@@ -9,15 +9,24 @@ import {DatePipe, registerLocaleData} from '@angular/common';
 import en from '@angular/common/locales/en';
 import {FormsModule} from '@angular/forms';
 import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
-import {HttpClient, provideHttpClient, withFetch} from '@angular/common/http';
-import {firstValueFrom} from "rxjs";
-import {environment} from "../environments/environment";
+import {
+  HTTP_INTERCEPTORS,
+  HttpClient,
+  provideHttpClient,
+  withInterceptors,
+  withInterceptorsFromDi
+} from '@angular/common/http';
 import {Menu} from "./dto/menu";
+import {AuthService} from "./auth.service";
+import {JwtInterceptor} from "./jwt.Interceptor";
 
 registerLocaleData(en);
 
-export function initializeApp(http: HttpClient) {
-  return (): Promise<Menu[]> => firstValueFrom(http.get<Menu[]>(environment.API_URL + '/meta/menu'));
+export function initializeApp(http: HttpClient, authService: AuthService) {
+  //if (authService.isLoggedIn()) {
+  //  return (): Promise<Menu[]> => firstValueFrom(http.get<Menu[]>(environment.API_URL + '/meta/menu'));
+  //}
+  return () => Promise<Menu>;
 }
 
 export const appConfig: ApplicationConfig = {
@@ -27,7 +36,10 @@ export const appConfig: ApplicationConfig = {
     provideNzI18n(en_US),
     importProvidersFrom(FormsModule),
     provideAnimationsAsync(),
-    provideHttpClient(withFetch()),
+    provideHttpClient(
+      withInterceptorsFromDi()
+    ),
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     DatePipe,
     {
       provide: APP_INITIALIZER,

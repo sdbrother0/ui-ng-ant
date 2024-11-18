@@ -1,7 +1,7 @@
 import {Component, forwardRef, Input, OnInit, ViewChild} from "@angular/core";
 import {JsonPipe, NgForOf, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault} from "@angular/common";
 import {NzModalComponent, NzModalContentDirective} from "ng-zorro-antd/modal";
-import {LookupComponent} from "../lookup/lookup.component";
+import {LookupComponent} from "../lookup/lookup-component";
 import {NzInputDirective, NzInputGroupComponent} from "ng-zorro-antd/input";
 import {MetaData} from "../../dto/meta.data";
 import {NzFormControlComponent, NzFormDirective, NzFormItemComponent, NzFormLabelComponent,} from "ng-zorro-antd/form";
@@ -11,18 +11,18 @@ import {NzOptionComponent, NzSelectComponent} from "ng-zorro-antd/select";
 import {NzCheckboxComponent} from "ng-zorro-antd/checkbox";
 import {NzButtonComponent, NzButtonGroupComponent} from "ng-zorro-antd/button";
 import {NzTabComponent, NzTabSetComponent} from "ng-zorro-antd/tabs";
-import {TableComponent} from "../table/table.component";
+import {TableComponent} from "../table/table-component";
 import {NzDatePickerComponent} from "ng-zorro-antd/date-picker";
 import {FieldTypeName} from "../../dto/field.type.name";
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzDividerComponent} from "ng-zorro-antd/divider";
-import {ReportComponent} from "../report/report.component";
-import {DateComponent} from "../date/date.component";
+import {ReportComponent} from "../report/report-component";
+import {DateComponent} from "../date/date-component";
 
 @Component({
   selector: 'form-component',
-  templateUrl: './form.component.html',
-  styleUrls: ['./form.component.css'],
+  templateUrl: './form-component.html',
+  styleUrls: ['./form-component.css'],
   standalone: true,
   imports: [NzModalComponent, NzModalContentDirective, JsonPipe, LookupComponent, NgForOf, NgIf, NzInputDirective, NzFormItemComponent, NzFormLabelComponent, NzFormControlComponent, NzColDirective, NzFormDirective, FormsModule, ReactiveFormsModule, NzInputGroupComponent, NzSelectComponent, NzOptionComponent, NzRowDirective, NzCheckboxComponent, NzButtonComponent, NzTabSetComponent, NzTabComponent, forwardRef(() => TableComponent), NgSwitchCase, NgSwitchDefault, NzDatePickerComponent, NgSwitch, NzButtonGroupComponent, NzIconDirective, NzDividerComponent, ReportComponent, DateComponent]
 })

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {TableComponent} from "../components/table/table.component";
+import {TableComponent} from "../components/table/table-component";
 import {
   NzContentComponent,
   NzFooterComponent,
@@ -18,7 +18,7 @@ import {NzPageHeaderComponent} from "ng-zorro-antd/page-header";
 @Component({
   selector: 'app-form',
   standalone: true,
-  templateUrl: './base.component.html',
+  templateUrl: './base-component.html',
   imports: [
     TableComponent,
     NzLayoutComponent,
@@ -34,7 +34,7 @@ import {NzPageHeaderComponent} from "ng-zorro-antd/page-header";
     NgIf,
     NzPageHeaderComponent
   ],
-  styleUrls: ['./base.component.css']
+  styleUrls: ['./base-component.css']
 })
 export class BaseComponent implements OnInit {
   @Input()

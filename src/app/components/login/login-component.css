@@ -1,7 +1,6 @@
 .login-form {
-  width:300px; margin:0 auto;
-  max-width: 300px;
-  align-content: center;
+  width: 300px;
+  margin: 20vh auto auto;
 }
 
 .login-form-margin {

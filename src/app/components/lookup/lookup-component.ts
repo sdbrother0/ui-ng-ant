@@ -6,7 +6,7 @@ import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzTooltipDirective} from "ng-zorro-antd/tooltip";
 import {NzModalModule} from 'ng-zorro-antd/modal';
-import {TableComponent} from "../table/table.component";
+import {TableComponent} from "../table/table-component";
 import {Field} from "../../dto/field";
 import {
   AbstractControl,
@@ -24,8 +24,8 @@ import {FormComponent} from "../form/form.component";
   host: {ngSkipHydration: 'true'},
   selector: 'lookup-component',
   standalone: true,
-  templateUrl: './lookup.component.html',
-  styleUrls: ['./lookup.component.css'],
+  templateUrl: './lookup-component.html',
+  styleUrls: ['./lookup-component.css'],
   imports: [NzTableModule, NzTableComponent, JsonPipe, NgForOf, NzInputDirective, FormsModule, NzButtonComponent, NzInputGroupComponent, NzIconDirective, NzTooltipDirective, NzModalModule, forwardRef(() => TableComponent)],
   providers: [{
     provide: NG_VALUE_ACCESSOR, multi: true, useExisting: LookupComponent

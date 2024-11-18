@@ -9,22 +9,27 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    // if (typeof window === 'undefined') {
-    //   return false;
-    // }
-    // const loggedInString = localStorage.getItem("loggedIn");
-    // return JSON.parse(<string>loggedInString);
-    return true;
+    //if (typeof window !== 'undefined') {
+      return localStorage.getItem('token') !== null;
+    //} else {
+    //  return true;
+    //}
   }
 
   logout() {
-    console.log(localStorage);
-    localStorage.setItem("loggedIn", String(false));
+    localStorage.removeItem('token');
     this.router.navigate(['/']);
   }
 
-  login() {
-    console.log(localStorage);
-    localStorage.setItem("loggedIn", String(true));
+  login(token: string) {
+    localStorage.setItem("token", token);
+  }
+
+  getToken() {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('token');
+    } else {
+      return 'no-token';
+    }
   }
 }
