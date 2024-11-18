@@ -9,11 +9,7 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    //if (typeof window !== 'undefined') {
-      return localStorage.getItem('token') !== null;
-    //} else {
-    //  return true;
-    //}
+    return localStorage.getItem('token') !== null;
   }
 
   logout() {
