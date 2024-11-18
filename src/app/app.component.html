@@ -13,7 +13,7 @@
             </li>
           </ul>
         </li>
-        <li *ngFor="let menu of menuList" nz-submenu nzOpen nzTitle="{{menu.title}}" nzIcon="form">
+        <li *ngFor="let menu of menuList" nz-submenu nzOpen nzTitle="{{menu.title}}" nzIcon="menu-unfold">
           <ul>
             <li *ngFor="let route of menu.routes" nz-menu-item nzMatchRouter>
               <a routerLink="{{route.path}}">{{ route.title }}</a>
