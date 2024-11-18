@@ -13,7 +13,6 @@ import {
   HTTP_INTERCEPTORS,
   HttpClient,
   provideHttpClient,
-  withInterceptors,
   withInterceptorsFromDi
 } from '@angular/common/http';
 import {Menu} from "./dto/menu";
