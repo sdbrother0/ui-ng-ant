@@ -6,7 +6,7 @@ import {NzMenuModule} from 'ng-zorro-antd/menu';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../environments/environment";
 import {Router, RouterLink, RouterOutlet} from "@angular/router";
-import {BaseComponent} from "./content/base-component";
+import {BaseComponent} from "./components/content/base-component";
 import {AuthService} from "./auth.service";
 import {AuthGuard} from "./auth.guard";
 import {LoginComponent} from "./components/login/login-component";

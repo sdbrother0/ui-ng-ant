@@ -1,19 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {TableComponent} from "../components/table/table-component";
-import {
-  NzContentComponent,
-  NzFooterComponent,
-  NzHeaderComponent,
-  NzLayoutComponent,
-  NzSiderComponent
-} from "ng-zorro-antd/layout";
-import {NzFlexDirective} from "ng-zorro-antd/flex";
-import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
-import {NzTableComponent} from "ng-zorro-antd/table";
-import {NzDividerComponent} from "ng-zorro-antd/divider";
+import {TableComponent} from "../table/table-component";
 import {ActivatedRoute} from "@angular/router";
 import {NgIf} from "@angular/common";
-import {NzPageHeaderComponent} from "ng-zorro-antd/page-header";
 
 @Component({
   selector: 'app-form',
