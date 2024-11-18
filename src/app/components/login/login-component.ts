@@ -4,7 +4,7 @@ import {NzIconModule} from 'ng-zorro-antd/icon';
 import {NzLayoutModule} from 'ng-zorro-antd/layout';
 import {NzMenuModule} from 'ng-zorro-antd/menu';
 import {NzButtonComponent} from "ng-zorro-antd/button";
-import {AuthService} from "../../auth.service";
+import {AuthService} from "../../auth/auth.service";
 import {NzFormControlComponent, NzFormDirective, NzFormItemComponent} from "ng-zorro-antd/form";
 import {NzInputDirective, NzInputGroupComponent} from "ng-zorro-antd/input";
 import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
