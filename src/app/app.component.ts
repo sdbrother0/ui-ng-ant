@@ -35,12 +35,6 @@ export class AppComponent {
   menuList: Menu[] = [];
   authService: AuthService;
 
-  validateForm = this.fb.group({
-    username: this.fb.control('', [Validators.required]),
-    password: this.fb.control('', [Validators.required]),
-    remember: this.fb.control(true)
-  });
-
   constructor(private fb: NonNullableFormBuilder, authService: AuthService, http: HttpClient, private router: Router) {
     this.authService = authService;
     http.get<Menu[]>(environment.API_URL + '/meta/menu')
