@@ -13,6 +13,7 @@ import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {Auth} from "../../dto/auth";
+import {NzMessageService} from "ng-zorro-antd/message";
 
 @Component({
   selector: 'login-component',
@@ -28,7 +29,7 @@ export class LoginComponent {
     password: new FormControl('', [Validators.required])
   })
 
-  constructor(private authService: AuthService, private router: Router, private http: HttpClient) {
+  constructor(private authService: AuthService, private router: Router, private http: HttpClient, private message: NzMessageService) {
   }
 
   login() {
@@ -40,6 +41,7 @@ export class LoginComponent {
             this.router.navigate(['/']);
           }, error: (error) => {
             console.error(error);
+            this.message.create('error', `Error: ${error.message}`);
           }, complete: () => {
           }
         });
