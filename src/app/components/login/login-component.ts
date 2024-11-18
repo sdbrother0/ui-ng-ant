@@ -14,11 +14,13 @@ import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {Auth} from "../../dto/auth";
 import {NzMessageService} from "ng-zorro-antd/message";
+import {NzCardComponent} from "ng-zorro-antd/card";
+import {NzSpaceComponent} from "ng-zorro-antd/space";
 
 @Component({
   selector: 'login-component',
   standalone: true,
-  imports: [CommonModule, NzIconModule, NzLayoutModule, NzMenuModule, NzButtonComponent, NzFormItemComponent, NzFormControlComponent, NzInputGroupComponent, NzRowDirective, NzColDirective, ReactiveFormsModule, NzInputDirective, NzFormDirective, FormsModule],
+  imports: [CommonModule, NzIconModule, NzLayoutModule, NzMenuModule, NzButtonComponent, NzFormItemComponent, NzFormControlComponent, NzInputGroupComponent, NzRowDirective, NzColDirective, ReactiveFormsModule, NzInputDirective, NzFormDirective, FormsModule, NzCardComponent, NzSpaceComponent],
   templateUrl: './login-component.html',
   styleUrls: ['./login-component.css']
 })
