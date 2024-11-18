@@ -21,18 +21,7 @@ import {NzPageHeaderComponent} from "ng-zorro-antd/page-header";
   templateUrl: './base-component.html',
   imports: [
     TableComponent,
-    NzLayoutComponent,
-    NzSiderComponent,
-    NzContentComponent,
-    NzFlexDirective,
-    NzRowDirective,
-    NzColDirective,
-    NzTableComponent,
-    NzDividerComponent,
-    NzHeaderComponent,
-    NzFooterComponent,
     NgIf,
-    NzPageHeaderComponent
   ],
   styleUrls: ['./base-component.css']
 })
