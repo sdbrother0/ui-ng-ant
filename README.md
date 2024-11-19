@@ -27,7 +27,7 @@ export const environment = {
 ng build --c=production ui-ng-ant
 ```
 
-### 2. Copy prod Nginx settings prod
+### 2. Copy prod files to /var/www/html/ (nginx)
 ```
 cp -r ./dist/ui-ng-ant/browser/* /var/www/html/
 ln -s /var/www/html/index.csr.html /var/www/html/index.html
