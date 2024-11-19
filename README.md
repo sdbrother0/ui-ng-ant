@@ -111,7 +111,7 @@ server {
 		proxy_set_header Connection "Upgrade";
 		proxy_set_header Host $host;
 		proxy_pass http://backend8090/;
-  }
+	}
 
 	# pass PHP scripts to FastCGI server
 	#
