@@ -105,12 +105,12 @@ server {
 		error_page 404 =200 /index.html;
 	}
 
-  location /api/ {
-      proxy_http_version 1.1;
-      proxy_set_header Upgrade $http_upgrade;
-      proxy_set_header Connection "Upgrade";
-      proxy_set_header Host $host;
-      proxy_pass http://backend8090/;
+	location /api/ {
+		proxy_http_version 1.1;
+		proxy_set_header Upgrade $http_upgrade;
+		proxy_set_header Connection "Upgrade";
+		proxy_set_header Host $host;
+		proxy_pass http://backend8090/;
   }
 
 	# pass PHP scripts to FastCGI server
