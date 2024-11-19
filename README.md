@@ -57,13 +57,13 @@ ln -s /var/www/html/index.csr.html /var/www/html/index.html
 #
 
 upstream backend8090 {
-    server localhost:8090;
+	server localhost:8090;
 }
 
 server {
-    listen 80 default_server;
-    server_name _;
-    return 301 https://$host$request_uri;
+	listen 80 default_server;
+	server_name _;
+	return 301 https://$host$request_uri;
 }
 
 server {
