@@ -27,13 +27,13 @@ export const environment = {
 ng build --c=production ui-ng-ant
 ```
 
-### 2. Copy prod files to /var/www/html/ (nginx)
+### 2. Copy files to /var/www/html/ (nginx)
 ```
 cp -r ./dist/ui-ng-ant/browser/* /var/www/html/
 ln -s /var/www/html/index.csr.html /var/www/html/index.html
 ```
 
-### 3. Nginx settings prod in file /etc/nginx/sites-available/default
+### 3. Nginx settings in file /etc/nginx/sites-available/default
 ```
 ##
 # You should look at the following URL's in order to grasp a solid understanding
