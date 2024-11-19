@@ -22,7 +22,7 @@ export const environment = {
 };
 ```
 
-### 1. Stop backend server and Build prod UI
+### 1. Stop backend server (if running) and Build prod UI
 ```
 ng build --c=production ui-ng-ant
 ```
