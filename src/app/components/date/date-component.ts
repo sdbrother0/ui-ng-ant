@@ -20,8 +20,8 @@ import {DatePipe} from "@angular/common";
   host: {ngSkipHydration: 'true'},
   selector: 'date-component',
   standalone: true,
-  templateUrl: './date.component.html',
-  styleUrls: ['./date.component.css'],
+  templateUrl: './date-component.html',
+  styleUrls: ['./date-component.css'],
   imports: [
     NzDatePickerComponent,
     FormsModule,

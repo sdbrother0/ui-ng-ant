@@ -17,8 +17,8 @@ import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'report-component',
-  templateUrl: './report.component.html',
-  styleUrls: ['./report.component.css'],
+  templateUrl: './report-component.html',
+  styleUrls: ['./report-component.css'],
   standalone: true,
   imports: [NzModalComponent, NzModalContentDirective, JsonPipe, NgForOf, NgIf, NzInputDirective, NzFormItemComponent, NzFormLabelComponent, NzFormControlComponent, NzColDirective, NzFormDirective, FormsModule, ReactiveFormsModule, NzInputGroupComponent, NzSelectComponent, NzOptionComponent, NzRowDirective, NzCheckboxComponent, NzButtonComponent, NzTabSetComponent, NzTabComponent, NgSwitchCase, NgSwitchDefault, NzDatePickerComponent, NgSwitch, NzButtonGroupComponent, NzIconDirective, NzDividerComponent, SafePipe]
 })

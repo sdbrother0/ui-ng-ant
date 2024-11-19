@@ -1,0 +1,50 @@
+:host {
+  /* display: flex; */
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.app-layout {
+  height: 100vh;
+}
+
+.menu-sidebar {
+  overflow: auto;
+  height: 100%;
+  position: fixed;
+  left: 0;
+}
+
+.header-trigger {
+  height: 64px;
+  padding: 20px 24px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all .3s,padding 0s;
+}
+
+.trigger:hover {
+  color: #1890ff;
+}
+
+nz-content {
+  overflow: initial;
+  background: #fff;
+}
+
+.inner-content {
+  min-height: 100vh;
+  padding: 24px;
+  background: #fff;
+}
+
+.ant-layout-sider {
+  background: #fff;
+  border-right: 1px solid #f0f0f0;
+}
+
+.ant-menu-inline {
+  border: 0;
+  padding-right: 1px;
+}

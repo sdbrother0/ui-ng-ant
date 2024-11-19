@@ -1,0 +1,32 @@
+<div *ngIf="authService.isLoggedIn() then templateApp else templateLogin"></div>
+<ng-template #templateLogin>
+  <login-component/>
+</ng-template>
+<ng-template #templateApp>
+  <nz-layout>
+    <nz-sider>
+      <ul nz-menu nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+        <li nz-submenu nzOpen nzTitle="Application" nzIcon="menu">
+          <ul>
+            <li nz-menu-item>
+              <a (click)="logout()">Log out</a>
+            </li>
+          </ul>
+        </li>
+        <li *ngFor="let menu of menuList" nz-submenu nzOpen nzTitle="{{menu.title}}" nzIcon="menu-unfold">
+          <ul>
+            <li *ngFor="let route of menu.routes" nz-menu-item nzMatchRouter>
+              <a routerLink="{{route.path}}">{{ route.title }}</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nz-sider>
+    <nz-content>
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+  </nz-layout>
+</ng-template>
+

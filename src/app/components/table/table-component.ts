@@ -19,7 +19,7 @@ import {NzTooltipDirective} from "ng-zorro-antd/tooltip";
 import {NzMessageService} from "ng-zorro-antd/message";
 import {NzModalModule, NzModalService} from 'ng-zorro-antd/modal';
 import {MetaData} from "../../dto/meta.data";
-import {LookupComponent} from "../lookup/lookup.component";
+import {LookupComponent} from "../lookup/lookup-component";
 import {FormComponent} from "../form/form.component";
 import {NzDatePickerComponent} from "ng-zorro-antd/date-picker";
 import {Field} from "../../dto/field";
@@ -30,19 +30,19 @@ import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
 import {NzDividerComponent} from "ng-zorro-antd/divider";
 import {NzPopconfirmDirective} from "ng-zorro-antd/popconfirm";
 import {environment} from "../../../environments/environment";
-import {DateComponent} from "../date/date.component";
+import {DateComponent} from "../date/date-component";
 
 @Component({
   host: {ngSkipHydration: 'true'},
   selector: 'table-component',
   standalone: true,
-  templateUrl: './table.component.html',
-  styleUrls: ['./table.component.css'],
+  templateUrl: './table-component.html',
+  styleUrls: ['./table-component.css'],
   imports: [NzTableModule, NzTableComponent, JsonPipe, NgForOf, NzInputDirective, FormsModule, NzButtonComponent, NzInputGroupComponent, NzIconDirective, NgIf, NzButtonGroupComponent, NzTooltipDirective, NzModalModule, forwardRef(() => LookupComponent), forwardRef(() => FormComponent), NzDatePickerComponent, NgSwitch, NgSwitchCase, NgSwitchDefault, DatePipe, NzDropdownMenuComponent, NgStyle, NzColDirective, NzRowDirective, NzDividerComponent, NzPopconfirmDirective, DateComponent]
 })
 export class TableComponent implements OnInit {
 
-  @Input() metaUrl: string = 'title';
+  @Input() metaUrl?: string;
   @Input() pageIndex: number = 1;
   @Input() pageSize: number = 10;
   @Input() total: number = 0;
