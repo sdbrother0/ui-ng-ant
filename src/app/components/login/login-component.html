@@ -1,7 +1,9 @@
 <div class="login-form">
-  <nz-card style="width:300px; margin-bottom: 20px" nzTitle="Log in">
-    <p>Use: admin/admin to login</p>
-  </nz-card>
+  <nz-space nzDirection="vertical">
+    <nz-card style="width:300px; margin-bottom: 20px" nzTitle="Log in">
+      <p>Use: admin/admin to login</p>
+    </nz-card>
+  </nz-space>
   <form nz-form [formGroup]="signupForm" (ngSubmit)="login()">
     <nz-form-item>
       <nz-form-control nzErrorTip="Please input your username!">

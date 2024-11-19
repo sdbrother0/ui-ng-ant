@@ -12,7 +12,7 @@ import {provideAnimationsAsync} from '@angular/platform-browser/animations/async
 import {
   HTTP_INTERCEPTORS,
   HttpClient,
-  provideHttpClient,
+  provideHttpClient, withFetch,
   withInterceptorsFromDi
 } from '@angular/common/http';
 import {Menu} from "../dto/menu";
@@ -36,7 +36,7 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(FormsModule),
     provideAnimationsAsync(),
     provideHttpClient(
-      withInterceptorsFromDi()
+      withInterceptorsFromDi(), withFetch()
     ),
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     DatePipe,

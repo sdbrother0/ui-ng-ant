@@ -1,14 +1,10 @@
 .login-form {
   width: 300px;
-  margin: 20vh auto auto;
+  margin: 0 auto auto;
 }
 
 .login-form-margin {
   margin-bottom: 16px;
-}
-
-.login-form-forgot {
-  float: right;
 }
 
 .login-form-button {
