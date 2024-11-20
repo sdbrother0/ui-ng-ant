@@ -4,14 +4,13 @@ import {ActivatedRoute} from "@angular/router";
 import {NgIf} from "@angular/common";
 
 @Component({
-  selector: 'app-form',
-  standalone: true,
-  templateUrl: './base-component.html',
-  imports: [
-    TableComponent,
-    NgIf,
-  ],
-  styleUrls: ['./base-component.css']
+    selector: 'app-form',
+    templateUrl: './base-component.html',
+    imports: [
+        TableComponent,
+        NgIf,
+    ],
+    styleUrls: ['./base-component.css']
 })
 export class BaseComponent implements OnInit {
   @Input()

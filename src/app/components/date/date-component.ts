@@ -17,21 +17,20 @@ import {DatePipe} from "@angular/common";
 
 
 @Component({
-  host: {ngSkipHydration: 'true'},
-  selector: 'date-component',
-  standalone: true,
-  templateUrl: './date-component.html',
-  styleUrls: ['./date-component.css'],
-  imports: [
-    NzDatePickerComponent,
-    FormsModule,
-    NzInputGroupComponent
-  ],
-  providers: [{
-    provide: NG_VALUE_ACCESSOR, multi: true, useExisting: DateComponent
-  }, {
-    provide: NG_VALIDATORS, multi: true, useExisting: DateComponent
-  },]
+    host: { ngSkipHydration: 'true' },
+    selector: 'date-component',
+    templateUrl: './date-component.html',
+    styleUrls: ['./date-component.css'],
+    imports: [
+        NzDatePickerComponent,
+        FormsModule,
+        NzInputGroupComponent
+    ],
+    providers: [{
+            provide: NG_VALUE_ACCESSOR, multi: true, useExisting: DateComponent
+        }, {
+            provide: NG_VALIDATORS, multi: true, useExisting: DateComponent
+        },]
 })
 export class DateComponent implements OnInit, ControlValueAccessor, Validator {
 

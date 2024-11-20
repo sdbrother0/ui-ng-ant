@@ -20,11 +20,10 @@ import {ReportComponent} from "../report/report-component";
 import {DateComponent} from "../date/date-component";
 
 @Component({
-  selector: 'form-component',
-  templateUrl: './form-component.html',
-  styleUrls: ['./form-component.css'],
-  standalone: true,
-  imports: [NzModalComponent, NzModalContentDirective, JsonPipe, LookupComponent, NgForOf, NgIf, NzInputDirective, NzFormItemComponent, NzFormLabelComponent, NzFormControlComponent, NzColDirective, NzFormDirective, FormsModule, ReactiveFormsModule, NzInputGroupComponent, NzSelectComponent, NzOptionComponent, NzRowDirective, NzCheckboxComponent, NzButtonComponent, NzTabSetComponent, NzTabComponent, forwardRef(() => TableComponent), NgSwitchCase, NgSwitchDefault, NzDatePickerComponent, NgSwitch, NzButtonGroupComponent, NzIconDirective, NzDividerComponent, ReportComponent, DateComponent]
+    selector: 'form-component',
+    templateUrl: './form-component.html',
+    styleUrls: ['./form-component.css'],
+    imports: [NzModalComponent, NzModalContentDirective, JsonPipe, LookupComponent, NgForOf, NgIf, NzInputDirective, NzFormItemComponent, NzFormLabelComponent, NzFormControlComponent, NzColDirective, NzFormDirective, FormsModule, ReactiveFormsModule, NzInputGroupComponent, NzSelectComponent, NzOptionComponent, NzRowDirective, NzCheckboxComponent, NzButtonComponent, NzTabSetComponent, NzTabComponent, forwardRef(() => TableComponent), NgSwitchCase, NgSwitchDefault, NzDatePickerComponent, NgSwitch, NzButtonGroupComponent, NzIconDirective, NzDividerComponent, ReportComponent, DateComponent]
 })
 export class FormComponent implements OnInit {
 

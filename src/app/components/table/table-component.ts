@@ -33,12 +33,11 @@ import {environment} from "../../../environments/environment";
 import {DateComponent} from "../date/date-component";
 
 @Component({
-  host: {ngSkipHydration: 'true'},
-  selector: 'table-component',
-  standalone: true,
-  templateUrl: './table-component.html',
-  styleUrls: ['./table-component.css'],
-  imports: [NzTableModule, NzTableComponent, JsonPipe, NgForOf, NzInputDirective, FormsModule, NzButtonComponent, NzInputGroupComponent, NzIconDirective, NgIf, NzButtonGroupComponent, NzTooltipDirective, NzModalModule, forwardRef(() => LookupComponent), forwardRef(() => FormComponent), NzDatePickerComponent, NgSwitch, NgSwitchCase, NgSwitchDefault, DatePipe, NzDropdownMenuComponent, NgStyle, NzColDirective, NzRowDirective, NzDividerComponent, NzPopconfirmDirective, DateComponent]
+    host: { ngSkipHydration: 'true' },
+    selector: 'table-component',
+    templateUrl: './table-component.html',
+    styleUrls: ['./table-component.css'],
+    imports: [NzTableModule, NzTableComponent, JsonPipe, NgForOf, NzInputDirective, FormsModule, NzButtonComponent, NzInputGroupComponent, NzIconDirective, NgIf, NzButtonGroupComponent, NzTooltipDirective, NzModalModule, forwardRef(() => LookupComponent), forwardRef(() => FormComponent), NzDatePickerComponent, NgSwitch, NgSwitchCase, NgSwitchDefault, DatePipe, NzDropdownMenuComponent, NgStyle, NzColDirective, NzRowDirective, NzDividerComponent, NzPopconfirmDirective, DateComponent]
 })
 export class TableComponent implements OnInit {
 

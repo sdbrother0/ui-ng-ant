@@ -21,17 +21,16 @@ import {
 import {FormComponent} from "../form/form.component";
 
 @Component({
-  host: {ngSkipHydration: 'true'},
-  selector: 'lookup-component',
-  standalone: true,
-  templateUrl: './lookup-component.html',
-  styleUrls: ['./lookup-component.css'],
-  imports: [NzTableModule, NzTableComponent, JsonPipe, NgForOf, NzInputDirective, FormsModule, NzButtonComponent, NzInputGroupComponent, NzIconDirective, NzTooltipDirective, NzModalModule, forwardRef(() => TableComponent)],
-  providers: [{
-    provide: NG_VALUE_ACCESSOR, multi: true, useExisting: LookupComponent
-  }, {
-    provide: NG_VALIDATORS, multi: true, useExisting: LookupComponent
-  },]
+    host: { ngSkipHydration: 'true' },
+    selector: 'lookup-component',
+    templateUrl: './lookup-component.html',
+    styleUrls: ['./lookup-component.css'],
+    imports: [NzTableModule, NzTableComponent, JsonPipe, NgForOf, NzInputDirective, FormsModule, NzButtonComponent, NzInputGroupComponent, NzIconDirective, NzTooltipDirective, NzModalModule, forwardRef(() => TableComponent)],
+    providers: [{
+            provide: NG_VALUE_ACCESSOR, multi: true, useExisting: LookupComponent
+        }, {
+            provide: NG_VALIDATORS, multi: true, useExisting: LookupComponent
+        },]
 })
 export class LookupComponent implements OnInit, ControlValueAccessor, Validator {
 

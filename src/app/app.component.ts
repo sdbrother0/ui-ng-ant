@@ -23,11 +23,10 @@ import {NzCheckboxComponent} from "ng-zorro-antd/checkbox";
 import {Menu} from "./dto/menu";
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [CommonModule, RouterOutlet, NzIconModule, NzLayoutModule, NzMenuModule, RouterLink, LoginComponent, NzPageHeaderComponent, NzDividerComponent, NzButtonComponent, NzPageHeaderExtraDirective, NzSpaceComponent, NzBreadCrumbComponent, NzBreadCrumbItemComponent, NzFormDirective, ReactiveFormsModule, NzFormItemComponent, NzFormControlComponent, NzInputGroupComponent, NzColDirective, NzRowDirective, NzCheckboxComponent, NzInputDirective],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+    selector: 'app-root',
+    imports: [CommonModule, RouterOutlet, NzIconModule, NzLayoutModule, NzMenuModule, RouterLink, LoginComponent, NzPageHeaderComponent, NzDividerComponent, NzButtonComponent, NzPageHeaderExtraDirective, NzSpaceComponent, NzBreadCrumbComponent, NzBreadCrumbItemComponent, NzFormDirective, ReactiveFormsModule, NzFormItemComponent, NzFormControlComponent, NzInputGroupComponent, NzColDirective, NzRowDirective, NzCheckboxComponent, NzInputDirective],
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css']
 })
 
 export class AppComponent {

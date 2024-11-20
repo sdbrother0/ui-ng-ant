@@ -18,11 +18,10 @@ import {NzCardComponent} from "ng-zorro-antd/card";
 import {NzSpaceComponent} from "ng-zorro-antd/space";
 
 @Component({
-  selector: 'login-component',
-  standalone: true,
-  imports: [CommonModule, NzIconModule, NzLayoutModule, NzMenuModule, NzButtonComponent, NzFormItemComponent, NzFormControlComponent, NzInputGroupComponent, NzRowDirective, NzColDirective, ReactiveFormsModule, NzInputDirective, NzFormDirective, FormsModule, NzCardComponent, NzSpaceComponent],
-  templateUrl: './login-component.html',
-  styleUrls: ['./login-component.css']
+    selector: 'login-component',
+    imports: [CommonModule, NzIconModule, NzLayoutModule, NzMenuModule, NzButtonComponent, NzFormItemComponent, NzFormControlComponent, NzInputGroupComponent, NzRowDirective, NzColDirective, ReactiveFormsModule, NzInputDirective, NzFormDirective, FormsModule, NzCardComponent, NzSpaceComponent],
+    templateUrl: './login-component.html',
+    styleUrls: ['./login-component.css']
 })
 
 export class LoginComponent {
