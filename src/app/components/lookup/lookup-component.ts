@@ -25,7 +25,7 @@ import {FormComponent} from "../form/form.component";
     selector: 'lookup-component',
     templateUrl: './lookup-component.html',
     styleUrls: ['./lookup-component.css'],
-    imports: [NzTableModule, NzTableComponent, JsonPipe, NgForOf, NzInputDirective, FormsModule, NzButtonComponent, NzInputGroupComponent, NzIconDirective, NzTooltipDirective, NzModalModule, forwardRef(() => TableComponent)],
+    imports: [NzTableModule, NzInputDirective, FormsModule, NzButtonComponent, NzInputGroupComponent, NzIconDirective, NzTooltipDirective, NzModalModule, forwardRef(() => TableComponent)],
     providers: [{
             provide: NG_VALUE_ACCESSOR, multi: true, useExisting: LookupComponent
         }, {

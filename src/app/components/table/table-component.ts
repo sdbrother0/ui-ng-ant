@@ -37,7 +37,7 @@ import {DateComponent} from "../date/date-component";
     selector: 'table-component',
     templateUrl: './table-component.html',
     styleUrls: ['./table-component.css'],
-    imports: [NzTableModule, NzTableComponent, JsonPipe, NgForOf, NzInputDirective, FormsModule, NzButtonComponent, NzInputGroupComponent, NzIconDirective, NgIf, NzButtonGroupComponent, NzTooltipDirective, NzModalModule, forwardRef(() => LookupComponent), forwardRef(() => FormComponent), NzDatePickerComponent, NgSwitch, NgSwitchCase, NgSwitchDefault, DatePipe, NzDropdownMenuComponent, NgStyle, NzColDirective, NzRowDirective, NzDividerComponent, NzPopconfirmDirective, DateComponent]
+    imports: [NzTableModule, NzTableComponent, NgForOf, NzInputDirective, FormsModule, NzButtonComponent, NzIconDirective, NgIf, NzButtonGroupComponent, NzTooltipDirective, NzModalModule, forwardRef(() => LookupComponent), forwardRef(() => FormComponent), NgSwitch, NgSwitchCase, NgSwitchDefault, DatePipe, NzDropdownMenuComponent, NgStyle, NzPopconfirmDirective, DateComponent]
 })
 export class TableComponent implements OnInit {
 

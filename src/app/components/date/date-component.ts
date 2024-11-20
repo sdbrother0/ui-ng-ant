@@ -23,8 +23,7 @@ import {DatePipe} from "@angular/common";
     styleUrls: ['./date-component.css'],
     imports: [
         NzDatePickerComponent,
-        FormsModule,
-        NzInputGroupComponent
+        FormsModule
     ],
     providers: [{
             provide: NG_VALUE_ACCESSOR, multi: true, useExisting: DateComponent

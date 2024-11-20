@@ -10,21 +10,12 @@ import {BaseComponent} from "./components/content/base-component";
 import {AuthService} from "./auth/auth.service";
 import {AuthGuard} from "./auth/auth.guard";
 import {LoginComponent} from "./components/login/login-component";
-import {NzPageHeaderComponent, NzPageHeaderExtraDirective} from "ng-zorro-antd/page-header";
-import {NzDividerComponent} from "ng-zorro-antd/divider";
-import {NzButtonComponent} from "ng-zorro-antd/button";
-import {NzSpaceComponent} from "ng-zorro-antd/space";
-import {NzBreadCrumbComponent, NzBreadCrumbItemComponent} from "ng-zorro-antd/breadcrumb";
-import {NzFormControlComponent, NzFormDirective, NzFormItemComponent} from "ng-zorro-antd/form";
-import {NonNullableFormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
-import {NzInputDirective, NzInputGroupComponent} from "ng-zorro-antd/input";
-import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
-import {NzCheckboxComponent} from "ng-zorro-antd/checkbox";
+import {NonNullableFormBuilder, ReactiveFormsModule} from "@angular/forms";
 import {Menu} from "./dto/menu";
 
 @Component({
     selector: 'app-root',
-    imports: [CommonModule, RouterOutlet, NzIconModule, NzLayoutModule, NzMenuModule, RouterLink, LoginComponent, NzPageHeaderComponent, NzDividerComponent, NzButtonComponent, NzPageHeaderExtraDirective, NzSpaceComponent, NzBreadCrumbComponent, NzBreadCrumbItemComponent, NzFormDirective, ReactiveFormsModule, NzFormItemComponent, NzFormControlComponent, NzInputGroupComponent, NzColDirective, NzRowDirective, NzCheckboxComponent, NzInputDirective],
+    imports: [CommonModule, RouterOutlet, NzIconModule, NzLayoutModule, NzMenuModule, RouterLink, LoginComponent, ReactiveFormsModule],
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
 })

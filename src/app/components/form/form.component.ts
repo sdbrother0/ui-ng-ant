@@ -23,7 +23,7 @@ import {DateComponent} from "../date/date-component";
     selector: 'form-component',
     templateUrl: './form-component.html',
     styleUrls: ['./form-component.css'],
-    imports: [NzModalComponent, NzModalContentDirective, JsonPipe, LookupComponent, NgForOf, NgIf, NzInputDirective, NzFormItemComponent, NzFormLabelComponent, NzFormControlComponent, NzColDirective, NzFormDirective, FormsModule, ReactiveFormsModule, NzInputGroupComponent, NzSelectComponent, NzOptionComponent, NzRowDirective, NzCheckboxComponent, NzButtonComponent, NzTabSetComponent, NzTabComponent, forwardRef(() => TableComponent), NgSwitchCase, NgSwitchDefault, NzDatePickerComponent, NgSwitch, NzButtonGroupComponent, NzIconDirective, NzDividerComponent, ReportComponent, DateComponent]
+    imports: [NzModalComponent, NzModalContentDirective, LookupComponent, NgForOf, NgIf, NzInputDirective, NzFormItemComponent, NzFormLabelComponent, NzFormControlComponent, NzColDirective, NzFormDirective, FormsModule, ReactiveFormsModule, NzSelectComponent, NzOptionComponent, NzRowDirective, NzButtonComponent, NzTabSetComponent, NzTabComponent, forwardRef(() => TableComponent), NgSwitchCase, NgSwitchDefault, NgSwitch, NzIconDirective, ReportComponent, DateComponent]
 })
 export class FormComponent implements OnInit {
 
