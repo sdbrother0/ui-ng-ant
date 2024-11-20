@@ -12,6 +12,7 @@ import {AuthGuard} from "./auth/auth.guard";
 import {LoginComponent} from "./components/login/login-component";
 import {NonNullableFormBuilder, ReactiveFormsModule} from "@angular/forms";
 import {Menu} from "./dto/menu";
+import {NzMessageService} from "ng-zorro-antd/message";
 
 @Component({
     selector: 'app-root',
@@ -25,7 +26,7 @@ export class AppComponent {
   menuList: Menu[] = [];
   authService: AuthService;
 
-  constructor(private fb: NonNullableFormBuilder, authService: AuthService, http: HttpClient, private router: Router) {
+  constructor(private fb: NonNullableFormBuilder, authService: AuthService, http: HttpClient, private router: Router, private message: NzMessageService) {
     this.authService = authService;
     http.get<Menu[]>(environment.API_URL + '/meta/menu')
       .subscribe({
@@ -43,7 +44,10 @@ export class AppComponent {
           });
         },
         error: (error) => {
-          console.error(error)
+            if (typeof window !== 'undefined') {
+                console.error(error);
+                this.message.create('error', `Error: ${error.message}`);
+            }
         }
       });
   }
