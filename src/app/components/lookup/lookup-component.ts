@@ -1,6 +1,5 @@
 import {Component, forwardRef, Input, OnInit, ViewChild} from "@angular/core";
-import {NzTableComponent, NzTableModule} from "ng-zorro-antd/table";
-import {JsonPipe, NgForOf} from "@angular/common";
+import {NzTableModule} from "ng-zorro-antd/table";
 import {NzInputDirective, NzInputGroupComponent} from "ng-zorro-antd/input";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzIconDirective} from "ng-zorro-antd/icon";
