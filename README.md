@@ -14,12 +14,12 @@ npm i
 
 ### 3. Change API_URL:
 
-change API_URL in file: src/environments/environment.ts to your host
+change API_URL in file: [config.json](src/assets/config.json) to your host
 (e.g.: `http://localhost:8090` -> `https://sdbrother.org/api`)
 ```
-export const environment = {
-  API_URL: 'https://sdbrother.org/api'
-};
+{
+  "API_URL": "https://sdbrother.org/api"
+}
 ```
 
 ### 1. Stop backend server (if running) and Build prod UI
