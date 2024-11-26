@@ -11,11 +11,11 @@ import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
-import {environment} from "../../../environments/environment";
 import {Auth} from "../../dto/auth";
 import {NzMessageService} from "ng-zorro-antd/message";
 import {NzCardComponent} from "ng-zorro-antd/card";
 import {NzSpaceComponent} from "ng-zorro-antd/space";
+import {AppLoaderService} from "../../service/app.loader.service";
 
 @Component({
     selector: 'login-component',
@@ -30,12 +30,12 @@ export class LoginComponent {
     password: new FormControl('', [Validators.required])
   })
 
-  constructor(private authService: AuthService, private router: Router, private http: HttpClient, private message: NzMessageService) {
+  constructor(private appLoaderService: AppLoaderService, private authService: AuthService, private router: Router, private http: HttpClient, private message: NzMessageService) {
   }
 
   login() {
     if (this.signupForm.valid) {
-      this.http.post<Auth>(environment.API_URL + '/login', this.signupForm.value)
+      this.http.post<Auth>(this.appLoaderService.API_URL + '/login', this.signupForm.value)
         .subscribe({
           next: (auth: Auth) => {
             this.authService.login(auth.token);

@@ -1,4 +1,4 @@
-import {APP_INITIALIZER, ApplicationConfig, importProvidersFrom} from '@angular/core';
+import {ApplicationConfig, importProvidersFrom, inject, provideAppInitializer} from '@angular/core';
 import {provideRouter} from '@angular/router';
 
 import {routes} from '../app.routes';
@@ -9,42 +9,16 @@ import {DatePipe, registerLocaleData} from '@angular/common';
 import en from '@angular/common/locales/en';
 import {FormsModule} from '@angular/forms';
 import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
-import {
-  HTTP_INTERCEPTORS,
-  HttpClient,
-  provideHttpClient, withFetch,
-  withInterceptorsFromDi
-} from '@angular/common/http';
-import {Menu} from "../dto/menu";
-import {AuthService} from "../auth/auth.service";
+import {HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptorsFromDi} from '@angular/common/http';
 import {JwtInterceptor} from "../auth/jwt.Interceptor";
+import {AppLoaderService} from "../service/app.loader.service";
 
 registerLocaleData(en);
 
-export function initializeApp(http: HttpClient, authService: AuthService) {
-  //if (authService.isLoggedIn()) {
-  //  return (): Promise<Menu[]> => firstValueFrom(http.get<Menu[]>(environment.API_URL + '/meta/menu'));
-  //}
-  return () => Promise<Menu>;
-}
-
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes),
-    provideClientHydration(),
-    provideNzIcons(),
-    provideNzI18n(en_US),
-    importProvidersFrom(FormsModule),
-    provideAnimationsAsync(),
-    provideHttpClient(
-      withInterceptorsFromDi(), withFetch()
-    ),
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    DatePipe,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: initializeApp,
-      multi: true,
-      deps: [HttpClient],
-    },
-  ]
+  providers: [provideRouter(routes), provideClientHydration(), provideNzIcons(), provideNzI18n(en_US), importProvidersFrom(FormsModule), provideAnimationsAsync(), provideHttpClient(withInterceptorsFromDi(), withFetch()), {
+    provide: HTTP_INTERCEPTORS,
+    useClass: JwtInterceptor,
+    multi: true
+  }, DatePipe, provideAppInitializer(() => inject(AppLoaderService).init()),]
 };

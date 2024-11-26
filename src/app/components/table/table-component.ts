@@ -3,7 +3,6 @@ import {NzTableComponent, NzTableModule, NzTableQueryParams} from "ng-zorro-antd
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {
   DatePipe,
-  JsonPipe,
   NgForOf,
   NgIf,
   NgStyle,
@@ -21,16 +20,13 @@ import {NzModalModule, NzModalService} from 'ng-zorro-antd/modal';
 import {MetaData} from "../../dto/meta.data";
 import {LookupComponent} from "../lookup/lookup-component";
 import {FormComponent} from "../form/form.component";
-import {NzDatePickerComponent} from "ng-zorro-antd/date-picker";
 import {Field} from "../../dto/field";
 import {NzTableSortOrder} from "ng-zorro-antd/table/src/table.types";
 import {NzDropdownMenuComponent} from "ng-zorro-antd/dropdown";
 import {FieldTypeName} from "../../dto/field.type.name";
-import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
-import {NzDividerComponent} from "ng-zorro-antd/divider";
 import {NzPopconfirmDirective} from "ng-zorro-antd/popconfirm";
-import {environment} from "../../../environments/environment";
 import {DateComponent} from "../date/date-component";
+import {AppLoaderService} from "../../service/app.loader.service";
 
 @Component({
     host: { ngSkipHydration: 'true' },
@@ -71,10 +67,10 @@ export class TableComponent implements OnInit {
     reports: []
   };
 
-  constructor(private http: HttpClient, private message: NzMessageService, private modal: NzModalService) {}
+  constructor(private appLoaderService: AppLoaderService, private http: HttpClient, private message: NzMessageService, private modal: NzModalService) {}
 
   ngOnInit() {
-    this.http.get<MetaData>(environment.API_URL + this.metaUrl)
+    this.http.get<MetaData>(this.appLoaderService.API_URL + this.metaUrl)
       .subscribe({
         next: (value: MetaData) => {
           this.metaData = value
@@ -115,7 +111,7 @@ export class TableComponent implements OnInit {
       }
     });
 
-    this.http.get<any>(environment.API_URL + this.metaData.url, {
+    this.http.get<any>(this.appLoaderService.API_URL + this.metaData.url, {
       params: params
     }).subscribe({
       next: (value) => {
@@ -194,7 +190,7 @@ export class TableComponent implements OnInit {
       }
     }
 
-    this.http.post(environment.API_URL + this.metaData.url, row)
+    this.http.post(this.appLoaderService.API_URL + this.metaData.url, row)
       .subscribe({
         next: (value: any) => {
           const rsData = this.recordSet;
@@ -272,7 +268,7 @@ export class TableComponent implements OnInit {
 
   delete(row: any) {
     if (row.id !== null) {
-      this.http.delete(`${environment.API_URL + this.metaData.url}?id=${row.id}`)
+      this.http.delete(`${this.appLoaderService.API_URL + this.metaData.url}?id=${row.id}`)
         .subscribe({
           next: (value: any) => {
             this.refreshMasterForm(value);
