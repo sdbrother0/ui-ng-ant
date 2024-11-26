@@ -14,7 +14,7 @@ npm i
 
 ### 3. Change API_URL:
 
-change API_URL in file: [config.json](src/assets/config.json) to your host
+change API_URL in file: [config.json](src/assets/config.json)(src/assets/config.json) to your host
 (e.g.: `http://localhost:8090` -> `https://sdbrother.org/api`)
 ```
 {
