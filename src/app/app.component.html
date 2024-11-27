@@ -4,6 +4,17 @@
 </ng-template>
 <ng-template #templateApp>
   <nz-layout>
+    <!--
+    <nz-header>
+      <div class="logo"></div>
+      <ul nz-menu nzTheme="dark" nzMode="horizontal" class="header-menu">
+        <li nz-menu-item nzSelected>nav 1</li>
+        <li nz-menu-item>nav 2</li>
+        <li nz-menu-item>nav 3</li>
+      </ul>
+    </nz-header>
+    -->
+  <nz-layout>
     <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" nzTheme="light">
       <ul nz-menu nzMode="inline" [nzInlineCollapsed]="isCollapsed">
         <li nz-submenu nzOpen nzTitle="Application" nzIcon="menu">
@@ -29,5 +40,7 @@
       </div>
     </nz-content>
   </nz-layout>
+  </nz-layout>
 </ng-template>
+
 
