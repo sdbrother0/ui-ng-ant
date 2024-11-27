@@ -4,7 +4,7 @@
 </ng-template>
 <ng-template #templateApp>
   <nz-layout>
-    <nz-sider>
+    <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" nzTheme="light">
       <ul nz-menu nzMode="inline" [nzInlineCollapsed]="isCollapsed">
         <li nz-submenu nzOpen nzTitle="Application" nzIcon="menu">
           <ul>
@@ -22,6 +22,7 @@
         </li>
       </ul>
     </nz-sider>
+
     <nz-content>
       <div class="inner-content">
         <router-outlet></router-outlet>

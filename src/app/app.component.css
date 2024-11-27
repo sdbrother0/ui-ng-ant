@@ -31,6 +31,11 @@
 nz-content {
   overflow: initial;
   background: #fff;
+  border-left: 1px solid #f0f0f0;
+}
+
+.ant-menu-inline, .ant-menu-vertical, .ant-menu-vertical-left {
+  border: 0;
 }
 
 .inner-content {
@@ -41,10 +46,4 @@ nz-content {
 
 .ant-layout-sider {
   background: #fff;
-  border-right: 1px solid #f0f0f0;
-}
-
-.ant-menu-inline {
-  border: 0;
-  padding-right: 1px;
 }
