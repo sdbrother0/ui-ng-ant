@@ -17,7 +17,7 @@ import {
   Validator,
   Validators
 } from "@angular/forms";
-import {FormComponent} from "../form/form.component";
+import {TableFormComponent} from "../form/table-form.component";
 
 @Component({
     host: { ngSkipHydration: 'true' },
@@ -35,7 +35,7 @@ export class LookupComponent implements OnInit, ControlValueAccessor, Validator 
 
   @Input() row!: any;
   @Input() field!: Field;
-  @Input() parentForm!: FormComponent;
+  @Input() parentForm!: TableFormComponent;
 
   @ViewChild('lookup_table') lookupTable!: TableComponent;
   isDialogVisible = false;

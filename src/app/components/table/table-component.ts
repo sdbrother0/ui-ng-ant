@@ -19,7 +19,7 @@ import {NzMessageService} from "ng-zorro-antd/message";
 import {NzModalModule, NzModalService} from 'ng-zorro-antd/modal';
 import {MetaData} from "../../dto/meta.data";
 import {LookupComponent} from "../lookup/lookup-component";
-import {FormComponent} from "../form/form.component";
+import {TableFormComponent} from "../form/table-form.component";
 import {Field} from "../../dto/field";
 import {NzTableSortOrder} from "ng-zorro-antd/table/src/table.types";
 import {NzDropdownMenuComponent} from "ng-zorro-antd/dropdown";
@@ -33,7 +33,7 @@ import {AppLoaderService} from "../../service/app.loader.service";
     selector: 'table-component',
     templateUrl: './table-component.html',
     styleUrls: ['./table-component.css'],
-    imports: [NzTableModule, NzTableComponent, NgForOf, NzInputDirective, FormsModule, NzButtonComponent, NzIconDirective, NgIf, NzButtonGroupComponent, NzTooltipDirective, NzModalModule, forwardRef(() => LookupComponent), forwardRef(() => FormComponent), NgSwitch, NgSwitchCase, NgSwitchDefault, DatePipe, NzDropdownMenuComponent, NgStyle, NzPopconfirmDirective, DateComponent]
+    imports: [NzTableModule, NzTableComponent, NgForOf, NzInputDirective, FormsModule, NzButtonComponent, NzIconDirective, NgIf, NzButtonGroupComponent, NzTooltipDirective, NzModalModule, forwardRef(() => LookupComponent), forwardRef(() => TableFormComponent), NgSwitch, NgSwitchCase, NgSwitchDefault, DatePipe, NzDropdownMenuComponent, NgStyle, NzPopconfirmDirective, DateComponent]
 })
 export class TableComponent implements OnInit {
 
@@ -41,7 +41,7 @@ export class TableComponent implements OnInit {
   @Input() pageIndex: number = 1;
   @Input() pageSize: number = 10;
   @Input() total: number = 0;
-  @Input() masterObjectComponent!: FormComponent;
+  @Input() masterObjectComponent!: TableFormComponent;
   @Input() masterId!: number;
   @Input() forSelectKeyValue!: any;
   @Input() showSelect!: boolean;
@@ -49,7 +49,7 @@ export class TableComponent implements OnInit {
 
   sort: Array<{ key: string; value: NzTableSortOrder; }> = [];
 
-  @ViewChild("form_edit") formEdit!: FormComponent;
+  @ViewChild("form_edit") formEdit!: TableFormComponent;
 
   recordSet: any[] = [];
   loading: boolean = true;

@@ -3,7 +3,7 @@
     <span nz-icon nzType="edit" nzTheme="outline"></span>Add row
   </button>
   <button nz-button (click)="create()">
-    <form-component #form_edit [metaData]=metaData [data]={} [table]="this"/>
+    <table-form-component #form_edit [metaData]=metaData [data]={} [table]="this"/>
     <span nz-icon nzType="form" nzTheme="outline"></span>Create
   </button>
 </nz-button-group>
@@ -103,7 +103,7 @@
         <button *ngIf="!isEdit(row)" (click)="form(row)" nz-button nzType="text">
           <span nz-icon nzType="form" nz-tooltip nzTooltipTitle="edit" class="action-icons"></span>
         </button>
-        <form-component [metaData]=metaData [data]=row [table]="this"/>
+        <table-form-component [metaData]=metaData [data]=row [table]="this"/>
         <button nz-popconfirm nzPopconfirmTitle="Sure to delete?" *ngIf="!isEdit(row)" (nzOnConfirm)="delete(row)" nz-button nzType="text">
           <span nz-icon nzType="delete" nz-tooltip nzTooltipTitle="delete" class="action-icons" style="color: rgb(255, 77, 79);"></span>
         </button>

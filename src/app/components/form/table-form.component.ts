@@ -17,12 +17,12 @@ import {ReportComponent} from "../report/report-component";
 import {DateComponent} from "../date/date-component";
 
 @Component({
-    selector: 'form-component',
+    selector: 'table-form-component',
     templateUrl: './form-component.html',
     styleUrls: ['./form-component.css'],
     imports: [NzModalComponent, NzModalContentDirective, LookupComponent, NgForOf, NgIf, NzInputDirective, NzFormItemComponent, NzFormLabelComponent, NzFormControlComponent, NzColDirective, NzFormDirective, FormsModule, ReactiveFormsModule, NzSelectComponent, NzOptionComponent, NzRowDirective, NzButtonComponent, NzTabSetComponent, NzTabComponent, forwardRef(() => TableComponent), NgSwitchCase, NgSwitchDefault, NgSwitch, NzIconDirective, ReportComponent, DateComponent]
 })
-export class FormComponent implements OnInit {
+export class TableFormComponent implements OnInit {
 
   @Input() metaData!: MetaData;
   @Input() data: any;

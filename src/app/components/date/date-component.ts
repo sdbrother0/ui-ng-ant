@@ -10,7 +10,7 @@ import {
   Validator,
   Validators
 } from "@angular/forms";
-import {FormComponent} from "../form/form.component";
+import {TableFormComponent} from "../form/table-form.component";
 import {NzDatePickerComponent} from "ng-zorro-antd/date-picker";
 import {DatePipe} from "@angular/common";
 
@@ -34,7 +34,7 @@ export class DateComponent implements OnInit, ControlValueAccessor, Validator {
 
   @Input() row!: any;
   @Input() field!: Field;
-  @Input() parentForm!: FormComponent;
+  @Input() parentForm!: TableFormComponent;
   @Input() format!: string;
 
   date!: Date;
