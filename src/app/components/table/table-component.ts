@@ -19,7 +19,7 @@ import {NzMessageService} from "ng-zorro-antd/message";
 import {NzModalModule, NzModalService} from 'ng-zorro-antd/modal';
 import {MetaData} from "../../dto/meta.data";
 import {LookupComponent} from "../lookup/lookup-component";
-import {TableFormComponent} from "./form/table-form.component";
+import {TableFormComponent} from "../table-form/table-form.component";
 import {Field} from "../../dto/field";
 import {NzTableSortOrder} from "ng-zorro-antd/table/src/table.types";
 import {NzDropdownMenuComponent} from "ng-zorro-antd/dropdown";
