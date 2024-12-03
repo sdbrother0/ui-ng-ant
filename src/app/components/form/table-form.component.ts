@@ -18,8 +18,8 @@ import {DateComponent} from "../date/date-component";
 
 @Component({
     selector: 'table-form-component',
-    templateUrl: './form-component.html',
-    styleUrls: ['./form-component.css'],
+    templateUrl: './table-form-component.html',
+    styleUrls: ['./table-form-component.css'],
     imports: [NzModalComponent, NzModalContentDirective, LookupComponent, NgForOf, NgIf, NzInputDirective, NzFormItemComponent, NzFormLabelComponent, NzFormControlComponent, NzColDirective, NzFormDirective, FormsModule, ReactiveFormsModule, NzSelectComponent, NzOptionComponent, NzRowDirective, NzButtonComponent, NzTabSetComponent, NzTabComponent, forwardRef(() => TableComponent), NgSwitchCase, NgSwitchDefault, NgSwitch, NzIconDirective, ReportComponent, DateComponent]
 })
 export class TableFormComponent implements OnInit {
