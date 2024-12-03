@@ -34,7 +34,7 @@ export class AppLoaderService {
             menuList.forEach((menu) => {
               menu.routes.forEach((route) => {
                 this.router.config.push({
-                  path: route.path, component: BaseComponent, canActivate: [AuthGuard], data: {metaUrl: route.metaUrl}
+                  path: route.path, component: BaseComponent, canActivate: [AuthGuard], data: {metaUrl: route.metaUrl, type: route.type}
                 })
               });
             });
