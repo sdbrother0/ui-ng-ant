@@ -10,7 +10,7 @@ import {
   NgSwitchCase,
   NgSwitchDefault
 } from "@angular/common";
-import {NzInputDirective, NzInputGroupComponent} from "ng-zorro-antd/input";
+import {NzInputDirective  } from "ng-zorro-antd/input";
 import {FormsModule} from "@angular/forms";
 import {NzButtonComponent, NzButtonGroupComponent} from "ng-zorro-antd/button";
 import {NzIconDirective} from "ng-zorro-antd/icon";
