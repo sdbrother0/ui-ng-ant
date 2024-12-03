@@ -17,7 +17,7 @@ import {
   Validator,
   Validators
 } from "@angular/forms";
-import {TableFormComponent} from "../form/table-form.component";
+import {TableFormComponent} from "../table/form/table-form.component";
 
 @Component({
     host: { ngSkipHydration: 'true' },

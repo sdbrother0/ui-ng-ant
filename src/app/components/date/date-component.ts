@@ -10,7 +10,7 @@ import {
   Validator,
   Validators
 } from "@angular/forms";
-import {TableFormComponent} from "../form/table-form.component";
+import {TableFormComponent} from "../table/form/table-form.component";
 import {NzDatePickerComponent} from "ng-zorro-antd/date-picker";
 import {DatePipe} from "@angular/common";
 
