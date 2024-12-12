@@ -1,1 +1,7 @@
-form...
+<input [ngModel]="mapData.get('a')" (ngModelChange)="mapData.set('a', $event)"/>
+<input [ngModel]="mapData.get('b')" (ngModelChange)="mapData.set('b', $event)"/>
+<input [ngModel]="mapData.get('c')" (ngModelChange)="mapData.set('c', $event)"/>
+<br/>
+<button (click)="sendComponents('button1_click')">Button1</button>
+<button (click)="sendComponents('button2_click')">Button2</button>
+
