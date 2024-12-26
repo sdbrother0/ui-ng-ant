@@ -1,4 +1,4 @@
-<nz-button-group class="table-operations">
+<nz-space-compact class="table-operations">
   <button nz-button (click)="add()">
     <span nz-icon nzType="edit" nzTheme="outline"></span>Add row
   </button>
@@ -6,7 +6,7 @@
     <table-form-component #form_edit [metaData]=metaData [data]={} [table]="this"/>
     <span nz-icon nzType="form" nzTheme="outline"></span>Create
   </button>
-</nz-button-group>
+</nz-space-compact>
 <nz-table
   [nzScroll]="{ x: '1000px', y: '1000px' }"
   [nzSize]="'small'"
@@ -93,7 +93,7 @@
     </td>
     <!-- Action -->
     <td nzAlign="center">
-      <nz-button-group>
+      <nz-space-compact>
         <button *ngIf="isEdit(row)" (click)="undo(row)" nz-button nzType="text">
           <span nz-icon nzType="undo" nz-tooltip nzTooltipTitle="cancel" class="action-icons"></span>
         </button>
@@ -110,7 +110,7 @@
         <button *ngIf="isEdit(row)" (click)="save(row)" nz-button nzType="text">
           <span nz-icon nzType="check" nz-tooltip nzTooltipTitle="save" class="action-icons" style="color: rgb(82, 196, 26);"></span>
         </button>
-      </nz-button-group>
+      </nz-space-compact>
     </td>
   </tr>
   </tbody>

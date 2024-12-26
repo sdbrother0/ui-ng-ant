@@ -12,7 +12,7 @@ import {
 } from "@angular/common";
 import {NzInputDirective  } from "ng-zorro-antd/input";
 import {FormsModule} from "@angular/forms";
-import {NzButtonComponent, NzButtonGroupComponent} from "ng-zorro-antd/button";
+import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzTooltipDirective} from "ng-zorro-antd/tooltip";
 import {NzMessageService} from "ng-zorro-antd/message";
@@ -27,13 +27,14 @@ import {FieldTypeName} from "../../dto/field.type.name";
 import {NzPopconfirmDirective} from "ng-zorro-antd/popconfirm";
 import {DateComponent} from "../date/date-component";
 import {AppLoaderService} from "../../service/app.loader.service";
+import {NzSpaceCompactComponent} from "ng-zorro-antd/space";
 
 @Component({
     host: { ngSkipHydration: 'true' },
     selector: 'table-component',
     templateUrl: './table-component.html',
     styleUrls: ['./table-component.css'],
-    imports: [NzTableModule, NzTableComponent, NgForOf, NzInputDirective, FormsModule, NzButtonComponent, NzIconDirective, NgIf, NzButtonGroupComponent, NzTooltipDirective, NzModalModule, forwardRef(() => LookupComponent), forwardRef(() => TableFormComponent), NgSwitch, NgSwitchCase, NgSwitchDefault, DatePipe, NzDropdownMenuComponent, NgStyle, NzPopconfirmDirective, DateComponent]
+  imports: [NzTableModule, NzTableComponent, NgForOf, NzInputDirective, FormsModule, NzButtonComponent, NzIconDirective, NgIf, NzTooltipDirective, NzModalModule, forwardRef(() => LookupComponent), forwardRef(() => TableFormComponent), NgSwitch, NgSwitchCase, NgSwitchDefault, DatePipe, NzDropdownMenuComponent, NgStyle, NzPopconfirmDirective, DateComponent, NzSpaceCompactComponent]
 })
 export class TableComponent implements OnInit {
 
@@ -174,6 +175,7 @@ export class TableComponent implements OnInit {
   }
 
   save(row: any) {
+    console.log("save!!!");
     if (this.masterObjectComponent) {
       for (const fieldName in this.masterObjectComponent.formGroup.controls) {
         if (!row[this.masterObjectComponent.metaData.name]) {
