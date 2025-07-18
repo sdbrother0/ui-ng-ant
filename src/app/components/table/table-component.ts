@@ -1,5 +1,5 @@
 import {Component, forwardRef, Input, OnInit, ViewChild} from '@angular/core';
-import {NzTableComponent, NzTableModule, NzTableQueryParams} from "ng-zorro-antd/table";
+import {NzTableComponent, NzTableModule, NzTableQueryParams, NzTableSortOrder} from "ng-zorro-antd/table";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {
   DatePipe,
@@ -21,7 +21,6 @@ import {MetaData} from "../../dto/meta.data";
 import {LookupComponent} from "../lookup/lookup-component";
 import {TableFormComponent} from "../table-form/table-form.component";
 import {Field} from "../../dto/field";
-import {NzTableSortOrder} from "ng-zorro-antd/table/src/table.types";
 import {NzDropdownMenuComponent} from "ng-zorro-antd/dropdown";
 import {FieldTypeName} from "../../dto/field.type.name";
 import {NzPopconfirmDirective} from "ng-zorro-antd/popconfirm";
