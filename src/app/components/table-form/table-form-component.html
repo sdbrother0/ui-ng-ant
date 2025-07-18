@@ -32,11 +32,11 @@
           </nz-form-control>
       </nz-form-item>
     </form>
-    <nz-tabset nzType="card">
+    <nz-tabs nzType="card">
       <nz-tab *ngFor="let detail of metaData.details" [nzTitle]="detail.label">
         <table-component [metaUrl]=detail.metaUrl [masterObjectComponent]="this" [masterId]="data[metaData.key]"/>
       </nz-tab>
-    </nz-tabset>
+    </nz-tabs>
   </ng-container>
   <ng-template #modalFooter>
     <nz-select *ngIf="metaData.reports" [(ngModel)]="selectedPrintUrl">
