@@ -27,7 +27,7 @@ export class AppLoaderService {
   }
   loadMenu(apiUrl: string){
     if (typeof window !== 'undefined') {
-      this.httpClient.get<Menu[]>(apiUrl + '/meta/menu')
+      this.httpClient.get<Menu[]>(apiUrl + '/menu')
         .subscribe({
           next: (menuList) => {
             this.menuList = menuList;
