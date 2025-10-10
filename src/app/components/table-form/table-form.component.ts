@@ -1,5 +1,4 @@
 import {Component, forwardRef, Input, OnInit, ViewChild} from "@angular/core";
-import {NgForOf, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault} from "@angular/common";
 import {NzModalComponent, NzModalContentDirective} from "ng-zorro-antd/modal";
 import {LookupComponent} from "../lookup/lookup-component";
 import {NzInputDirective} from "ng-zorro-antd/input";
@@ -9,7 +8,7 @@ import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {NzOptionComponent, NzSelectComponent} from "ng-zorro-antd/select";
 import {NzButtonComponent} from "ng-zorro-antd/button";
-import {NzTabComponent, NzTabSetComponent} from "ng-zorro-antd/tabs";
+import {NzTabComponent, NzTabsComponent} from "ng-zorro-antd/tabs";
 import {TableComponent} from "../table/table-component";
 import {FieldTypeName} from "../../dto/field.type.name";
 import {NzIconDirective} from "ng-zorro-antd/icon";
@@ -20,7 +19,7 @@ import {DateComponent} from "../date/date-component";
     selector: 'table-form-component',
     templateUrl: './table-form-component.html',
     styleUrls: ['./table-form-component.css'],
-    imports: [NzModalComponent, NzModalContentDirective, LookupComponent, NgForOf, NgIf, NzInputDirective, NzFormItemComponent, NzFormLabelComponent, NzFormControlComponent, NzColDirective, NzFormDirective, FormsModule, ReactiveFormsModule, NzSelectComponent, NzOptionComponent, NzRowDirective, NzButtonComponent, NzTabSetComponent, NzTabComponent, forwardRef(() => TableComponent), NgSwitchCase, NgSwitchDefault, NgSwitch, NzIconDirective, ReportComponent, DateComponent]
+  imports: [NzModalComponent, NzModalContentDirective, LookupComponent, NzInputDirective, NzFormItemComponent, NzFormLabelComponent, NzFormControlComponent, NzColDirective, NzFormDirective, FormsModule, ReactiveFormsModule, NzSelectComponent, NzOptionComponent, NzRowDirective, NzButtonComponent, NzTabComponent, forwardRef(() => TableComponent), NzIconDirective, ReportComponent, DateComponent, NzTabsComponent]
 })
 export class TableFormComponent implements OnInit {
 

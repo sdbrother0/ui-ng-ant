@@ -1,6 +1,7 @@
 <report-component #rep/>
 <nz-modal
   nzDraggable
+  nzCentered
   [nzWidth]="1100"
   nzTitle="Form edit"
   [nzFooter]="modalFooter"
@@ -9,42 +10,54 @@
   (nzOnOk)="handleOk()">
   <ng-container *nzModalContent>
     <form #form nz-form [formGroup]="formGroup">
-      <nz-form-item *ngFor="let field of metaData.fields">
-          <nz-form-label *ngIf="!field.hidden" [nzSm]="6" [nzXs]="24" [nzRequired]="field?.validation?.required" nzFor="{{field.name}}">{{ field.label }}</nz-form-label>
-          <nz-form-control *ngIf="!field.hidden" [nzSm]="14" [nzXs]="24" [nzErrorTip]="field?.validation?.message">
-            <div *ngIf="!field.hidden" [ngSwitch]="field.type.name">
-              <ng-template ngSwitchCase="{{FieldTypeName.LOOKUP}}">
-                <lookup-component formControlName="{{field.name}}" [row]="data" [field]="field" [parentForm]="this"/>
-              </ng-template>
-              <ng-template ngSwitchCase="{{FieldTypeName.DATE}}">
-                <date-component formControlName="{{field.name}}" [row]="data" [field]="field" [format]="field.type.format" [parentForm]="this"/>
-              </ng-template>
-              <ng-template ngSwitchCase="{{FieldTypeName.NUMBER}}">
-                <input formControlName="{{field.name}}" nz-input id="{{field.name}}" [readonly]="!field?.editable" [nzBorderless]="!field?.editable" type="number"/>
-              </ng-template>
-              <ng-template ngSwitchCase="{{FieldTypeName.TEXT}}">
-                <textarea formControlName="{{field.name}}" nz-input id="{{field.name}}" [readonly]="!field?.editable" [nzBorderless]="!field?.editable" type="text"></textarea>
-              </ng-template>
-              <ng-template ngSwitchDefault>
-                <input formControlName="{{field.name}}" nz-input id="{{field.name}}" [readonly]="!field?.editable" [nzBorderless]="!field?.editable"/>
-              </ng-template>
-            </div>
-          </nz-form-control>
-      </nz-form-item>
+      @for (field of metaData.fields; track field) {
+        <nz-form-item>
+          @if (!field.hidden) {
+            <nz-form-label [nzSm]="6" [nzXs]="24" [nzRequired]="field?.validation?.required" nzFor="{{field.name}}">{{ field.label }}</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="field?.validation?.message">
+              @switch (field.type.name) {
+                @case (FieldTypeName.LOOKUP) {
+                  <lookup-component formControlName="{{field.name}}" [row]="data" [field]="field" [parentForm]="this"/>
+                }
+                @case (FieldTypeName.DATE) {
+                  <date-component formControlName="{{field.name}}" [row]="data" [field]="field" [format]="field.type.format" [parentForm]="this"/>
+                }
+                @case (FieldTypeName.NUMBER) {
+                  <input formControlName="{{field.name}}" nz-input id="{{field.name}}" [readonly]="!field?.editable" [nzVariant]="field?.editable ? 'outlined' : 'borderless'" type="number"/>
+                }
+                @case (FieldTypeName.TEXT) {
+                  <input formControlName="{{field.name}}" nz-input id="{{field.name}}" [readonly]="!field?.editable" [nzVariant]="field?.editable ? 'outlined' : 'borderless'"/>
+                }
+                @default {
+                  <input formControlName="{{field.name}}" nz-input id="{{field.name}}" [readonly]="!field?.editable" [nzVariant]="field?.editable ? 'outlined' : 'borderless'"/>
+                }
+              }
+            </nz-form-control>
+          }
+        </nz-form-item>
+      }
     </form>
     <nz-tabs nzType="card">
-      <nz-tab *ngFor="let detail of metaData.details" [nzTitle]="detail.label">
-        <table-component [metaUrl]=detail.metaUrl [masterObjectComponent]="this" [masterId]="data[metaData.key]"/>
-      </nz-tab>
+      @for (detail of metaData.details; track detail) {
+        <nz-tab [nzTitle]="detail.label">
+          <table-component [metaUrl]=detail.metaUrl [masterObjectComponent]="this" [masterId]="data[metaData.key]"/>
+        </nz-tab>
+      }
     </nz-tabs>
   </ng-container>
   <ng-template #modalFooter>
-    <nz-select *ngIf="metaData.reports" [(ngModel)]="selectedPrintUrl">
-      <nz-option *ngFor="let rep of metaData.reports" nzValue="{{rep.url}}" nzLabel="{{rep.label}}"></nz-option>
-    </nz-select>
-    <button *ngIf="metaData.reports" nz-button nzType="default" (click)="report(data[metaData.key], selectedPrintUrl)">
-      <span nz-icon nzType="printer" nzTheme="outline"></span>Report
-    </button>
+    @if (metaData.reports) {
+      <nz-select [(ngModel)]="selectedPrintUrl">
+        @for (rep of metaData.reports; track rep) {
+          <nz-option nzValue="{{rep.url}}" nzLabel="{{rep.label}}"></nz-option>
+        }
+      </nz-select>
+    }
+    @if (metaData.reports) {
+      <button nz-button nzType="default" (click)="report(data[metaData.key], selectedPrintUrl)">
+        <span nz-icon nzType="printer" nzTheme="outline"></span>Report
+      </button>
+    }
     <button nz-button nzType="default" (click)="handleCancel()">
       <span nz-icon nzType="undo" nzTheme="outline"></span>Close
     </button>
