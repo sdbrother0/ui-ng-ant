@@ -1,4 +1,9 @@
-<div *ngIf="authService.isLoggedIn() then templateApp else templateLogin"></div>
+@if (authService.isLoggedIn()) {
+  <ng-container *ngTemplateOutlet="templateApp"></ng-container>
+} @else {
+  <ng-container *ngTemplateOutlet="templateLogin"></ng-container>
+}
+
 <ng-template #templateLogin>
   <login-component/>
 </ng-template>
@@ -24,13 +29,17 @@
             </li>
           </ul>
         </li>
-        <li *ngFor="let menu of appLoaderService.menuList" nz-submenu nzOpen nzTitle="{{menu.title}}" nzIcon="menu-unfold">
-          <ul>
-            <li *ngFor="let route of menu.routes" nz-menu-item nzMatchRouter>
-              <a routerLink="{{route.path}}">{{ route.title }}</a>
-            </li>
-          </ul>
-        </li>
+        @for (menu of appLoaderService.menuList; track menu) {
+          <li nz-submenu nzOpen nzTitle="{{menu.title}}" nzIcon="menu-unfold">
+            <ul>
+              @for (route of menu.routes; track route) {
+                <li nz-menu-item nzMatchRouter>
+                  <a routerLink="{{route.path}}">{{ route.title }}</a>
+                </li>
+              }
+            </ul>
+          </li>
+        }
       </ul>
     </nz-sider>
 

@@ -14,7 +14,6 @@ import {TableFormComponent} from "../table-form/table-form.component";
 import {NzDatePickerComponent} from "ng-zorro-antd/date-picker";
 import {DatePipe} from "@angular/common";
 
-
 @Component({
     host: { ngSkipHydration: 'true' },
     selector: 'date-component',

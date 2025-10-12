@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {TableComponent} from "../table/table-component";
 import {ActivatedRoute} from "@angular/router";
-import {NgIf} from "@angular/common";
 import {FormComponent} from "../form/form-component";
 
 @Component({
