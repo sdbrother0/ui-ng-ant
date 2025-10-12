@@ -23,95 +23,122 @@
   (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
   <thead>
   <tr>
-    <th *ngIf="showSelect" id="#checkAll"
-        [nzWidth]="'50px'"
-        [nzChecked]="checked"
-        [nzIndeterminate]="indeterminate"
-        nzLabel="Select all"
-        (nzCheckedChange)="onAllChecked($event)">
-    </th>
-    <th [ngStyle]="{ display : (field.hidden) ? 'none' : 'table-cell'}"
-        nzCustomFilter id="{{field.name}}" *ngFor="let field of metaData.fields" nzColumnKey="{{field.name}}"
-        [nzSortFn]="true"
-        [nzSortPriority]="true">
-      {{ field.label }}
-      <nz-filter-trigger [(nzVisible)]="field.isVisibleSearch" [nzActive]="field.searchValue.length > 0" [nzDropdownMenu]="menu">
-        <span nz-icon nzType="search"></span>
-      </nz-filter-trigger>
-      <nz-dropdown-menu #menu="nzDropdownMenu">
-        <div class="ant-table-filter-dropdown">
-          <div class="search-box">
-            <input type="text" nz-input placeholder="Search name" [(ngModel)]="field.searchValue" />
-            <button nz-button nzSize="small" nzType="primary" (click)="search(field)" class="search-button">Search</button>
-            <button nz-button nzSize="small" (click)="reset(field)">Reset</button>
+    @if (showSelect) {
+      <th id="#checkAll"
+          [nzWidth]="'50px'"
+          [nzChecked]="checked"
+          [nzIndeterminate]="indeterminate"
+          nzLabel="Select all"
+          (nzCheckedChange)="onAllChecked($event)">
+      </th>
+    }
+    @for (field of metaData.fields; track field) {
+      <th [ngStyle]="{ display : (field.hidden) ? 'none' : 'table-cell'}"
+          nzCustomFilter id="{{field.name}}" nzColumnKey="{{field.name}}"
+          [nzSortFn]="true"
+          [nzSortPriority]="true">
+        {{ field.label }}
+        <nz-filter-trigger [(nzVisible)]="field.isVisibleSearch" [nzActive]="field.searchValue.length > 0" [nzDropdownMenu]="menu">
+          <span nz-icon nzType="search"></span>
+        </nz-filter-trigger>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+          <div class="ant-table-filter-dropdown">
+            <div class="search-box">
+              <input type="text" nz-input placeholder="Search name" [(ngModel)]="field.searchValue" />
+              <button nz-button nzSize="small" nzType="primary" (click)="search(field)" class="search-button">Search</button>
+              <button nz-button nzSize="small" (click)="reset(field)">Reset</button>
+            </div>
           </div>
-        </div>
-      </nz-dropdown-menu>
-    </th>
+        </nz-dropdown-menu>
+      </th>
+    }
     <th [nzWidth]="'120px'" id="#action" class="action-th" nzAlign="center">Action</th>
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let row of recordSet; let i = index">
-    <td *ngIf="showSelect" [nzChecked]="isChecked(row)" (nzCheckedChange)="onItemChecked(row.id, $event)"></td>
-    <td *ngFor="let field of metaData.fields"
-        [ngStyle]="{ display : (field.hidden) ? 'none' : 'table-cell'}"
-        [nzAlign]="field.type.name === FieldTypeName.NUMBER ? 'right': 'left'">
-      <div *ngIf="isEdit(row); then edit_row else simple_row"></div>
-      <ng-template #edit_row>
-        <div [ngSwitch]="field.type.name">
-          <ng-template ngSwitchCase="{{FieldTypeName.LOOKUP}}">
-            <lookup-component [row]="row" [field]="field"/>
-          </ng-template>
-          <ng-template ngSwitchCase="{{FieldTypeName.DATE}}">
-            <date-component [row]="row" [field]="field" [format]="field.type.format"/>
-          </ng-template>
-          <ng-template ngSwitchCase="{{FieldTypeName.NUMBER}}">
-            <input nz-input [(ngModel)]="row[field.name]" [readonly]="!field?.editable" [nzBorderless]="!field?.editable" type="number" [ngStyle]="{ 'text-align' : field.type.name === FieldTypeName.NUMBER ? 'right': 'left'}" />
-          </ng-template>
-          <ng-template ngSwitchDefault>
-            <input nz-input [(ngModel)]="row[field.name]" [readonly]="!field?.editable" [nzBorderless]="!field?.editable"/>
-          </ng-template>
-        </div>
-      </ng-template>
-      <ng-template #simple_row>
-        <div [ngSwitch]="field.type.name">
-          <ng-template ngSwitchCase="{{FieldTypeName.LOOKUP}}">
-            {{ row[field.name]?.[field.type.valFieldName] }}
-          </ng-template>
-          <ng-template ngSwitchCase="{{FieldTypeName.DATE}}">
-            {{ row[field.name] | date:field.type.format }}
-          </ng-template>
-          <ng-template ngSwitchCase="{{FieldTypeName.NUMBER}}">
-            {{ row[field.name] }}
-          </ng-template>
-          <ng-template ngSwitchDefault>
-            {{ row[field.name] }}
-          </ng-template>
-        </div>
-      </ng-template>
-    </td>
+  @for (row of recordSet; track $index) {
+  <tr>
+    @if (showSelect) {
+      <td [nzChecked]="isChecked(row)" (nzCheckedChange)="onItemChecked(row.id, $event)"></td>
+    }
+    @for (field of metaData.fields; track field) {
+      <td [ngStyle]="{ display : (field.hidden) ? 'none' : 'table-cell'}"
+          [nzAlign]="field.type.name === FieldTypeName.NUMBER ? 'right': 'left'">
+        @if (isEdit(row)) {
+          <ng-container *ngTemplateOutlet="edit_row"></ng-container>
+        } @else {
+          <ng-container *ngTemplateOutlet="simple_row"></ng-container>
+        }
+        <ng-template #edit_row>
+          <div>
+          @switch (field.type.name) {
+            @case (FieldTypeName.LOOKUP) {
+              <lookup-component [row]="row" [field]="field"/>
+            }
+            @case (FieldTypeName.DATE) {
+              <date-component [row]="row" [field]="field" [format]="field.type.format"/>
+            }
+            @case (FieldTypeName.NUMBER) {
+              <input nz-input [(ngModel)]="row[field.name]" [readonly]="!field?.editable" [nzBorderless]="!field?.editable" type="number" [ngStyle]="{ 'text-align' : field.type.name === FieldTypeName.NUMBER ? 'right': 'left'}" />
+            }
+            @default {
+              <input nz-input [(ngModel)]="row[field.name]" [readonly]="!field?.editable" [nzBorderless]="!field?.editable"/>
+            }
+          }
+          </div>
+        </ng-template>
+        <ng-template #simple_row>
+          <div>
+          @switch (field.type.name) {
+            @case (FieldTypeName.LOOKUP) {
+              {{ row[field.name]?.[field.type.valFieldName] }}
+            }
+            @case (FieldTypeName.DATE) {
+              {{ row[field.name] | date:field.type.format }}
+            }
+            @case (FieldTypeName.NUMBER) {
+              {{ row[field.name] }}
+            }
+            @default {
+              {{ row[field.name] }}
+            }
+          }
+          </div>
+        </ng-template>
+      </td>
+    }
     <!-- Action -->
     <td nzAlign="center">
       <nz-space-compact>
-        <button *ngIf="isEdit(row)" (click)="undo(row)" nz-button nzType="text">
-          <span nz-icon nzType="undo" nz-tooltip nzTooltipTitle="cancel" class="action-icons"></span>
-        </button>
-        <button *ngIf="!isEdit(row)" (click)="edit(row)" nz-button nzType="text">
-          <span nz-icon nzType="edit" nz-tooltip nzTooltipTitle="edit" class="action-icons"></span>
-        </button>
-        <button *ngIf="!isEdit(row)" (click)="form(row)" nz-button nzType="text">
-          <span nz-icon nzType="form" nz-tooltip nzTooltipTitle="edit" class="action-icons"></span>
-        </button>
+        @if (isEdit(row)) {
+          <button (click)="undo(row)" nz-button nzType="text">
+            <span nz-icon nzType="undo" nz-tooltip nzTooltipTitle="cancel" class="action-icons"></span>
+          </button>
+        }
+        @if (!isEdit(row)) {
+          <button (click)="edit(row)" nz-button nzType="text">
+            <span nz-icon nzType="edit" nz-tooltip nzTooltipTitle="edit" class="action-icons"></span>
+          </button>
+        }
+        @if (!isEdit(row)) {
+          <button (click)="form(row)" nz-button nzType="text">
+            <span nz-icon nzType="form" nz-tooltip nzTooltipTitle="edit" class="action-icons"></span>
+          </button>
+        }
         <table-form-component [metaData]=metaData [data]=row [table]="this"/>
-        <button nz-popconfirm nzPopconfirmTitle="Sure to delete?" *ngIf="!isEdit(row)" (nzOnConfirm)="delete(row)" nz-button nzType="text">
-          <span nz-icon nzType="delete" nz-tooltip nzTooltipTitle="delete" class="action-icons" style="color: rgb(255, 77, 79);"></span>
-        </button>
-        <button *ngIf="isEdit(row)" (click)="save(row)" nz-button nzType="text">
-          <span nz-icon nzType="check" nz-tooltip nzTooltipTitle="save" class="action-icons" style="color: rgb(82, 196, 26);"></span>
-        </button>
+        @if (!isEdit(row)) {
+          <button nz-popconfirm nzPopconfirmTitle="Sure to delete?" (nzOnConfirm)="delete(row)" nz-button nzType="text">
+            <span nz-icon nzType="delete" nz-tooltip nzTooltipTitle="delete" class="action-icons" style="color: rgb(255, 77, 79);"></span>
+          </button>
+        }
+        @if (isEdit(row)) {
+          <button (click)="save(row)" nz-button nzType="text">
+            <span nz-icon nzType="check" nz-tooltip nzTooltipTitle="save" class="action-icons" style="color: rgb(82, 196, 26);"></span>
+          </button>
+        }
       </nz-space-compact>
     </td>
   </tr>
+  }
   </tbody>
 </nz-table>

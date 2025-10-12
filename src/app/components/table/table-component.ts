@@ -3,12 +3,8 @@ import {NzTableComponent, NzTableModule, NzTableQueryParams, NzTableSortOrder} f
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {
   DatePipe,
-  NgForOf,
-  NgIf,
   NgStyle,
-  NgSwitch,
-  NgSwitchCase,
-  NgSwitchDefault
+  NgTemplateOutlet
 } from "@angular/common";
 import {NzInputDirective  } from "ng-zorro-antd/input";
 import {FormsModule} from "@angular/forms";
@@ -33,7 +29,7 @@ import {NzSpaceCompactComponent} from "ng-zorro-antd/space";
     selector: 'table-component',
     templateUrl: './table-component.html',
     styleUrls: ['./table-component.css'],
-  imports: [NzTableModule, NzTableComponent, NgForOf, NzInputDirective, FormsModule, NzButtonComponent, NzIconDirective, NgIf, NzTooltipDirective, NzModalModule, forwardRef(() => LookupComponent), forwardRef(() => TableFormComponent), NgSwitch, NgSwitchCase, NgSwitchDefault, DatePipe, NzDropdownMenuComponent, NgStyle, NzPopconfirmDirective, DateComponent, NzSpaceCompactComponent]
+  imports: [NzTableModule, NzTableComponent, NzInputDirective, FormsModule, NzButtonComponent, NzIconDirective, NzTooltipDirective, NzModalModule, forwardRef(() => LookupComponent), forwardRef(() => TableFormComponent), DatePipe, NzDropdownMenuComponent, NgStyle, NzPopconfirmDirective, DateComponent, NzSpaceCompactComponent, NgTemplateOutlet]
 })
 export class TableComponent implements OnInit {
 

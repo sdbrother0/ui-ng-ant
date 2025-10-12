@@ -1,2 +1,6 @@
-<table-component *ngIf="(metaUrl) && (type!=='form')"  [metaUrl]="metaUrl"/>
-<form-component *ngIf="type==='form'"/>
+@if (metaUrl && (type!=='form')) {
+  <table-component [metaUrl]="metaUrl"/>
+}
+@if (type==='form') {
+  <form-component/>
+}

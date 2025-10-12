@@ -9,7 +9,6 @@ import {FormComponent} from "../form/form-component";
     templateUrl: './base-component.html',
   imports: [
     TableComponent,
-    NgIf,
     FormComponent,
   ],
     styleUrls: ['./base-component.css']
