@@ -112,7 +112,7 @@ export class TableComponent implements OnInit {
     }).subscribe({
       next: (value) => {
         this.recordSet = value.content;
-        this.total = value.totalElements;
+        this.total = value.page.totalElements;
       }, error: (error) => console.error(error), complete: () => {
         if (this.forSelectKeyValue) {
           this.onItemChecked(this.forSelectKeyValue, true);
