@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {CommonModule} from '@angular/common';
+
 import {NzIconModule} from 'ng-zorro-antd/icon';
 import {NzLayoutModule} from 'ng-zorro-antd/layout';
 import {NzMenuModule} from 'ng-zorro-antd/menu';
@@ -19,7 +19,7 @@ import {AppLoaderService} from "../../service/app.loader.service";
 
 @Component({
     selector: 'login-component',
-    imports: [CommonModule, NzIconModule, NzLayoutModule, NzMenuModule, NzButtonComponent, NzFormItemComponent, NzFormControlComponent, NzInputGroupComponent, NzRowDirective, NzColDirective, ReactiveFormsModule, NzInputDirective, NzFormDirective, FormsModule, NzCardComponent, NzSpaceComponent],
+    imports: [NzIconModule, NzLayoutModule, NzMenuModule, NzButtonComponent, NzFormItemComponent, NzFormControlComponent, NzInputGroupComponent, NzRowDirective, NzColDirective, ReactiveFormsModule, NzInputDirective, NzFormDirective, FormsModule, NzCardComponent, NzSpaceComponent],
     templateUrl: './login-component.html',
     styleUrls: ['./login-component.css']
 })
