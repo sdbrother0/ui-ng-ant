@@ -79,10 +79,10 @@
               <date-component [row]="row" [field]="field" [format]="field.type.format"/>
             }
             @case (FieldTypeName.NUMBER) {
-              <input nz-input [(ngModel)]="row[field.name]" [readonly]="!field?.editable" [nzBorderless]="!field?.editable" type="number" [ngStyle]="{ 'text-align' : field.type.name === FieldTypeName.NUMBER ? 'right': 'left'}" />
+              <input nz-input [(ngModel)]="row[field.name]" [readonly]="!field?.editable" type="number" [ngStyle]="{ 'text-align' : field.type.name === FieldTypeName.NUMBER ? 'right': 'left'}" />
             }
             @default {
-              <input nz-input [(ngModel)]="row[field.name]" [readonly]="!field?.editable" [nzBorderless]="!field?.editable"/>
+              <input nz-input [(ngModel)]="row[field.name]" [readonly]="!field?.editable"/>
             }
           }
           </div>
