@@ -1,6 +1,9 @@
 <nz-input-wrapper>
   <input type="text" nz-input placeholder="lookup" value="{{row[this.field.name]?.[field.type.valFieldName]}}" readonly/>
-  <span nz-icon nzType="select" (click)="openDialog()" nz-tooltip nzTooltipTitle="lookup" nzInputSuffix></span>
+  <span nz-icon nzType="select" (click)="openDialog()" nz-tooltip nzTooltipTitle="lookup"
+        nzInputSuffix
+        style="color: rgba(0, 0, 0, 0.25); cursor: pointer;">
+  </span>
 </nz-input-wrapper>
 <nz-modal
   [nzWidth]="1100"
