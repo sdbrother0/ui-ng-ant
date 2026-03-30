@@ -1,7 +1,6 @@
 import {Component, forwardRef, Input, OnInit, ViewChild} from "@angular/core";
 import {NzTableModule} from "ng-zorro-antd/table";
-import {NzInputDirective, NzInputGroupComponent} from "ng-zorro-antd/input";
-import {NzButtonComponent} from "ng-zorro-antd/button";
+import {NzInputDirective, NzInputSuffixDirective, NzInputWrapperComponent} from "ng-zorro-antd/input";
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzTooltipDirective} from "ng-zorro-antd/tooltip";
 import {NzModalModule} from 'ng-zorro-antd/modal';
@@ -24,7 +23,7 @@ import {TableFormComponent} from "../table-form/table-form.component";
     selector: 'lookup-component',
     templateUrl: './lookup-component.html',
     styleUrls: ['./lookup-component.css'],
-    imports: [NzTableModule, NzInputDirective, FormsModule, NzButtonComponent, NzInputGroupComponent, NzIconDirective, NzTooltipDirective, NzModalModule, forwardRef(() => TableComponent)],
+    imports: [NzTableModule, NzInputDirective, FormsModule, NzIconDirective, NzTooltipDirective, NzModalModule, forwardRef(() => TableComponent), NzInputWrapperComponent, NzInputSuffixDirective],
     providers: [{
             provide: NG_VALUE_ACCESSOR, multi: true, useExisting: LookupComponent
         }, {

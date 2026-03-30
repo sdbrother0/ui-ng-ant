@@ -6,7 +6,7 @@ import {NzMenuModule} from 'ng-zorro-antd/menu';
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {AuthService} from "../../auth/auth.service";
 import {NzFormControlComponent, NzFormDirective, NzFormItemComponent} from "ng-zorro-antd/form";
-import {NzInputDirective, NzInputGroupComponent} from "ng-zorro-antd/input";
+import {NzInputDirective, NzInputPrefixDirective, NzInputWrapperComponent} from "ng-zorro-antd/input";
 import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
@@ -19,7 +19,7 @@ import {AppLoaderService} from "../../service/app.loader.service";
 
 @Component({
     selector: 'login-component',
-    imports: [NzIconModule, NzLayoutModule, NzMenuModule, NzButtonComponent, NzFormItemComponent, NzFormControlComponent, NzInputGroupComponent, NzRowDirective, NzColDirective, ReactiveFormsModule, NzInputDirective, NzFormDirective, FormsModule, NzCardComponent, NzSpaceComponent],
+  imports: [NzIconModule, NzLayoutModule, NzMenuModule, NzButtonComponent, NzFormItemComponent, NzFormControlComponent, NzRowDirective, NzColDirective, ReactiveFormsModule, NzInputDirective, NzFormDirective, FormsModule, NzCardComponent, NzSpaceComponent, NzInputWrapperComponent, NzInputPrefixDirective],
     templateUrl: './login-component.html',
     styleUrls: ['./login-component.css']
 })
