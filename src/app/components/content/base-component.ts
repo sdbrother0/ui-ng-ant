@@ -4,13 +4,13 @@ import {ActivatedRoute} from "@angular/router";
 import {FormComponent} from "../form/form-component";
 
 @Component({
-    selector: 'app-form',
-    templateUrl: './base-component.html',
+  selector: 'app-form',
+  templateUrl: './base-component.html',
   imports: [
     TableComponent,
     FormComponent,
   ],
-    styleUrls: ['./base-component.css']
+  styleUrls: ['./base-component.css']
 })
 export class BaseComponent implements OnInit {
   @Input()
@@ -19,7 +19,8 @@ export class BaseComponent implements OnInit {
   type?: string;
 
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
     this.route.data.subscribe(data => {

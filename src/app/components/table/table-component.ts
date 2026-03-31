@@ -1,12 +1,8 @@
 import {Component, forwardRef, Input, OnInit, ViewChild} from '@angular/core';
 import {NzTableComponent, NzTableModule, NzTableQueryParams, NzTableSortOrder} from "ng-zorro-antd/table";
 import {HttpClient, HttpParams} from "@angular/common/http";
-import {
-  DatePipe,
-  NgStyle,
-  NgTemplateOutlet
-} from "@angular/common";
-import {NzInputDirective  } from "ng-zorro-antd/input";
+import {DatePipe, NgStyle, NgTemplateOutlet} from "@angular/common";
+import {NzInputDirective} from "ng-zorro-antd/input";
 import {FormsModule} from "@angular/forms";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzIconDirective} from "ng-zorro-antd/icon";
@@ -25,10 +21,10 @@ import {AppLoaderService} from "../../service/app.loader.service";
 import {NzSpaceCompactComponent} from "ng-zorro-antd/space";
 
 @Component({
-    host: { ngSkipHydration: 'true' },
-    selector: 'table-component',
-    templateUrl: './table-component.html',
-    styleUrls: ['./table-component.css'],
+  host: {ngSkipHydration: 'true'},
+  selector: 'table-component',
+  templateUrl: './table-component.html',
+  styleUrls: ['./table-component.css'],
   imports: [NzTableModule, NzTableComponent, NzInputDirective, FormsModule, NzButtonComponent, NzIconDirective, NzTooltipDirective, NzModalModule, forwardRef(() => LookupComponent), forwardRef(() => TableFormComponent), DatePipe, NzDropdownMenuComponent, NgStyle, NzPopconfirmDirective, DateComponent, NzSpaceCompactComponent, NgTemplateOutlet]
 })
 export class TableComponent implements OnInit {
@@ -63,7 +59,8 @@ export class TableComponent implements OnInit {
     reports: []
   };
 
-  constructor(private appLoaderService: AppLoaderService, private http: HttpClient, private message: NzMessageService, private modal: NzModalService) {}
+  constructor(private appLoaderService: AppLoaderService, private http: HttpClient, private message: NzMessageService, private modal: NzModalService) {
+  }
 
   ngOnInit() {
     this.http.get<MetaData>(this.appLoaderService.API_URL + this.metaUrl)
@@ -95,7 +92,7 @@ export class TableComponent implements OnInit {
       params = params.append('keyValue', this.forSelectKeyValue);
     }
     this.sort.filter((item) => item.value).forEach((item) => {
-        params = params.append('sort', item.key + ',' + ('ascend' === item.value ? 'asc' : 'desc'));
+      params = params.append('sort', item.key + ',' + ('ascend' === item.value ? 'asc' : 'desc'));
     });
     this.metaData.fields.forEach((field) => {
       if (field.searchValue.length > 0) {
@@ -347,7 +344,7 @@ export class TableComponent implements OnInit {
     this.search(field);
   }
 
-  refreshMasterForm(value : any) {
+  refreshMasterForm(value: any) {
     if (this.masterObjectComponent) {
       for (const fieldName in this.masterObjectComponent.formGroup.controls) {
         this.masterObjectComponent.formGroup.controls[fieldName].setValue(value[this.masterObjectComponent.metaData.name][fieldName])

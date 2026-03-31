@@ -1,5 +1,6 @@
 <nz-input-wrapper>
-  <input type="text" nz-input placeholder="lookup" value="{{row[this.field.name]?.[field.type.valFieldName]}}" readonly/>
+  <input type="text" nz-input placeholder="lookup" value="{{row[this.field.name]?.[field.type.valFieldName]}}"
+         readonly/>
   <span nz-icon nzType="select" (click)="openDialog()" nz-tooltip nzTooltipTitle="lookup"
         nzInputSuffix
         style="color: rgba(0, 0, 0, 0.25); cursor: pointer;">
@@ -14,6 +15,7 @@
   (nzOnCancel)="handleCancel()"
   (nzOnOk)="handleOk(lookupTable.getFirstSelected(this, row, field))">
   <ng-container *nzModalContent>
-    <table-component #lookup_table metaUrl="{{field.type.metaUrl}}" [forSelectKeyValue]="row[this.field.name]?.[field.type.keyFieldName]" [showSelect]="true"/>
+    <table-component #lookup_table metaUrl="{{field.type.metaUrl}}"
+                     [forSelectKeyValue]="row[this.field.name]?.[field.type.keyFieldName]" [showSelect]="true"/>
   </ng-container>
 </nz-modal>

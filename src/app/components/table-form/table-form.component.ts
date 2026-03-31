@@ -16,9 +16,9 @@ import {ReportComponent} from "../report/report-component";
 import {DateComponent} from "../date/date-component";
 
 @Component({
-    selector: 'table-form-component',
-    templateUrl: './table-form-component.html',
-    styleUrls: ['./table-form-component.css'],
+  selector: 'table-form-component',
+  templateUrl: './table-form-component.html',
+  styleUrls: ['./table-form-component.css'],
   imports: [NzModalComponent, NzModalContentDirective, LookupComponent, NzInputDirective, NzFormItemComponent, NzFormLabelComponent, NzFormControlComponent, NzColDirective, NzFormDirective, FormsModule, ReactiveFormsModule, NzSelectComponent, NzOptionComponent, NzRowDirective, NzButtonComponent, NzTabComponent, forwardRef(() => TableComponent), NzIconDirective, ReportComponent, DateComponent, NzTabsComponent]
 })
 export class TableFormComponent implements OnInit {
@@ -50,7 +50,7 @@ export class TableFormComponent implements OnInit {
     this.table.mapOfBeforeEditValues.set(row[this.metaData.key], structuredClone(row));
     if (this.metaData.reports) {
       if (this.metaData.reports.length > 0)
-      this.selectedPrintUrl = this.metaData.reports[0].url;
+        this.selectedPrintUrl = this.metaData.reports[0].url;
     }
     const controls: any = [];
     this.metaData.fields.forEach((field) => {
@@ -72,11 +72,11 @@ export class TableFormComponent implements OnInit {
 
   setKeyValue(keyValue: number) {
     this.formGroup.patchValue({
-      id : keyValue
+      id: keyValue
     })
   }
 
-  addTableRow(row : any) {
+  addTableRow(row: any) {
     const rsData = this.table.recordSet;
     if (this.table.recordSet.length == 0) {
       this.table.recordSet = [row];

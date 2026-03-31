@@ -6,10 +6,10 @@ import {SafePipe} from "../../helper/safe.pipe";
 import {AppLoaderService} from "../../service/app.loader.service";
 
 @Component({
-    selector: 'report-component',
-    templateUrl: './report-component.html',
-    styleUrls: ['./report-component.css'],
-    imports: [NzModalComponent, NzModalContentDirective, FormsModule, ReactiveFormsModule, NzButtonComponent, SafePipe]
+  selector: 'report-component',
+  templateUrl: './report-component.html',
+  styleUrls: ['./report-component.css'],
+  imports: [NzModalComponent, NzModalContentDirective, FormsModule, ReactiveFormsModule, NzButtonComponent, SafePipe]
 })
 export class ReportComponent implements OnInit {
 

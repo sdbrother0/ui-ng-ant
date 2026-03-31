@@ -13,23 +13,29 @@
       @for (field of metaData.fields; track field) {
         <nz-form-item>
           @if (!field.hidden) {
-            <nz-form-label [nzSm]="6" [nzXs]="24" [nzRequired]="field?.validation?.required" nzFor="{{field.name}}">{{ field.label }}</nz-form-label>
+            <nz-form-label [nzSm]="6" [nzXs]="24" [nzRequired]="field?.validation?.required"
+                           nzFor="{{field.name}}">{{ field.label }}
+            </nz-form-label>
             <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="field?.validation?.message">
               @switch (field.type.name) {
                 @case (FieldTypeName.LOOKUP) {
                   <lookup-component formControlName="{{field.name}}" [row]="data" [field]="field" [parentForm]="this"/>
                 }
                 @case (FieldTypeName.DATE) {
-                  <date-component formControlName="{{field.name}}" [row]="data" [field]="field" [format]="field.type.format" [parentForm]="this"/>
+                  <date-component formControlName="{{field.name}}" [row]="data" [field]="field"
+                                  [format]="field.type.format" [parentForm]="this"/>
                 }
                 @case (FieldTypeName.NUMBER) {
-                  <input formControlName="{{field.name}}" nz-input id="{{field.name}}" [readonly]="!field?.editable" [nzVariant]="field?.editable ? 'outlined' : 'borderless'" type="number"/>
+                  <input formControlName="{{field.name}}" nz-input id="{{field.name}}" [readonly]="!field?.editable"
+                         [nzVariant]="field?.editable ? 'outlined' : 'borderless'" type="number"/>
                 }
                 @case (FieldTypeName.TEXT) {
-                  <input formControlName="{{field.name}}" nz-input id="{{field.name}}" [readonly]="!field?.editable" [nzVariant]="field?.editable ? 'outlined' : 'borderless'"/>
+                  <input formControlName="{{field.name}}" nz-input id="{{field.name}}" [readonly]="!field?.editable"
+                         [nzVariant]="field?.editable ? 'outlined' : 'borderless'"/>
                 }
                 @default {
-                  <input formControlName="{{field.name}}" nz-input id="{{field.name}}" [readonly]="!field?.editable" [nzVariant]="field?.editable ? 'outlined' : 'borderless'"/>
+                  <input formControlName="{{field.name}}" nz-input id="{{field.name}}" [readonly]="!field?.editable"
+                         [nzVariant]="field?.editable ? 'outlined' : 'borderless'"/>
                 }
               }
             </nz-form-control>
