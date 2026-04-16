@@ -18,6 +18,22 @@ Key principles:
 
 ---
 
+## 🖼️ UI Preview
+
+Data editing in table and form views
+![scr-01.png](src/docs/images/scr-01.png)
+
+Support for lookup fields (selectable from a predefined list)
+![lookup-fields.png](src/docs/images/lookup-fields.png)
+
+PDF reports
+![pdf-reports.png](src/docs/images/pdf-reports.png)
+
+Calendar
+![calendar.png](src/docs/images/calendar.png)
+
+---
+
 ## 🧱 Architecture
 
 - Frontend: Angular + Ant Design
@@ -115,7 +131,3 @@ server {
     }
 }
 ```
-
-## 🖼️ UI Preview
-
-![scr-01.png](src/docs/images/scr-01.png)
