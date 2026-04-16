@@ -115,3 +115,7 @@ server {
     }
 }
 ```
+
+## 🖼️ UI Preview
+
+![scr-01.png](src/docs/images/scr-01.png)
