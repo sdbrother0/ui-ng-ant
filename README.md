@@ -34,6 +34,171 @@ Support for calendar and other data types
 
 ---
 
+## 📦 Examples metadata received from the backend
+
+Metadata for Invoice
+```
+{
+  "url": "/invoice",
+  "name": "invoice",
+  "key": "id",
+  "fields": [
+    {
+      "name": "id",
+      "label": "Id",
+      "type": {
+        "name": "string"
+      },
+      "hidden": false
+    },
+    {
+      "name": "created",
+      "label": "Date time",
+      "type": {
+        "name": "date",
+        "format": "yyyy-MM-dd HH:mm:ss"
+      },
+      "editable": true,
+      "validation": {
+        "required": true,
+        "message": "Input date please!!!"
+      }
+    },
+    {
+      "name": "customer",
+      "label": "Customer",
+      "type": {
+        "name": "lookup",
+        "metaUrl": "/meta/customer",
+        "foreignKey": "customer_id",
+        "valFieldName": "name",
+        "keyFieldName": "id"
+      },
+      "editable": true,
+      "validation": {
+        "required": true,
+        "message": "Select customer please!!!"
+      }
+    },
+    {
+      "name": "total",
+      "label": "Total",
+      "type": {
+        "name": "number"
+      },
+      "editable": false
+    },
+    {
+      "name": "taxTotal",
+      "label": "Tax total",
+      "type": {
+        "name": "number"
+      },
+      "editable": false
+    }
+  ],
+  "details": [
+    {
+      "label": "Invoice details",
+      "metaUrl": "/meta/invoice_product_details",
+      "masterObjectName": null,
+      "masterFieldKey": null
+    }
+  ],
+  "reports": [
+    {
+      "label": "Invoice pdf",
+      "url": "/reports/invoice"
+    }
+  ]
+}
+```
+
+Metadata for Invoice Details
+
+```
+{
+  "url": "/invoice_product_details",
+  "name": "invoice_product_details",
+  "key": "id",
+  "fields": [
+    {
+      "name": "id",
+      "label": "Invoice product details id",
+      "type": {
+        "name": "string"
+      },
+      "hidden": true
+    },
+    {
+      "name": "product",
+      "label": "Product",
+      "type": {
+        "name": "lookup",
+        "metaUrl": "/meta/product",
+        "foreignKey": "product_id",
+        "valFieldName": "name",
+        "keyFieldName": "id",
+        "masterMapping": {
+          "price": "price",
+          "tax": "tax",
+          "quantity": "1"
+        }
+      },
+      "editable": true,
+      "validation": {
+        "required": true,
+        "message": "Select product please!!!"
+      }
+    },
+    {
+      "name": "price",
+      "label": "Price",
+      "type": {
+        "name": "number"
+      },
+      "editable": true,
+      "validation": {
+        "required": true,
+        "message": "Input price please!!!"
+      }
+    },
+    {
+      "name": "tax",
+      "label": "Tax",
+      "type": {
+        "name": "number"
+      },
+      "editable": true,
+      "validation": {
+        "required": true,
+        "message": "Input tax please!!!"
+      }
+    },
+    {
+      "name": "quantity",
+      "label": "Quantity",
+      "type": {
+        "name": "number"
+      },
+      "editable": true,
+      "validation": {
+        "required": true,
+        "message": "Input quantity please!!!"
+      }
+    },
+    {
+      "name": "amount",
+      "label": "Amount",
+      "type": {
+        "name": "number"
+      },
+      "editable": false
+    }
+  ]
+}
+```
+
 ## 🧱 Architecture
 
 - Frontend: Angular + Ant Design
