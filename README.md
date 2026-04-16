@@ -64,18 +64,18 @@ change API_URL in file: [config.json](src/assets/config.json) (src/assets/config
 }
 ```
 
-### 1. Stop backend server (if running) and Build prod UI
+### 3. Stop backend server (if running) and Build prod UI
 ```
 ng build --c=production ui-ng-ant
 ```
 
-### 2. Copy files to /var/www/html/ (nginx)
+### 4. Copy files to /var/www/html/ (nginx)
 ```
 cp -r ./dist/ui-ng-ant/browser/* /var/www/html/
 ln -s /var/www/html/index.csr.html /var/www/html/index.html
 ```
 
-### 3. Nginx settings in file /etc/nginx/sites-available/default
+### 5. Nginx settings in file /etc/nginx/sites-available/default
 ```
 upstream backend8090 {
     server localhost:8090;
