@@ -20,16 +20,13 @@ Key principles:
 
 ## 🖼️ UI Preview
 
-Support for data editing in table and form views with flexible master–detail support for multiple details.
+#### Support for data editing in table and form views with flexible master–detail support for multiple details.
 ![scr-01.png](src/docs/images/scr-01.png)
-
-Support for lookup fields (selectable from a predefined list)
+#### Support for lookup fields (selectable from a predefined list)
 ![lookup-fields.png](src/docs/images/lookup-fields.png)
-
-Support for PDF reports
+#### Support for PDF reports
 ![pdf-reports.png](src/docs/images/pdf-reports.png)
-
-Support for calendar and other data types
+#### Support for calendar and other data types
 ![calendar.png](src/docs/images/calendar.png)
 
 ---
@@ -198,6 +195,7 @@ Metadata for Invoice Details
   ]
 }
 ```
+---
 
 ## 🧱 Architecture
 
