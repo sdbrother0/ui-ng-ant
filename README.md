@@ -20,7 +20,7 @@ Key principles:
 
 ## 🖼️ UI Preview
 
-Data editing in table and form views
+Data editing in table and form views and flexible master–detail structure with multiple details support
 ![scr-01.png](src/docs/images/scr-01.png)
 
 Support for lookup fields (selectable from a predefined list)
