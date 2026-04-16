@@ -37,7 +37,7 @@ Support for calendar and other data types
 ## 📦 Examples metadata received from the backend
 
 Metadata for Invoice
-```
+```json
 {
   "url": "/invoice",
   "name": "invoice",
@@ -116,7 +116,7 @@ Metadata for Invoice
 
 Metadata for Invoice Details
 
-```
+```json
 {
   "url": "/invoice_product_details",
   "name": "invoice_product_details",
