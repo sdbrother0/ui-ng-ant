@@ -20,16 +20,16 @@ Key principles:
 
 ## 🖼️ UI Preview
 
-Data editing in table and form views and flexible master–detail structure with multiple details support
+Support for data editing in table and form views with flexible master–detail support for multiple details.
 ![scr-01.png](src/docs/images/scr-01.png)
 
 Support for lookup fields (selectable from a predefined list)
 ![lookup-fields.png](src/docs/images/lookup-fields.png)
 
-PDF reports
+Support for PDF reports
 ![pdf-reports.png](src/docs/images/pdf-reports.png)
 
-Calendar
+Support for calendar and other data types
 ![calendar.png](src/docs/images/calendar.png)
 
 ---
