@@ -2,7 +2,7 @@ import {ApplicationConfig, importProvidersFrom, inject, provideAppInitializer} f
 import {provideRouter} from '@angular/router';
 
 import {routes} from '../app.routes';
-import {provideClientHydration} from '@angular/platform-browser';
+import {provideClientHydration, withNoIncrementalHydration} from '@angular/platform-browser';
 import {provideNzIcons} from '../icons-provider';
 import {en_US, provideNzI18n} from 'ng-zorro-antd/i18n';
 import {DatePipe, registerLocaleData} from '@angular/common';
@@ -15,7 +15,7 @@ import {AppLoaderService} from "../service/app.loader.service";
 registerLocaleData(en);
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideClientHydration(), provideNzIcons(), provideNzI18n(en_US), importProvidersFrom(FormsModule), provideHttpClient(withInterceptorsFromDi(), withFetch()), {
+  providers: [provideRouter(routes), provideClientHydration(withNoIncrementalHydration()), provideNzIcons(), provideNzI18n(en_US), importProvidersFrom(FormsModule), provideHttpClient(withInterceptorsFromDi(), withFetch()), {
     provide: HTTP_INTERCEPTORS,
     useClass: JwtInterceptor,
     multi: true

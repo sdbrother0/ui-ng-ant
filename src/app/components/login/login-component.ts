@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 
 import {NzIconModule} from 'ng-zorro-antd/icon';
 import {NzLayoutModule} from 'ng-zorro-antd/layout';
@@ -21,6 +21,7 @@ import {AppLoaderService} from "../../service/app.loader.service";
   selector: 'login-component',
   imports: [NzIconModule, NzLayoutModule, NzMenuModule, NzButtonComponent, NzFormItemComponent, NzFormControlComponent, NzRowDirective, NzColDirective, ReactiveFormsModule, NzInputDirective, NzFormDirective, FormsModule, NzCardComponent, NzSpaceComponent, NzInputWrapperComponent, NzInputPrefixDirective],
   templateUrl: './login-component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./login-component.css']
 })
 

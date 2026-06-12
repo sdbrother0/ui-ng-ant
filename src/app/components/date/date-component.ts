@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from "@angular/core";
+import {Component, Input, OnInit, ChangeDetectionStrategy} from "@angular/core";
 import {Field} from "../../dto/field";
 import {
   AbstractControl,
@@ -23,6 +23,7 @@ import {DatePipe} from "@angular/common";
     NzDatePickerComponent,
     FormsModule
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [{
     provide: NG_VALUE_ACCESSOR, multi: true, useExisting: DateComponent
   }, {

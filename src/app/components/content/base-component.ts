@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {TableComponent} from "../table/table-component";
 import {ActivatedRoute} from "@angular/router";
 import {FormComponent} from "../form/form-component";
@@ -10,6 +10,7 @@ import {FormComponent} from "../form/form-component";
     TableComponent,
     FormComponent,
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./base-component.css']
 })
 export class BaseComponent implements OnInit {

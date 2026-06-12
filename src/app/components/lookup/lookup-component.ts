@@ -1,4 +1,4 @@
-import {Component, forwardRef, Input, OnInit, ViewChild} from "@angular/core";
+import {Component, forwardRef, Input, OnInit, ViewChild, ChangeDetectionStrategy} from "@angular/core";
 import {NzTableModule} from "ng-zorro-antd/table";
 import {NzInputDirective, NzInputSuffixDirective, NzInputWrapperComponent} from "ng-zorro-antd/input";
 import {NzIconDirective} from "ng-zorro-antd/icon";
@@ -24,6 +24,7 @@ import {TableFormComponent} from "../table-form/table-form.component";
   templateUrl: './lookup-component.html',
   styleUrls: ['./lookup-component.css'],
   imports: [NzTableModule, NzInputDirective, FormsModule, NzIconDirective, NzTooltipDirective, NzModalModule, forwardRef(() => TableComponent), NzInputWrapperComponent, NzInputSuffixDirective],
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [{
     provide: NG_VALUE_ACCESSOR, multi: true, useExisting: LookupComponent
   }, {

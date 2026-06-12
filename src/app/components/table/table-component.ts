@@ -1,4 +1,4 @@
-import {Component, forwardRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, forwardRef, Input, OnInit, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import {NzTableComponent, NzTableModule, NzTableQueryParams, NzTableSortOrder} from "ng-zorro-antd/table";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {DatePipe, NgStyle, NgTemplateOutlet} from "@angular/common";
@@ -25,6 +25,7 @@ import {NzSpaceCompactComponent} from "ng-zorro-antd/space";
   selector: 'table-component',
   templateUrl: './table-component.html',
   styleUrls: ['./table-component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [NzTableModule, NzTableComponent, NzInputDirective, FormsModule, NzButtonComponent, NzIconDirective, NzTooltipDirective, NzModalModule, forwardRef(() => LookupComponent), forwardRef(() => TableFormComponent), DatePipe, NzDropdownMenuComponent, NgStyle, NzPopconfirmDirective, DateComponent, NzSpaceCompactComponent, NgTemplateOutlet]
 })
 export class TableComponent implements OnInit {

@@ -13,10 +13,10 @@
       @for (field of metaData.fields; track field) {
         <nz-form-item>
           @if (!field.hidden) {
-            <nz-form-label [nzSm]="6" [nzXs]="24" [nzRequired]="field?.validation?.required"
+            <nz-form-label [nzSm]="6" [nzXs]="24" [nzRequired]="$safeNavigationMigration(field?.validation?.required)"
                            nzFor="{{field.name}}">{{ field.label }}
             </nz-form-label>
-            <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="field?.validation?.message">
+            <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="$safeNavigationMigration(field?.validation?.message)">
               @switch (field.type.name) {
                 @case (FieldTypeName.LOOKUP) {
                   <lookup-component formControlName="{{field.name}}" [row]="data" [field]="field" [parentForm]="this"/>

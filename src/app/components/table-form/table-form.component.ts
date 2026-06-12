@@ -1,4 +1,4 @@
-import {Component, forwardRef, Input, OnInit, ViewChild} from "@angular/core";
+import {Component, forwardRef, Input, OnInit, ViewChild, ChangeDetectionStrategy} from "@angular/core";
 import {NzModalComponent, NzModalContentDirective} from "ng-zorro-antd/modal";
 import {LookupComponent} from "../lookup/lookup-component";
 import {NzInputDirective} from "ng-zorro-antd/input";
@@ -19,6 +19,7 @@ import {DateComponent} from "../date/date-component";
   selector: 'table-form-component',
   templateUrl: './table-form-component.html',
   styleUrls: ['./table-form-component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [NzModalComponent, NzModalContentDirective, LookupComponent, NzInputDirective, NzFormItemComponent, NzFormLabelComponent, NzFormControlComponent, NzColDirective, NzFormDirective, FormsModule, ReactiveFormsModule, NzSelectComponent, NzOptionComponent, NzRowDirective, NzButtonComponent, NzTabComponent, forwardRef(() => TableComponent), NzIconDirective, ReportComponent, DateComponent, NzTabsComponent]
 })
 export class TableFormComponent implements OnInit {

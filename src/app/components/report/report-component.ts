@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, ChangeDetectionStrategy} from "@angular/core";
 import {NzModalComponent, NzModalContentDirective} from "ng-zorro-antd/modal";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NzButtonComponent} from "ng-zorro-antd/button";
@@ -9,6 +9,7 @@ import {AppLoaderService} from "../../service/app.loader.service";
   selector: 'report-component',
   templateUrl: './report-component.html',
   styleUrls: ['./report-component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [NzModalComponent, NzModalContentDirective, FormsModule, ReactiveFormsModule, NzButtonComponent, SafePipe]
 })
 export class ReportComponent implements OnInit {
