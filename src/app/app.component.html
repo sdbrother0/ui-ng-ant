@@ -24,6 +24,9 @@
       <ul nz-menu nzMode="inline" [nzInlineCollapsed]="isCollapsed">
         <li nz-submenu nzOpen nzTitle="Application" nzIcon="menu">
           <ul>
+            <li nz-menu-item nzMatchRouter>
+              <a routerLink="/form-designer">Form Designer</a>
+            </li>
             <li nz-menu-item>
               <a (click)="logout()">Log out</a>
             </li>

@@ -1,0 +1,277 @@
+<div class="designer-root">
+
+  <!-- ═══ TOOLBAR ═══ -->
+  <div class="toolbar">
+    <span class="toolbar-title">Form Designer</span>
+    <div class="toolbar-group">
+      <span class="tf-label">Name</span>
+      <input [(ngModel)]="schema.name" class="tf-input" style="width:140px" />
+      <span class="tf-label">W</span>
+      <nz-input-number [(ngModel)]="schema.width"  [nzMin]="200" [nzStep]="10" style="width:70px"></nz-input-number>
+      <span class="tf-label">H</span>
+      <nz-input-number [(ngModel)]="schema.height" [nzMin]="100" [nzStep]="10" style="width:70px"></nz-input-number>
+    </div>
+    <div class="toolbar-group">
+      <span class="tf-label">WS</span>
+      <input [(ngModel)]="wsUrl" class="tf-input" style="width:240px" placeholder="ws://host/ws/form/id" />
+    </div>
+    <div class="toolbar-spacer"></div>
+    <button nz-button [nzType]="mode==='design'?'primary':'default'" (click)="toggleMode()">
+      {{ mode === 'design' ? '▶ Run' : '✎ Design' }}
+    </button>
+    <button nz-button nzDanger (click)="copySchema()" nz-tooltip nzTooltipTitle="Copy schema JSON">⎘ Copy</button>
+    <button nz-button (click)="pasteSchema()" nz-tooltip nzTooltipTitle="Paste schema JSON">⎙ Paste</button>
+  </div>
+
+  <!-- ═══ MAIN AREA ═══ -->
+  <div class="main-area">
+
+    <!-- LEFT: palette (design mode only) -->
+    @if (mode === 'design') {
+      <div class="palette">
+        <div class="palette-title">Controls</div>
+        @for (item of palette; track item.type) {
+          <div class="palette-item"
+               draggable="true"
+               (dragstart)="onPaletteDragStart($event, item.type)">
+            <span class="palette-icon">{{ item.icon }}</span>
+            <span>{{ item.label }}</span>
+          </div>
+        }
+      </div>
+    }
+
+    <!-- CENTER: canvas -->
+    <div class="canvas-wrap">
+      @if (mode === 'design') {
+        <div #canvas class="canvas"
+             [style.width.px]="schema.width"
+             [style.height.px]="schema.height"
+             (dragover)="onCanvasDragOver($event)"
+             (drop)="onCanvasDrop($event, canvas)"
+             (mousedown)="deselectAll()">
+
+          @for (ctrl of schema.controls; track ctrl.id) {
+            <div class="ctrl-wrapper"
+                 [class.selected]="ctrl.id === selectedId"
+                 [style.left.px]="ctrl.x"
+                 [style.top.px]="ctrl.y"
+                 [style.width.px]="ctrl.width"
+                 [style.height.px]="ctrl.height"
+                 (mousedown)="onCtrlMouseDown($event, ctrl)"
+                 (click)="selectControl($event, ctrl)">
+
+              <!-- control preview -->
+              <div class="ctrl-preview">
+                @switch (ctrl.type) {
+                  @case ('button') {
+                    <button nz-button [nzType]="ctrl.props.btnType || 'default'"
+                            style="width:100%;height:100%;pointer-events:none">
+                      {{ ctrl.props.text || ctrl.name }}
+                    </button>
+                  }
+                  @case ('label') {
+                    <span [style.color]="ctrl.props.color"
+                          [style.font-size.px]="ctrl.props.fontSize||14">
+                      {{ ctrl.props.text || ctrl.name }}
+                    </span>
+                  }
+                  @case ('input') {
+                    <div class="mock-input">{{ ctrl.props.placeholder || ctrl.name }}</div>
+                  }
+                  @case ('textarea') {
+                    <div class="mock-textarea">{{ ctrl.props.placeholder || ctrl.name }}</div>
+                  }
+                  @case ('toggle') {
+                    <div style="display:flex;align-items:center;gap:6px;padding:4px">
+                      <div class="mock-toggle" [class.on]="ctrl.props.checked"></div>
+                      <span style="font-size:12px">{{ ctrl.props.text }}</span>
+                    </div>
+                  }
+                  @case ('checkbox') {
+                    <div style="display:flex;align-items:center;gap:6px;padding:4px">
+                      <div class="mock-checkbox" [class.checked]="ctrl.props.checked"></div>
+                      <span style="font-size:12px">{{ ctrl.props.text || ctrl.name }}</span>
+                    </div>
+                  }
+                  @case ('select') {
+                    <div class="mock-select">{{ ctrl.props.value || (ctrl.props.options?.[0] ?? ctrl.name) }} ▾</div>
+                  }
+                  @case ('lookup') {
+                    <div class="mock-lookup">
+                      <span class="mock-lookup-val">{{ ctrl.props.displayValue || '…' }}</span>
+                      <span class="mock-lookup-btn">🔍</span>
+                    </div>
+                  }
+                  @case ('table') {
+                    <div class="mock-table">
+                      <div class="mock-table-header">
+                        @for (col of (ctrl.props.columns || []); track col.key) {
+                          <span class="mock-th">{{ col.title }}</span>
+                        }
+                      </div>
+                      @for (row of (ctrl.props.rows || []).slice(0,3); track $index; let i = $index) {
+                        <div class="mock-table-row">
+                          @for (col of (ctrl.props.columns || []); track col.key) {
+                            <span class="mock-td">{{ row[col.key] }}</span>
+                          }
+                        </div>
+                      }
+                    </div>
+                  }
+                }
+              </div>
+
+              <!-- ctrl name badge -->
+              <div class="ctrl-name-badge">{{ ctrl.name }}</div>
+
+              <!-- resize handles (visible when selected) -->
+              @if (ctrl.id === selectedId) {
+                @for (h of ['n','ne','e','se','s','sw','w','nw']; track h) {
+                  <div class="resize-handle" [attr.data-handle]="h"
+                       (mousedown)="onHandleMouseDown($event, ctrl, h)"></div>
+                }
+              }
+            </div>
+          }
+        </div>
+      } @else {
+        <!-- RUNTIME MODE -->
+        <app-form-runtime [schema]="schema" [wsUrl]="wsUrl"></app-form-runtime>
+      }
+    </div>
+
+    <!-- RIGHT: properties panel (design mode + selection) -->
+    @if (mode === 'design') {
+      <div class="props-panel">
+        @if (!selected) {
+          <div class="props-empty">
+            <p>Select a control</p>
+            <p style="color:#999;font-size:12px">or drag from palette</p>
+          </div>
+        } @else {
+          <div class="props-scroll">
+            <div class="props-section-title">Geometry</div>
+            <div class="prop-row">
+              <span class="prop-label">Name</span>
+              <input [(ngModel)]="selected.name" class="prop-input" />
+            </div>
+            <div class="prop-row">
+              <span class="prop-label">X</span>
+              <nz-input-number [(ngModel)]="selected.x" [nzMin]="0" [nzStep]="1" class="prop-num"></nz-input-number>
+              <span class="prop-label" style="margin-left:8px">Y</span>
+              <nz-input-number [(ngModel)]="selected.y" [nzMin]="0" [nzStep]="1" class="prop-num"></nz-input-number>
+            </div>
+            <div class="prop-row">
+              <span class="prop-label">W</span>
+              <nz-input-number [(ngModel)]="selected.width"  [nzMin]="20" [nzStep]="1" class="prop-num"></nz-input-number>
+              <span class="prop-label" style="margin-left:8px">H</span>
+              <nz-input-number [(ngModel)]="selected.height" [nzMin]="20" [nzStep]="1" class="prop-num"></nz-input-number>
+            </div>
+
+            <nz-divider></nz-divider>
+            <div class="props-section-title">Properties
+              <nz-tag nzColor="blue" style="margin-left:6px;font-size:10px">{{ selected.type }}</nz-tag>
+            </div>
+
+            <!-- BUTTON props -->
+            @if (selected.type === 'button') {
+              <div class="prop-row"><span class="prop-label">Text</span>
+                <input [(ngModel)]="selected.props.text" class="prop-input" /></div>
+              <div class="prop-row"><span class="prop-label">Style</span>
+                <select [(ngModel)]="selected.props.btnType" class="prop-select">
+                  <option value="default">Default</option>
+                  <option value="primary">Primary</option>
+                  <option value="dashed">Dashed</option>
+                  <option value="link">Link</option>
+                </select>
+              </div>
+              <div class="prop-row"><span class="prop-label">Disabled</span>
+                <nz-switch [(ngModel)]="selected.props.disabled"></nz-switch></div>
+            }
+
+            <!-- LABEL props -->
+            @if (selected.type === 'label') {
+              <div class="prop-row"><span class="prop-label">Text</span>
+                <input [(ngModel)]="selected.props.text" class="prop-input" /></div>
+              <div class="prop-row"><span class="prop-label">Color</span>
+                <input type="color" [(ngModel)]="selected.props.color" class="prop-color" /></div>
+              <div class="prop-row"><span class="prop-label">Size</span>
+                <nz-input-number [(ngModel)]="selected.props.fontSize" [nzMin]="8" [nzMax]="72" class="prop-num"></nz-input-number>
+              </div>
+            }
+
+            <!-- INPUT/TEXTAREA props -->
+            @if (selected.type === 'input' || selected.type === 'textarea') {
+              <div class="prop-row"><span class="prop-label">Placeholder</span>
+                <input [(ngModel)]="selected.props.placeholder" class="prop-input" /></div>
+              <div class="prop-row"><span class="prop-label">Value</span>
+                <input [(ngModel)]="selected.props.value" class="prop-input" /></div>
+              <div class="prop-row"><span class="prop-label">Disabled</span>
+                <nz-switch [(ngModel)]="selected.props.disabled"></nz-switch></div>
+            }
+
+            <!-- TOGGLE / CHECKBOX -->
+            @if (selected.type === 'toggle' || selected.type === 'checkbox') {
+              <div class="prop-row"><span class="prop-label">Label</span>
+                <input [(ngModel)]="selected.props.text" class="prop-input" /></div>
+              <div class="prop-row"><span class="prop-label">Checked</span>
+                <nz-switch [(ngModel)]="selected.props.checked"></nz-switch></div>
+              <div class="prop-row"><span class="prop-label">Disabled</span>
+                <nz-switch [(ngModel)]="selected.props.disabled"></nz-switch></div>
+            }
+
+            <!-- SELECT -->
+            @if (selected.type === 'select') {
+              <div class="prop-row"><span class="prop-label">Default</span>
+                <input [(ngModel)]="selected.props.value" class="prop-input" /></div>
+              <div class="prop-row-col">
+                <span class="prop-label">Options (one per line)</span>
+                <textarea [(ngModel)]="selectedOptions" rows="5" class="prop-textarea"></textarea>
+              </div>
+              <div class="prop-row"><span class="prop-label">Disabled</span>
+                <nz-switch [(ngModel)]="selected.props.disabled"></nz-switch></div>
+            }
+
+            <!-- LOOKUP -->
+            @if (selected.type === 'lookup') {
+              <div class="prop-row"><span class="prop-label">Meta URL</span>
+                <input [(ngModel)]="selected.props.metaUrl" class="prop-input" placeholder="/api/..." /></div>
+              <div class="prop-row"><span class="prop-label">Key field</span>
+                <input [(ngModel)]="selected.props.keyField" class="prop-input" placeholder="id" /></div>
+              <div class="prop-row"><span class="prop-label">Value field</span>
+                <input [(ngModel)]="selected.props.valueField" class="prop-input" placeholder="name" /></div>
+              <div class="prop-row"><span class="prop-label">Disabled</span>
+                <nz-switch [(ngModel)]="selected.props.disabled"></nz-switch></div>
+            }
+
+            <!-- TABLE -->
+            @if (selected.type === 'table') {
+              <div class="prop-row-col">
+                <span class="prop-label">Columns (JSON array)</span>
+                <textarea [ngModel]="selected.props.columns | json"
+                          (ngModelChange)="trySetColumns(selected, $event)"
+                          rows="5" class="prop-textarea"></textarea>
+              </div>
+              <div class="prop-row-col">
+                <span class="prop-label">Rows (JSON array)</span>
+                <textarea [ngModel]="selected.props.rows | json"
+                          (ngModelChange)="trySetRows(selected, $event)"
+                          rows="6" class="prop-textarea"></textarea>
+              </div>
+            }
+
+            <nz-divider></nz-divider>
+            <div class="prop-row">
+              <button nz-button nzSize="small" (click)="bringForward()">↑ Forward</button>
+              <button nz-button nzSize="small" (click)="sendBackward()" style="margin-left:6px">↓ Backward</button>
+            </div>
+            <div class="prop-row" style="margin-top:8px">
+              <button nz-button nzDanger nzSize="small" (click)="deleteSelected()">✕ Delete</button>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>
