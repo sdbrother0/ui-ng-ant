@@ -1,0 +1,48 @@
+:host {
+  display: block;
+  height: 100%;
+  overflow: auto;
+  padding: 8px;
+}
+
+.tree-toolbar > [nz-button] {
+  margin-right: 8px;
+  margin-bottom: 12px;
+}
+
+.tree-node {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+}
+
+.tree-title {
+  flex: 1 1 auto;
+}
+
+.tree-actions {
+  display: none;
+  gap: 6px;
+}
+
+.tree-node:hover .tree-actions {
+  display: inline-flex;
+}
+
+.tree-action {
+  color: #1890ff;
+  cursor: pointer;
+}
+
+.tree-action-save {
+  color: rgb(82, 196, 26);
+}
+
+.tree-action-delete {
+  color: rgb(255, 77, 79);
+}
+
+.tree-edit-input {
+  width: 140px;
+}

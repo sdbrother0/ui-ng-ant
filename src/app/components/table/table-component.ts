@@ -19,6 +19,8 @@ import {NzPopconfirmDirective} from "ng-zorro-antd/popconfirm";
 import {DateComponent} from "../date/date-component";
 import {AppLoaderService} from "../../service/app.loader.service";
 import {NzSpaceCompactComponent} from "ng-zorro-antd/space";
+import {NzSplitterModule} from "ng-zorro-antd/splitter";
+import {TreeComponent} from "../tree/tree-component";
 
 @Component({
   host: {ngSkipHydration: 'true'},
@@ -26,7 +28,7 @@ import {NzSpaceCompactComponent} from "ng-zorro-antd/space";
   templateUrl: './table-component.html',
   styleUrls: ['./table-component.css'],
   changeDetection: ChangeDetectionStrategy.Eager,
-  imports: [NzTableModule, NzTableComponent, NzInputDirective, FormsModule, NzButtonComponent, NzIconDirective, NzTooltipDirective, NzModalModule, forwardRef(() => LookupComponent), forwardRef(() => TableFormComponent), DatePipe, NzDropdownMenuComponent, NgStyle, NzPopconfirmDirective, DateComponent, NzSpaceCompactComponent, NgTemplateOutlet]
+  imports: [NzTableModule, NzTableComponent, NzInputDirective, FormsModule, NzButtonComponent, NzIconDirective, NzTooltipDirective, NzModalModule, forwardRef(() => LookupComponent), forwardRef(() => TableFormComponent), DatePipe, NzDropdownMenuComponent, NgStyle, NzPopconfirmDirective, DateComponent, NzSpaceCompactComponent, NgTemplateOutlet, TreeComponent, NzSplitterModule]
 })
 export class TableComponent implements OnInit {
 
@@ -41,6 +43,7 @@ export class TableComponent implements OnInit {
   @Input() showTree!: boolean;
 
   sort: Array<{ key: string; value: NzTableSortOrder; }> = [];
+  selectedTreeNode: any = null;
 
   @ViewChild("form_edit") formEdit!: TableFormComponent;
 
@@ -104,6 +107,9 @@ export class TableComponent implements OnInit {
         }
       }
     });
+    if (this.metaData.tree && this.selectedTreeNode != null) {
+      params = params.append('search', `${this.metaData.tree.fkFieldName}=${this.selectedTreeNode}`);
+    }
 
     this.http.get<any>(this.appLoaderService.API_URL + this.metaData.url, {
       params: params
@@ -290,16 +296,24 @@ export class TableComponent implements OnInit {
   }
 
   add() {
+    const row: any = {};
+    this.applyTreeFk(row);
     if (this.recordSet.length == 0) {
-      const row = {};
       this.recordSet = [row];
-      this.setOfIsEdit.add(row);
     } else {
       const rsData = this.recordSet;
-      const row: any = {};
       rsData.unshift(row);
-      this.setOfIsEdit.add(row);
       this.recordSet = rsData;
+    }
+    this.setOfIsEdit.add(row);
+  }
+
+  // when a tree node is selected, new rows automatically belong to that node
+  private applyTreeFk(row: any): void {
+    if (this.metaData.tree && this.selectedTreeNode != null) {
+      const value = this.selectedTreeNode;
+      row[this.metaData.tree.fkFieldName] =
+        (typeof value === 'string' && value !== '' && !isNaN(Number(value))) ? Number(value) : value;
     }
   }
 
@@ -331,7 +345,8 @@ export class TableComponent implements OnInit {
   }
 
   create() {
-    const row = {};
+    const row: any = {};
+    this.applyTreeFk(row);
     this.form(row);
   }
 
@@ -343,6 +358,12 @@ export class TableComponent implements OnInit {
   reset(field: Field): void {
     field.searchValue = '';
     this.search(field);
+  }
+
+  onTreeSelect(nodeKey: any): void {
+    this.selectedTreeNode = nodeKey;
+    this.pageIndex = 1;
+    this.loadData();
   }
 
   refreshMasterForm(value: any) {

@@ -1,6 +1,7 @@
 import {Field} from "./field";
 import {Detail} from "./detail";
 import {Report} from "./report";
+import {Tree} from "./tree";
 
 export interface MetaData {
   name: string;
@@ -9,5 +10,6 @@ export interface MetaData {
   fields: Field[];
   details: Detail[];
   reports: Report[];
+  tree?: Tree;
 }
 

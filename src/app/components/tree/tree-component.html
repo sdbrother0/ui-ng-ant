@@ -1,0 +1,41 @@
+<div class="tree-toolbar">
+  <button nz-button (click)="addRoot()">
+    <span nz-icon nzType="plus" nzTheme="outline"></span>Root
+  </button>
+  <button nz-button (click)="clearSelection()" [disabled]="!selectedKeys.length">
+    <span nz-icon nzType="close" nzTheme="outline"></span>Unselect
+  </button>
+</div>
+<nz-tree
+  [nzData]="nodes"
+  nzBlockNode
+  [(nzExpandedKeys)]="expandedKeys"
+  [nzSelectedKeys]="selectedKeys"
+  (nzClick)="onSelect($event)"
+  [nzTreeTemplate]="nodeTemplate">
+</nz-tree>
+<ng-template #nodeTemplate let-node>
+  <span class="tree-node">
+    @if (isEditing(node)) {
+      <input nz-input nzSize="small" class="tree-edit-input" [(ngModel)]="editingTitle"
+             (click)="$event.stopPropagation()"/>
+      <span nz-icon nzType="check" nz-tooltip nzTooltipTitle="save" class="tree-action tree-action-save"
+            (click)="saveEdit(node); $event.stopPropagation()"></span>
+      <span nz-icon nzType="close" nz-tooltip nzTooltipTitle="cancel" class="tree-action"
+            (click)="cancelEdit(node); $event.stopPropagation()"></span>
+    } @else {
+      <span class="tree-title">{{ node.title }}</span>
+      <span class="tree-actions">
+        <span nz-icon nzType="plus" nz-tooltip nzTooltipTitle="add child" class="tree-action"
+              (click)="addChild(node); $event.stopPropagation()"></span>
+        <span nz-icon nzType="edit" nz-tooltip nzTooltipTitle="rename" class="tree-action"
+              (click)="startEdit(node); $event.stopPropagation()"></span>
+        <span nz-icon nzType="delete" nz-tooltip nzTooltipTitle="delete"
+              class="tree-action tree-action-delete"
+              nz-popconfirm nzPopconfirmTitle="Sure to delete?"
+              (nzOnConfirm)="delete(node)"
+              (click)="$event.stopPropagation()"></span>
+      </span>
+    }
+  </span>
+</ng-template>
