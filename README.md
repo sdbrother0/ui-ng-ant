@@ -194,7 +194,14 @@ Metadata for Invoice Details
       },
       "editable": false
     }
-  ]
+  ],
+  "tree": {
+    "url": "/category/tree",
+    "keyFieldName": "id",
+    "titleFieldName": "name",
+    "parentFieldName": "parentId",
+    "fkFieldName": "category"
+  }
 }
 ```
 
@@ -240,6 +247,26 @@ Tree CRUD uses the same conventions as tables:
 - `GET {tree.url}` — returns the flat list of nodes (`[...]` or `{ "content": [...] }`)
 - `POST {tree.url}` — creates or updates a node `{ [keyFieldName]?, [titleFieldName], [parentFieldName] }`, returns the saved node
 - `DELETE {tree.url}?id=<id>` — deletes a node
+
+Example response of `GET /category/tree` (flat list; roots have `parentId: null`)
+
+```json
+[
+  { "id": 1, "name": "Electronics", "parentId": null },
+  { "id": 2, "name": "Phones",      "parentId": 1 },
+  { "id": 3, "name": "Smartphones", "parentId": 2 },
+  { "id": 4, "name": "Feature phones", "parentId": 2 },
+  { "id": 5, "name": "Laptops",     "parentId": 1 },
+  { "id": 6, "name": "Clothing",    "parentId": null },
+  { "id": 7, "name": "Men",         "parentId": 6 }
+]
+```
+
+Selecting the "Smartphones" node (`id = 3`) re-requests the table filtered by the foreign key:
+
+```
+GET /product?page=0&size=10&search=category=3
+```
 
 ---
 
