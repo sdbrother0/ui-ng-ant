@@ -28,6 +28,8 @@ Key principles:
 ![pdf-reports.png](src/docs/images/pdf-reports.png)
 #### Support for calendar and other data types
 ![calendar.png](src/docs/images/calendar.png)
+#### Support for hierarchical trees (editable) placed to the left of the table, filtering table data by the selected node
+![tree.png](src/docs/images/tree.png)
 
 ---
 
@@ -195,6 +197,50 @@ Metadata for Invoice Details
   ]
 }
 ```
+
+Metadata with a tree
+
+When a `tree` block is present in the metadata, an editable tree is rendered to the left of the table (inside a draggable splitter). Selecting a node re-requests the table data filtered by that node, and new rows are automatically linked to the selected node via `fkFieldName`. The tree is loaded from `url` as a flat list of nodes; the hierarchy is built on the client from `parentFieldName`.
+
+```json
+{
+  "url": "/product",
+  "name": "product",
+  "key": "id",
+  "fields": [
+    {
+      "name": "id",
+      "label": "Id",
+      "type": {
+        "name": "string"
+      },
+      "hidden": true
+    },
+    {
+      "name": "name",
+      "label": "Name",
+      "type": {
+        "name": "string"
+      },
+      "editable": true
+    }
+  ],
+  "tree": {
+    "url": "/category/tree",
+    "keyFieldName": "id",
+    "titleFieldName": "name",
+    "parentFieldName": "parentId",
+    "fkFieldName": "category"
+  }
+}
+```
+
+Tree CRUD uses the same conventions as tables:
+
+- `GET {tree.url}` — returns the flat list of nodes (`[...]` or `{ "content": [...] }`)
+- `POST {tree.url}` — creates or updates a node `{ [keyFieldName]?, [titleFieldName], [parentFieldName] }`, returns the saved node
+- `DELETE {tree.url}?id=<id>` — deletes a node
+
 ---
 
 ## 🧱 Architecture
@@ -210,6 +256,7 @@ Metadata for Invoice Details
 
 - Dynamic UI generation from metadata
 - Generic CRUD operations for business entities
+- Editable hierarchical trees that filter the table by the selected node (rows added while a node is selected are automatically assigned to it)
 - Configurable backend API endpoint
 - Extensible architecture for enterprise use cases
 - Strong separation between UI and business logic
